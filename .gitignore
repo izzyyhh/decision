@@ -1,0 +1,9 @@
+.docker-sync
+*.unison.node_modules.*
+.idea
+node_modules
+.yarn
+.npm
+.babelCache
+schema.graphql
+comet-lang

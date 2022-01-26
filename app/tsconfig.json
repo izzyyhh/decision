@@ -1,0 +1,29 @@
+{
+    "compilerOptions": {
+        "noImplicitAny": true,
+        "strictNullChecks": true,
+        "moduleResolution": "node",
+        "target": "ESNext",
+        "module": "CommonJS",
+        "lib": ["DOM", "ES6"],
+        "jsx": "react",
+        "noEmit": true,
+        "skipLibCheck": true,
+        "baseUrl": "./",
+        "paths": {
+            "@generated/*": ["generated/*"],
+            "@components/*": ["src/components/*"],
+            "@theme/*": ["src/themes/*"],
+            "@assets/*": ["src/assets/*"],
+            "@pages/*": ["src/pages/*"],
+            "@context/*": ["src/context/*"],
+            "@utils/*": ["src/utils/*"],
+            "@hooks/*": ["src/hooks/*"],
+            "@app/*": ["src/*"]
+        },
+        "allowSyntheticDefaultImports": true,
+        "resolveJsonModule": true
+    },
+    "compileOnSave": false,
+    "exclude": ["node_modules", "test", "dist", "build"]
+}

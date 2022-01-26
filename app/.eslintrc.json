@@ -1,0 +1,43 @@
+{
+    "env": {
+        "browser": true,
+        "es6": true
+    },
+    "extends": ["eslint:recommended", "plugin:@typescript-eslint/eslint-recommended", "plugin:prettier/recommended", "plugin:import/typescript"],
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly"
+    },
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaFeatures": {
+            "jsx": true
+        },
+        "ecmaVersion": 2018,
+        "sourceType": "module"
+    },
+    "plugins": ["react", "react-hooks", "@typescript-eslint", "simple-import-sort", "unused-imports", "import"],
+    "settings": {
+        "react": {
+            "version": "detect"
+        }
+    },
+    "rules": {
+        "simple-import-sort/imports": "error",
+        "react/display-name": "off",
+        "react/prop-types": "off",
+        "sort-imports": "off",
+        "import/order": "off",
+        "unused-imports/no-unused-imports": "error",
+        "no-unused-vars": ["error", { "args": "none" }],
+        "no-duplicate-imports": "error"
+    },
+    "overrides": [
+        {
+            "files": ["*.ts", "*.tsx"],
+            "rules": {
+                "@typescript-eslint/no-unused-vars": ["error", { "args": "none" }]
+            }
+        }
+    ]
+}

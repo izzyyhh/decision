@@ -1,0 +1,33 @@
+version: "3.5"
+services:
+    postgres:
+        image: bitnami/postgresql:12
+        tty: true
+        volumes:
+            - postgres:/bitnami/postgresql
+        ports:
+            - "${POSTGRESQL_PORT}:5432"
+        environment:
+            POSTGRESQL_USER: postgres
+            POSTGRESQL_PASSWORD: ${POSTGRESQL_PWD_DECODED}
+            POSTGRESQL_DATABASE: ${POSTGRESQL_DB}
+        networks:
+            - postgres
+
+    phppgadmin:
+        image: bitnami/phppgadmin:latest
+        tty: true
+        ports:
+            - "${PGADMIN_PORT}:8080"
+        environment:
+            DATABASE_HOST: postgres
+        networks:
+            - postgres
+
+networks:
+    postgres:
+        driver: bridge
+
+volumes:
+    postgres:
+        driver: local

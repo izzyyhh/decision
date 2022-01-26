@@ -1,0 +1,5 @@
+chart/*/templates/*
+admin/
+api/
+site/
+schema.graphql

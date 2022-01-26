@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="de">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>MMP3</title>
+        <meta name="description" content="TrackO ist die Kommunikationsplattform für den Verein Radteam Oberhofen. Durch TrackO kann der Verein ganz einfach Informationen für seine Mitglieder zur Verfügung stellen, Events erstellen und die Mitglieder verwalten." >
+        <meta
+            name="keywords"
+            content="mitgliederverwaltung online, termine online verwalten, Verwaltungssoftware, Mitgliederverwaltung, Vereinsverwaltung, Vereinssoftware, Sportverein App, Vereinsmanagement, Vereinsdaten, Radteam Oberhofen"
+        />
+
+        <link rel="shortcut icon" type="image/x-icon" href="./icons/favicon-96x96.ico">
+        <link rel="manifest" href="./manifest.json" />
+        <script type="text/javascript">
+            (function() {
+                <%= environmentValues.map((env) => `window.EXTERNAL__${env.key}__ = "${env.value}";`).join("\n") %>
+            })();
+        </script>
+    </head>
+    <body>
+        <div id="page">
+            <react-admin-starter />
+        </div>
+    </body>
+</html>

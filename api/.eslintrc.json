@@ -1,0 +1,48 @@
+{
+    "parser": "@typescript-eslint/parser",
+    "plugins": ["@typescript-eslint/eslint-plugin", "simple-import-sort", "unused-imports"],
+    "extends": ["plugin:@typescript-eslint/recommended", "plugin:prettier/recommended"],
+    "root": true,
+    "env": {
+        "node": true,
+        "jest": true
+    },
+    "rules": {
+        "simple-import-sort/imports": "error",
+        "simple-import-sort/exports": "error",
+        "sort-imports": "off",
+        "import/order": "off",
+        "prefer-template": "error",
+        "unused-imports/no-unused-imports": "error",
+        "@typescript-eslint/naming-convention": [
+            "error",
+            {
+                "selector": "default",
+                "format": ["camelCase"],
+                "leadingUnderscore": "allow",
+                "trailingUnderscore": "allow"
+            },
+            {
+                "selector": "variable",
+                "format": ["camelCase", "UPPER_CASE"],
+                "leadingUnderscore": "allow",
+                "trailingUnderscore": "allow"
+            },
+            {
+                "selector": "typeLike",
+                "format": ["PascalCase"]
+            },
+            {
+                "selector": ["interface", "typeAlias"],
+                "format": ["PascalCase"],
+                "custom": { "regex": "^I[A-Z]", "match": false }
+            },
+            {
+                "selector": "enumMember",
+                "format": ["PascalCase"]
+            }
+        ],
+        "no-duplicate-imports": "error"
+    },
+    "ignorePatterns": ["src/db/migrations/**"]
+}

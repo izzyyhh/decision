@@ -1,0 +1,24 @@
+{
+    "name": "mmp-starter",
+    "version": "1.0.0",
+    "dependencies": {
+        "@ory/hydra-client": "^1.10.6",
+        "dotenv-cli": "^4.1.1",
+        "http-proxy": "^1.18.1",
+        "husky": "^7.0.4",
+        "lint-staged": "^12.3.1",
+        "open-cli": "^7.0.1",
+        "pm2": "^5.1.2",
+        "prettier": "^2.5.1",
+        "wait-on": "^6.0.0"
+    },
+    "scripts": {
+        "dev": "dotenv -- pm2 start ecosystem.config.js",
+        "lint": "npm run --prefix api lint && npm run --prefix admin lint",
+        "prepare": "husky install",
+        "browser": "npm run browser:api && npm run browser:admin",
+        "browser:api": "dotenv -- sh -c 'open-cli $API_URL/graphql'",
+        "browser:admin": "dotenv -- sh -c 'open-cli $ADMIN_URL'"
+    },
+    "license": "UNLICENSED"
+}
