@@ -1,16 +1,19 @@
+image: dokku/ci-docker-image
+
 stages:
-    - deploy
+  - deploy
 
 variables:
-    APP_NAME: decision
+  GIT_DEPTH: 0
 
 deploy:
-    image: ilyasemenov/gitlab-ci-git-push
-    stage: deploy
-    environment:
-        name: production
-        url: https://$APP_NAME.projects.multimediatechnology.at
-    only:
-        - main
-    script:
-        - git-push ssh://dokku@projects.multimediatechnology.at:5412/decision
+  stage: deploy
+  only:
+    - main
+  variables:
+    GIT_REMOTE_URL: ssh://dokku@projects.multimediatechnology.at:5412/decision
+  script: 
+    - cd app
+    - dokku-deploy
+  after_script: 
+    - dokku-unlock
