@@ -9,9 +9,9 @@ deploy:
     stage: deploy
     environment:
         name: production
-        url: https://$APP_NAME.projects.multimedia.at
+        url: https://$APP_NAME.projects.multimediatechnology.at
     only:
         - main
     script:
         - cd app
-        - git-push ssh://dokku@projects.multimedia.at:5412/decision
+        - git-push ssh://dokku@projects.multimediatechnology.at:5412/decision
