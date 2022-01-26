@@ -6,6 +6,9 @@ import { configNS } from "@src/config/config.namespace";
 import { DbModule } from "@src/db/db.module";
 import { ProductsModule } from "@src/products/products.module";
 
+import { AppController } from "./app.controller";
+import { AppService } from "./app.service";
+
 @Module({
     imports: [
         ConfigModule,
@@ -28,5 +31,7 @@ import { ProductsModule } from "@src/products/products.module";
         }),
         ProductsModule,
     ],
+    controllers: [AppController],
+    providers: [AppService],
 })
 export class AppModule {}
