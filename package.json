@@ -16,7 +16,7 @@
         "dev": "dotenv -- pm2 start ecosystem.config.js",
         "lint": "npm run --prefix api lint && npm run --prefix app lint",
         "prepare": "husky install",
-        "browser": "npm run browser:api && npm run browser:admin",
+        "browser": "npm run browser:api && npm run browser:app",
         "browser:api": "dotenv -- sh -c 'open-cli $API_URL/graphql'",
         "browser:admin": "dotenv -- sh -c 'open-cli $ADMIN_URL'"
     },
