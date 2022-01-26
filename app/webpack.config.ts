@@ -9,6 +9,7 @@ import environment from "./src/environment";
 interface Configuration extends WebpackConfiguration {
     devSever?: WebpackDevServerConfiguration;
 }
+
 interface IEnvironment {
     production: boolean;
 }

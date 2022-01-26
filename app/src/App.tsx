@@ -3,6 +3,8 @@ import React, { Component } from "react";
 import * as ReactDOM from "react-dom";
 import Webfontloader from "webfontloader";
 
+import ApolloProvider from "./context/apollo/ApolloProvider";
+
 class App extends Component {
     public static render(baseEl: Element) {
         Webfontloader.load({
@@ -16,7 +18,9 @@ class App extends Component {
     public render() {
         return (
             <>
-                <Home />
+                <ApolloProvider>
+                    <Home />
+                </ApolloProvider>
             </>
         );
     }

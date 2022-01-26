@@ -1,12 +1,9 @@
 import { ApolloClient, ApolloLink, ApolloProvider, createHttpLink, InMemoryCache } from "@apollo/client";
 import { setContext } from "@apollo/client/link/context";
 import { onError } from "@apollo/client/link/error";
-import config from "@app/config";
-import { useAuthToken } from "@hooks/useAuthToken";
 import React, { FunctionComponent } from "react";
 
 const CustomApolloProvider: FunctionComponent = ({ children }) => {
-    const [authToken] = useAuthToken();
     const link = ApolloLink.from([
         onError(({ graphQLErrors }) => {
             if (graphQLErrors) {
@@ -17,13 +14,13 @@ const CustomApolloProvider: FunctionComponent = ({ children }) => {
             return {
                 headers: {
                     ...headers,
-
-                    authorization: authToken ? `Bearer ${authToken}` : null,
                 },
             };
         }),
         createHttpLink({
-            uri: `${config.REACT_APP_API_URL}/graphql`,
+            // Todo add env api url
+            // uri: `${config.REACT_APP_API_URL}/graphql`,
+            uri: `http://localhost:4000/graphql`,
             credentials: "include",
         }),
     ]);
