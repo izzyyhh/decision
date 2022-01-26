@@ -14,4 +14,4 @@ deploy:
         - main
     script:
         - cd app
-        - git-push ssh://dokku@projects.multimedia.at:5412/$APP_NAME
+        - git-push ssh://dokku@projects.multimedia.at:5412/decision
