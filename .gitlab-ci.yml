@@ -11,7 +11,7 @@ deploy:
         name: production
         url: https://$APP_NAME.projects.multimedia.at
     only:
-        - master
+        - main
     script:
         - cd app
         - git-push ssh://dokku@projects.multimedia.at:5412/decision.me:22/$APP_NAME
