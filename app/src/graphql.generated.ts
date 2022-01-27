@@ -60,6 +60,7 @@ export type GQLProductInput = {
 export type GQLQuery = {
     __typename?: "Query";
     product: GQLProduct;
+    productsAll: Array<GQLProduct>;
     products: GQLPaginatedProducts;
     productsOffsetBased: Array<GQLProduct>;
 };

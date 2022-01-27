@@ -40,6 +40,7 @@
         "react-router": "^6.2.1",
         "react-router-dom": "^6.2.1",
         "styled-components": "^5.3.3",
+        "dotenv-cli": "^4.1.1",
         "webfontloader": "^1.6.28"
     },
     "devDependencies": {
@@ -106,7 +107,7 @@
         "webpack-dev-server": "^4.7.3"
     },
     "scripts": {
-        "start": "cross-env BABEL_ENV=development webpack-dev-server --config webpack.config.ts",
+        "start": "dotenv cross-env BABEL_ENV=development webpack-dev-server --config webpack.config.ts",
         "build": "cross-env BABEL_ENV=production webpack --config webpack.config.ts --env.production=1",
         "lint": "npm run lint:eslint && npm run lint:tsc",
         "lint:eslint": "eslint --ext .ts,.tsx,.js,.jsx,.json,.md src/",
