@@ -3,7 +3,6 @@ stages:
     # - test
     - deploy
     # - e2e-test
-
 # .node-lint:
 #     tags:
 #         - node-11-9
@@ -130,21 +129,21 @@ stages:
 #     environment:
 #         name: dev
 
-.deploy-app:
-    tags:
-        - node
-    stage: deploy
-    retry: 2
-    before_script:
-        - cp api/schema.gql app/schema.gql
-    script:
-        - npm install
-        - cd $BUILD_CONTEXT
-        - npm install
-        - npm run build
-        - npx netlify-cli deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod
-    variables:
-        BUILD_CONTEXT: "app"
+# .deploy-app:
+#     tags:
+#         - node
+#     stage: deploy
+#     retry: 2
+#     before_script:
+#         - cp api/schema.gql app/schema.gql
+#     script:
+#         - npm install
+#         - cd $BUILD_CONTEXT
+#         - npm install
+#         - npm run build
+#         - npx netlify-cli deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod
+#     variables:
+#         BUILD_CONTEXT: "app"
 
 # deploy-app-dev:
 #     extends: .deploy-app
@@ -154,13 +153,13 @@ stages:
 #         name: dev
 #         url: https://tracko-dev.netlify.app
 
-deploy-app-test:
-    extends: .deploy-app
-    only:
-        - test
-    environment:
-        name: test
-        url: mmp3-decision-test.netlify.app
+# deploy-app-test:
+#     extends: .deploy-app
+#     only:
+#         - test
+#     environment:
+#         name: test
+#         url: mmp3-decision-test.netlify.app
 # deploy-app-prod:
 #     extends: .deploy-app
 #     only:
@@ -170,19 +169,18 @@ deploy-app-test:
 #         url: https://tracko.netlify.app
 #     when: manual
 
-# .deploy-api:
-#     tags:
-#         - ruby
-#     stage: deploy
-#     script:
-#         - cd $BUILD_CONTEXT
-#         - apt-get update -qy
-#         - apt-get install -y ruby-dev
-#         - gem install dpl
-#         - dpl --provider=heroku --app=$HEROKU_APP --api-key=$HEROKU_API_KEY
-#     variables:
-#         BUILD_CONTEXT: "api"
-
+.deploy-api:
+    tags:
+        - ruby
+    stage: deploy
+    script:
+        - cd $BUILD_CONTEXT
+        - apt-get update -qy
+        - apt-get install -y ruby-dev
+        - gem install dpl
+        - dpl --provider=heroku --app=$HEROKU_APP --api-key=$HEROKU_API_KEY
+    variables:
+        BUILD_CONTEXT: "api"
 # deploy-api-dev:
 #     extends: .deploy-api
 #     only:
@@ -190,13 +188,12 @@ deploy-app-test:
 #     environment:
 #         name: dev
 
-# deploy-api-test:
-#     extends: .deploy-api
-#     only:
-#         - test
-#     environment:
-#         name: test
-
+deploy-api-test:
+    extends: .deploy-api
+    only:
+        - test
+    environment:
+        name: test
 # deploy-api-prod:
 #     extends: .deploy-api
 #     only:
