@@ -18,7 +18,9 @@
         "prepare": "husky install",
         "browser": "npm run browser:api && npm run browser:app",
         "browser:api": "dotenv -- sh -c 'open-cli $API_URL/graphql'",
-        "browser:admin": "dotenv -- sh -c 'open-cli $ADMIN_URL'"
+        "browser:admin": "dotenv -- sh -c 'open-cli $ADMIN_URL'",
+        "deploy:api": "git push ssh://dokku@projects.multimediatechnology.at:5412/decision_backend `git subtree split --prefix api main`:master",
+        "deploy:app": "git push ssh://dokku@projects.multimediatechnology.at:5412/decision `git subtree split --prefix app main`:master"
     },
     "license": "UNLICENSED"
 }
