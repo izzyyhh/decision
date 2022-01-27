@@ -7,3 +7,6 @@ node_modules
 .babelCache
 schema.graphql
 comet-lang
+
+# Local Netlify folder
+.netlify
