@@ -1,19 +1,205 @@
-image: dokku/ci-docker-image
-
 stages:
-  - deploy
+    # - lint
+    # - test
+    - deploy
+    # - e2e-test
 
-variables:
-  GIT_DEPTH: 0
+# .node-lint:
+#     tags:
+#         - node-11-9
+#     stage: lint
+#     script:
+#         - cd $BUILD_CONTEXT
+#         - npm install
+#         - if [ "$BUILD_CONTEXT" == "app" ]; then npm run gql:types; fi
+#         - npm run lint
+#     only:
+#         - master
+#         - test
+#         - merge_requests
+#     cache:
+#         key: "$BUILD_CONTEXT"
+#         paths:
+#             - $BUILD_CONTEXT/node_modules/
 
-deploy:
-  stage: deploy
-  only:
-    - main
-  variables:
-    GIT_REMOTE_URL: ssh://dokku@projects.multimediatechnology.at:5412/decision
-  script: 
-    - cd app
-    - dokku-deploy
-  after_script: 
-    - dokku-unlock
+# .app-lint:
+#     extends: .node-lint
+#     before_script:
+#         - cp api/schema.gql app/schema.gql
+#     variables:
+#         BUILD_CONTEXT: "app"
+
+# app-lint-merge-requests:
+#     extends: .app-lint
+#     interruptible: true
+#     only:
+#         refs:
+#             - merge_requests
+#         changes:
+#             - app/**/*
+#             - api/**/*
+
+# app-lint-environments:
+#     extends: .app-lint
+#     only:
+#         refs:
+#             - master
+#             - test
+
+# .api-lint:
+#     extends: .node-lint
+#     variables:
+#         BUILD_CONTEXT: "api"
+
+# api-lint-merge-requests:
+#     extends: .api-lint
+#     interruptible: true
+#     only:
+#         refs:
+#             - merge_requests
+#         changes:
+#             - api/**/*
+
+# api-lint-environments:
+#     extends: .api-lint
+#     only:
+#         refs:
+#             - master
+#             - test
+
+# admin-test:
+#     image: cypress/browsers:node14.16.0-chrome89-ff77
+#     stage: test
+#     interruptible: true
+
+#     only:
+#         - master
+#         - test
+#         - merge_requests
+#     before_script:
+#         - cp api/schema.gql admin/schema.gql
+#     script:
+#         - cd admin
+#         - npm install
+#         - npm run gql:types
+#         - npm run cypress:unit:run
+
+# api-test:
+#     tags:
+#         - node-11-9
+#     stage: test
+#     interruptible: true
+#     only:
+#         - master
+#         - test
+#         - merge_requests
+#     script:
+#         - cd api
+#         - npm install
+#         - npm run test
+
+# .e2e-test:
+#     image: cypress/browsers:node14.16.0-chrome89-ff77
+#     stage: e2e-test
+#     interruptible: true
+#     only:
+#         - master
+#         - test
+#     before_script:
+#         - cp api/schema.gql admin/schema.gql
+#         - export CYPRESS_FRONTEND_URL=$CYPRESS_FRONTEND_URL
+#         - 'curl $REACT_APP_API_URL/fixtures/all -X GET -H "apicheck: $API_CHECK_ENCODED"'
+#     script:
+#         - cd admin
+#         - npm install
+#         - npm run gql:types
+#         - npm run cypress:e2e:run
+#     when: manual
+
+# e2e-test-test:
+#     extends: .e2e-test
+#     only:
+#         - test
+#     environment:
+#         name: test
+
+# e2e-test-dev:
+#     extends: .e2e-test
+#     only:
+#         - master
+#     environment:
+#         name: dev
+
+.deploy-app:
+    tags:
+        - node
+    stage: deploy
+    retry: 2
+    before_script:
+        - cp api/schema.gql app/schema.gql
+    script:
+        - npm install
+        - cd app && npm run build
+        - cd $BUILD_CONTEXT
+        - npx netlify-cli deploy --site $NETLIFY_SITE_ID --auth $NETLIFY_AUTH_TOKEN --prod
+    variables:
+        BUILD_CONTEXT: "app"
+
+# deploy-app-dev:
+#     extends: .deploy-app
+#     only:
+#         - master
+#     environment:
+#         name: dev
+#         url: https://tracko-dev.netlify.app
+
+deploy-app-test:
+    extends: .deploy-app
+    only:
+        - test
+    environment:
+        name: test
+        url: https://plantsalot.netlify.app/
+# deploy-app-prod:
+#     extends: .deploy-app
+#     only:
+#         - test
+#     environment:
+#         name: production
+#         url: https://tracko.netlify.app
+#     when: manual
+
+# .deploy-api:
+#     tags:
+#         - ruby
+#     stage: deploy
+#     script:
+#         - cd $BUILD_CONTEXT
+#         - apt-get update -qy
+#         - apt-get install -y ruby-dev
+#         - gem install dpl
+#         - dpl --provider=heroku --app=$HEROKU_APP --api-key=$HEROKU_API_KEY
+#     variables:
+#         BUILD_CONTEXT: "api"
+
+# deploy-api-dev:
+#     extends: .deploy-api
+#     only:
+#         - master
+#     environment:
+#         name: dev
+
+# deploy-api-test:
+#     extends: .deploy-api
+#     only:
+#         - test
+#     environment:
+#         name: test
+
+# deploy-api-prod:
+#     extends: .deploy-api
+#     only:
+#         - test
+#     environment:
+#         name: production
+#     when: manual
