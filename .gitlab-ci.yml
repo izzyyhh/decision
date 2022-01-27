@@ -160,7 +160,7 @@ deploy-app-test:
         - test
     environment:
         name: test
-        url: https://plantsalot.netlify.app/
+        url: mmp3-decision-test.netlify.app
 # deploy-app-prod:
 #     extends: .deploy-app
 #     only:
