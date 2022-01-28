@@ -50,7 +50,7 @@ async function bootstrap(): Promise<void> {
         }),
     );
 
-    app.use(helmet({ contentSecurityPolicy: process.env.NODE_ENV === "production" ? undefined : false, crossOriginEmbedderPolicy: false }));
+    app.use(helmet({ contentSecurityPolicy: /*process.env.NODE_ENV === "production" ? undefined :*/ false, crossOriginEmbedderPolicy: false }));
 
     app.use(compression());
     app.use(cookieParser());
