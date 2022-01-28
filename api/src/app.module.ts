@@ -16,8 +16,8 @@ import { AppService } from "./app.service";
         GraphQLModule.forRootAsync({
             imports: [ConfigModule],
             useFactory: async (config: ConfigType<typeof configNS>) => ({
-                debug: config.debug,
-                playground: config.debug,
+                debug: true,//config.debug,
+                playground: true,//config.debug,
                 autoSchemaFile: "schema.gql",
                 context: ({ req }) => ({ ...req }),
                 cors: {
