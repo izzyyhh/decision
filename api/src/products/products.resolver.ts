@@ -30,6 +30,11 @@ export class ProductsResolver {
         return this.repository.findOneOrFail({ id });
     }
 
+    @Query(() => [Product])
+    async productsAll(): Promise<Product[]> {
+        return this.repository.findAll();
+    }
+
     @Query(() => PaginatedProducts)
     async products(@Args() { query, ...args }: ProductsArgs): Promise<PaginatedProducts> {
         const { skip: offset, take: limit, order: orderBy } = getSortAndPaginationOptions(args);
