@@ -40,6 +40,7 @@
         "react-router": "^6.2.1",
         "react-router-dom": "^6.2.1",
         "styled-components": "^5.3.3",
+        "dotenv-cli": "^4.1.1",
         "webfontloader": "^1.6.28"
     },
     "devDependencies": {

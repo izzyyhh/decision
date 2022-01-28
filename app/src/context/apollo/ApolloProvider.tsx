@@ -3,6 +3,8 @@ import { setContext } from "@apollo/client/link/context";
 import { onError } from "@apollo/client/link/error";
 import React, { FunctionComponent } from "react";
 
+import config from "../../config";
+
 const CustomApolloProvider: FunctionComponent = ({ children }) => {
     const link = ApolloLink.from([
         onError(({ graphQLErrors }) => {
@@ -18,9 +20,7 @@ const CustomApolloProvider: FunctionComponent = ({ children }) => {
             };
         }),
         createHttpLink({
-            // Todo add env api url
-            // uri: `${config.REACT_APP_API_URL}/graphql`,
-            uri: `http://localhost:4000/graphql`,
+            uri: `${config.REACT_APP_API_URL}/graphql`,
             credentials: "include",
         }),
     ]);
