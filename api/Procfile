@@ -1,1 +1,3 @@
-web: npm run db:migrate && npm fixtures && npm run start:prod
+web: npm run db:migrate
+web: npm run fixtures 
+web: npm run start:prod
