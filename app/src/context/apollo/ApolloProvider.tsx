@@ -6,7 +6,6 @@ import React, { FunctionComponent } from "react";
 import config from "../../config";
 
 const CustomApolloProvider: FunctionComponent = ({ children }) => {
-    console.log(config.REACT_APP_API_URL)
     const link = ApolloLink.from([
         onError(({ graphQLErrors }) => {
             if (graphQLErrors) {

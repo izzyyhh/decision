@@ -1,5 +1,5 @@
 chart/*/templates/*
-admin/
+app/
 api/
 site/
 schema.graphql

@@ -16,7 +16,6 @@ const Home: FunctionComponent = () => {
         }
     `;
     const test = useQuery<GQLQuery>(testquery);
-    console.log(test.data?.productsAll);
     return (
         <>
             <h1>Hello World 1it aTest voll new</h1>
