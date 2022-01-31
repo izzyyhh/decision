@@ -37,3 +37,5 @@ lerna-debug.log*
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+
+decision-app-mmp3-firebase-adminsdk-config.json

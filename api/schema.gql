@@ -47,9 +47,15 @@ type Mutation {
   addProduct(data: ProductInput!): Product!
   updateProduct(data: ProductInput!, id: ID!): Product!
   deleteProduct(id: ID!): Boolean!
+  addUser(data: UserInput!): User!
 }
 
 input ProductInput {
   name: String!
   description: String!
+}
+
+input UserInput {
+  name: String!
+  token: String!
 }

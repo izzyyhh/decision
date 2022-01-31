@@ -1,5 +1,5 @@
 import { Field, InputType } from "@nestjs/graphql";
-import { IsString } from "class-validator";
+import { IsOptional, IsString } from "class-validator";
 
 @InputType()
 export class UserInput {
@@ -9,5 +9,6 @@ export class UserInput {
 
     @Field()
     @IsString()
-    token: string;
+    @IsOptional()
+    token?: string;
 }
