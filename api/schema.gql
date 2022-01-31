@@ -24,11 +24,18 @@ type PaginatedProducts {
   totalPages: Int
 }
 
+type User {
+  id: ID!
+  name: String!
+  token: String!
+}
+
 type Query {
   product(id: ID!): Product!
   productsAll: [Product!]!
   products(page: Int = 1, size: Int = 20, sortColumnName: String, sortDirection: SortDirection, query: String): PaginatedProducts!
   productsOffsetBased(offset: Int = 0, limit: Int = 20, sortColumnName: String, sortDirection: SortDirection, query: String): [Product!]!
+  usersAll: [User!]!
 }
 
 enum SortDirection {
