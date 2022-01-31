@@ -18,7 +18,7 @@ export class User extends BaseEntity<User, "id"> {
     @Field()
     @Property({
         columnType: "text",
-        nullable: true
+        nullable: true,
     })
     token?: string;
 }

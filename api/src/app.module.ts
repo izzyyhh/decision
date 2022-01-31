@@ -5,19 +5,16 @@ import { ConfigModule } from "@src/config/config.module";
 import { configNS } from "@src/config/config.namespace";
 import { DbModule } from "@src/db/db.module";
 import { ProductsModule } from "@src/products/products.module";
+import admin from "firebase-admin";
+import { ServiceAccount } from "firebase-admin/app";
 
+import serviceAccount from "../decision-app-mmp3-firebase-adminsdk-config.json";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { UsersModule } from "./users/users.module";
 
-import { initializeApp, ServiceAccount } from 'firebase-admin/app';
-import admin, { auth } from "firebase-admin";
-
-import serviceAccount from "../decision-app-mmp3-firebase-adminsdk-config.json";
-import { Auth } from "firebase-admin/lib/auth/auth";
-
 export const firebaseApp = admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount as ServiceAccount)
+    credential: admin.credential.cert(serviceAccount as ServiceAccount),
 });
 
 @Module({
