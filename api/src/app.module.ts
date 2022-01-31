@@ -8,6 +8,7 @@ import { ProductsModule } from "@src/products/products.module";
 
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
+import { PollsModule } from "./polls/polls.module";
 
 @Module({
     imports: [
@@ -30,6 +31,7 @@ import { AppService } from "./app.service";
             inject: [configNS.KEY],
         }),
         ProductsModule,
+        PollsModule,
     ],
     controllers: [AppController],
     providers: [AppService],
