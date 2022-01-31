@@ -9,6 +9,7 @@ import { ProductsModule } from "@src/products/products.module";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { PollsModule } from "./polls/polls.module";
+import { UsersModule } from "./users/users.module";
 
 @Module({
     imports: [
@@ -32,6 +33,7 @@ import { PollsModule } from "./polls/polls.module";
         }),
         ProductsModule,
         PollsModule,
+        UsersModule,
     ],
     controllers: [AppController],
     providers: [AppService],

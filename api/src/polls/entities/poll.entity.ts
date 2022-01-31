@@ -1,5 +1,6 @@
-import { BaseEntity, Entity, PrimaryKey, Property } from "@mikro-orm/core";
+import { BaseEntity, Entity, Enum, Index, ManyToOne, PrimaryKey, Property } from "@mikro-orm/core";
 import { Field, ID, ObjectType } from "@nestjs/graphql";
+import { User } from "@src/users/entities/user.entity";
 import { v4 } from "uuid";
 
 @ObjectType()
@@ -21,18 +22,21 @@ export class Poll extends BaseEntity<Poll, "id"> {
     })
     sharelink: string;
 
-    /*
-    @Field()
-    @ManyToOne({
-        columnType: ""
-        
-    })
-    owner: User
+    @ManyToOne(() => User)
+    @Index()
+    owner: User;
+
+    @Enum()
+    type: Type;
 
     @Field()
-    @Property({
-        columnType: "?"
-    })
-    type: EnumArrayType
-    */
+    @Property()
+    prefifined: boolean;
+}
+
+export const enum Type {
+    BINARY,
+    DATE,
+    NUMERICAL,
+    TINDER,
 }
