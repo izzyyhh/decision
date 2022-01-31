@@ -8,7 +8,7 @@ import { ProductsModule } from "@src/products/products.module";
 import admin from "firebase-admin";
 import { ServiceAccount } from "firebase-admin/app";
 
-import serviceAccount from "../decision-app-mmp3-firebase-adminsdk-config.json";
+import serviceAccount from "../firebase-config";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { UsersModule } from "./users/users.module";
@@ -16,7 +16,6 @@ import { UsersModule } from "./users/users.module";
 export const firebaseApp = admin.initializeApp({
     credential: admin.credential.cert(serviceAccount as ServiceAccount),
 });
-
 @Module({
     imports: [
         ConfigModule,
