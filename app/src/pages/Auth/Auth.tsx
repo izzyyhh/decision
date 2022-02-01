@@ -14,13 +14,13 @@ const Auth: FunctionComponent = () => {
         const {token} = result.data.addUser
 
         console.log(token, "token")
-        signInWithCustomToken(auth, token).then((userCredential) => {
+        signInWithCustomToken(auth, token).then((userCredential: any) => {
     //     //     // Signed in
             const user = userCredential.user;
             console.log(user.uid, "credential2")
             setAuthToken(token)
           })
-          .catch((error) => {
+          .catch((error: any) => {
             const errorCode = error.code;
             const errorMessage = error.message;
             console.log({errorCode, errorMessage}, "error")

@@ -54,6 +54,7 @@
         "firebase-admin": "^10.0.2",
         "graphql": "^15.5.0",
         "helmet": "^5.0.2",
+        "jsonwebtoken": "^8.5.1",
         "minio": "^7.0.26",
         "nestjs-console": "^7.0.1",
         "node-cache": "^5.1.2",
