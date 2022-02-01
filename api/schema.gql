@@ -33,25 +33,23 @@ type PaginatedProducts {
 type Poll {
   id: ID!
   title: String!
-  sharelink: String
+  sharelink: String!
   predefined: Boolean!
-}
-
-type Option {
-  id: ID!
-  title: String!
-  poll: Poll!
-  thumbnailUrl: String
-}
-
-type Decision {
-  id: ID!
-  answer: Float!
 }
 
 type Thumbnail {
   id: ID!
   link: String!
+}
+
+type Option {
+  id: ID!
+  title: String!
+}
+
+type Decision {
+  id: ID!
+  answer: Float!
 }
 
 type Query {
@@ -64,7 +62,6 @@ type Query {
   usersAll: [User!]!
   thumbnailsAll: [Thumbnail!]!
   optionsAll: [Decision!]!
-  getOptionsForPoll(data: GetOptionsForPollDto!): [Option!]!
 }
 
 enum SortDirection {
