@@ -3,14 +3,13 @@
         "target": "es2017",
         "module": "commonjs",
         "moduleResolution": "node",
+        "resolveJsonModule": true,
         "lib": ["esnext"],
         "removeComments": true,
         "emitDecoratorMetadata": true,
         "experimentalDecorators": true,
         "sourceMap": true,
         "outDir": "./dist",
-        "declaration": true,
-        "declarationDir": "./dist",
         "baseUrl": "./",
         "incremental": true,
         "esModuleInterop": true,
@@ -21,6 +20,5 @@
         "paths": {
             "@src/*": ["src/*"]
         }
-    },
-    "exclude": ["dist"]
+    }
 }

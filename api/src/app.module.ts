@@ -5,10 +5,17 @@ import { ConfigModule } from "@src/config/config.module";
 import { configNS } from "@src/config/config.namespace";
 import { DbModule } from "@src/db/db.module";
 import { ProductsModule } from "@src/products/products.module";
+import admin from "firebase-admin";
+import { ServiceAccount } from "firebase-admin/app";
 
+import serviceAccount from "../firebase-config";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
+import { UsersModule } from "./users/users.module";
 
+export const firebaseApp = admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount as ServiceAccount),
+});
 @Module({
     imports: [
         ConfigModule,
@@ -30,6 +37,7 @@ import { AppService } from "./app.service";
             inject: [configNS.KEY],
         }),
         ProductsModule,
+        UsersModule,
     ],
     controllers: [AppController],
     providers: [AppService],
