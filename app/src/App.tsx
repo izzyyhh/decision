@@ -19,7 +19,7 @@ class App extends Component {
         return (
             <>
                 <ApolloProvider>
-                    <Router></Router>
+                    <Router />
                 </ApolloProvider>
             </>
         );

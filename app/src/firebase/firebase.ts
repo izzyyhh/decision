@@ -1,8 +1,6 @@
-import { initializeApp } from 'firebase/app';
+import { initializeApp } from "firebase/app";
 import { getAuth, signInWithCustomToken } from "firebase/auth";
 
-// import { getAuth } from 'firebase/auth';
-// import "firebase/auth";
 import config from "../config";
 
 interface IFirebaseConfig {
@@ -22,9 +20,9 @@ const firebaseConfig: IFirebaseConfig = {
     storageBucket: config.REACT_APP_FIREBASE_STORAGEBUCKET,
     messagingSenderId: config.REACT_APP_FIREBASE_MESSAGINGSENDERID,
     appId: config.REACT_APP_FIREBASE_APPID,
-    measurementId: config.REACT_APP_FIREBASE_MEASUREMENTID
+    measurementId: config.REACT_APP_FIREBASE_MEASUREMENTID,
 };
 
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-export {app as app, auth as auth, signInWithCustomToken as signInWithCustomToken}
+export { app as app, auth as auth, signInWithCustomToken as signInWithCustomToken };

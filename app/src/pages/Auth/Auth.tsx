@@ -3,15 +3,17 @@ import { auth, signInWithCustomToken } from "@app/firebase/firebase";
 import { useAuthToken } from "@hooks/useAuthToken";
 import React, { FunctionComponent, useState } from "react";
 
-import addUserMutation from './addUserMutation.gql'
+import addUserMutation from "./addUserMutation.gql";
+
 const Auth: FunctionComponent = () => {
     const [name, setName] = useState("name");
-    const [data] = useMutation(addUserMutation,{variables: {data: {name: name}}})
-    const [, setAuthToken,] = useAuthToken()
-    console.log(auth.currentUser, "currentUser")
-    const sendUser =  async() => {
-        const result = await data()
-        const {token} = result.data.addUser
+    const [data] = useMutation(addUserMutation, { variables: { data: { name: name } } });
+    const [setAuthToken] = useAuthToken();
+    console.log(auth.currentUser, "currentUser");
+
+    const sendUser = async () => {
+        const result = await data();
+        const { token } = result.data.addUser;
 
         console.log(token, "token")
         signInWithCustomToken(auth, token).then((userCredential: any) => {
