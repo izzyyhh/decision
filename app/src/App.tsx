@@ -1,9 +1,9 @@
-import Home from "@pages/Home/Home";
 import React, { Component } from "react";
 import * as ReactDOM from "react-dom";
 import Webfontloader from "webfontloader";
 
 import ApolloProvider from "./context/apollo/ApolloProvider";
+import Router from "./Router";
 
 class App extends Component {
     public static render(baseEl: Element) {
@@ -19,7 +19,7 @@ class App extends Component {
         return (
             <>
                 <ApolloProvider>
-                    <Home />
+                    <Router></Router>
                 </ApolloProvider>
             </>
         );

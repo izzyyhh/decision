@@ -2,10 +2,11 @@ import { ApolloClient, ApolloLink, ApolloProvider, createHttpLink, InMemoryCache
 import { setContext } from "@apollo/client/link/context";
 import { onError } from "@apollo/client/link/error";
 import React, { FunctionComponent } from "react";
-
+import { useAuthToken } from "@hooks/useAuthToken";
 import config from "../../config";
 
 const CustomApolloProvider: FunctionComponent = ({ children }) => {
+    const [authToken] = useAuthToken();
     const link = ApolloLink.from([
         onError(({ graphQLErrors }) => {
             if (graphQLErrors) {
@@ -16,6 +17,7 @@ const CustomApolloProvider: FunctionComponent = ({ children }) => {
             return {
                 headers: {
                     ...headers,
+                    "Authorization": authToken ? `Bearer ${authToken}` : null
                 },
             };
         }),
