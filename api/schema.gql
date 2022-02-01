@@ -30,11 +30,19 @@ type User {
   token: String!
 }
 
+type Poll {
+  id: ID!
+  title: String!
+  sharelink: String!
+  prefifined: Boolean!
+}
+
 type Query {
   product(id: ID!): Product!
   productsAll: [Product!]!
   products(page: Int = 1, size: Int = 20, sortColumnName: String, sortDirection: SortDirection, query: String): PaginatedProducts!
   productsOffsetBased(offset: Int = 0, limit: Int = 20, sortColumnName: String, sortDirection: SortDirection, query: String): [Product!]!
+  pollsAll: [Poll!]!
   usersAll: [User!]!
 }
 

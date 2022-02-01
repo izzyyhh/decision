@@ -1,3 +1,18 @@
 {
-    "eslint.workingDirectories": ["admin", "api"]
+    "eslint.workingDirectories": ["admin", "api"],
+    "editor.formatOnSave": true,
+    "editor.codeActionsOnSave": {
+        "source.fixAll": true
+    },
+    "editor.tabSize": 4,
+    "prettier.tabWidth": 4,
+    "editor.formatOnSave": true,
+    "eslint.format.enable": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.detectIndentation": false,
+    "git.autofetch": true,
+    "prettier.printWidth": 120,
+    "prettier.singleQuote": true,
+    "prettier.trailingComma": "none",
+    "window.zoomLevel": 1
 }
