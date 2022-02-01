@@ -8,7 +8,7 @@ import { PollsService } from "./polls.service";
 export class PollsResolver {
     repository: EntityRepository<Poll>;
 
-    constructor(private readonly pollsService: PollsService) {}
+    constructor(private readonly pollsService: PollsService, @InjectRepository(Poll) private readonly repository: EntityRepository<Poll>) {}
 
     @Query(() => [Poll])
     async pollsAll(): Promise<Poll[]> {
