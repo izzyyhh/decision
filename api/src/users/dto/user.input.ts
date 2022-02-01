@@ -6,8 +6,4 @@ export class UserInput {
     @Field()
     @IsString()
     name: string;
-
-    @Field()
-    @IsString()
-    token: string;
 }
