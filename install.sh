@@ -10,18 +10,11 @@ nvm use
 npm i -g npm@7
 npm install
 
-# create admin symlinks
-# ln -sf $PWD/.env ./admin/
-# ln -sf $PWD/api/schema.gql ./admin/
-
-# create api symlinks
-ln -sf $PWD/.env ./api/
-
 # create webstorm/phpstorm symlink
 ln -sf $PWD/api/schema.gql ./schema.graphql
+ln -sf $PWD/api/schema.gql ./app/schema.gql
 
-# npm --prefix admin install &
-npm --prefix api install &
-wait
+# ln -sf ./schema.graphql $PWD/app/schema.gql
 
-# npx dotenv -- node createDevIdpClient.js
+npm --prefix api install & wait
+npm --prefix app install & wait

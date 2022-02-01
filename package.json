@@ -4,6 +4,7 @@
     "dependencies": {
         "@ory/hydra-client": "^1.10.6",
         "dotenv-cli": "^4.1.1",
+        "dotenv-webpack": "^7.1.0",
         "http-proxy": "^1.18.1",
         "husky": "^7.0.4",
         "lint-staged": "^12.3.1",
