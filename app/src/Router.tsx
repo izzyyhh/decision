@@ -8,8 +8,12 @@ const Router = () => {
     return (
         <BrowserRouter>
             <Routes>
+<<<<<<< HEAD
                 <Route path="/auth" element={<Auth />} />
                 <Route path="/" element={<Home />} />
+=======
+                <Route path="/" element={<Home/>} />
+>>>>>>> add initial global styles
             </Routes>
         </BrowserRouter>
     );
