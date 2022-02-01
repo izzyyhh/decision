@@ -1,5 +1,5 @@
 import { Field, InputType } from "@nestjs/graphql";
-import { IsString } from "class-validator";
+import { IsBoolean, IsString } from "class-validator";
 
 @InputType()
 export class PollInput {
@@ -10,4 +10,8 @@ export class PollInput {
     @Field()
     @IsString()
     sharelink: string;
+
+    @Field()
+    @IsBoolean()
+    predefined: boolean;
 }

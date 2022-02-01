@@ -31,7 +31,7 @@ export class Poll extends BaseEntity<Poll, "id"> {
 
     @Field()
     @Property()
-    prefifined: boolean;
+    predefined: boolean;
 }
 
 export const enum Type {

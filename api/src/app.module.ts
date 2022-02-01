@@ -8,7 +8,10 @@ import { ProductsModule } from "@src/products/products.module";
 
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
+import { DecisionsModule } from "./decisions/decisions.module";
+import { OptionsModule } from "./options/options.module";
 import { PollsModule } from "./polls/polls.module";
+import { ThumbnailsModule } from "./thumbnails/thumbnails.module";
 import { UsersModule } from "./users/users.module";
 
 @Module({
@@ -34,6 +37,9 @@ import { UsersModule } from "./users/users.module";
         ProductsModule,
         PollsModule,
         UsersModule,
+        ThumbnailsModule,
+        OptionsModule,
+        DecisionsModule,
     ],
     controllers: [AppController],
     providers: [AppService],
