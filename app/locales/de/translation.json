@@ -1,5 +1,9 @@
 {
     "commen": {
         "name": "MMP3"
+    },
+    "auth": {
+        "headline": "Trage deine Namen ein",
+        "defaultInput": "Name"
     }
 }

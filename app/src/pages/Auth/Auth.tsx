@@ -1,12 +1,16 @@
 import { useMutation } from "@apollo/client";
 import { auth, signInWithCustomToken } from "@app/firebase/firebase";
+import Headline from "@components/Headline/Headline";
 import { useAuthToken } from "@hooks/useAuthToken";
 import React, { FunctionComponent, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import addUserMutation from "./addUserMutation.gql";
+import { AuthWrapper, ButtonWrapper, HeadlineWrapper, UserName } from "./Auth.sc";
 
 const Auth: FunctionComponent = () => {
-    const [name, setName] = useState("name");
+    const { t } = useTranslation();
+    const [name, setName] = useState("Name");
     const [data] = useMutation(addUserMutation, { variables: { data: { name: name } } });
     const [setAuthToken] = useAuthToken();
     console.log(auth.currentUser, "currentUser");
@@ -30,13 +34,15 @@ const Auth: FunctionComponent = () => {
     }
     
     return (
-        <>
-            <h1>Hello my man</h1>
-            <input name="name" type="text" value={name} onChange={(e) => setName(e.target.value)}></input>
-            <br />
-            {name}
-            <button onClick={sendUser}>SEnd</button>
-        </>
+        <AuthWrapper>
+            <HeadlineWrapper>
+                <Headline type="h2">{t("auth.headline")}</Headline>
+            </HeadlineWrapper>
+            <UserName name="name" type="text" value={name} onChange={(e) => setName(e.target.value)} />
+            <ButtonWrapper>
+                <button onClick={sendUser}>SEnd</button>
+            </ButtonWrapper>
+        </AuthWrapper>
     );
 };
 
