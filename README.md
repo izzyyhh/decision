@@ -7,19 +7,19 @@
 -   [nvm](https://github.com/nvm-sh/nvm)
 -   [docker & docker-compose](https://docs.docker.com/compose/)
 
-## Installation (WIP)
+## Installation
 
     // Execute following script
     ./install.sh
 
-## Uninstallation (WIP)
+## Uninstallation
 
     // Removes docker volumes and all files and folder which are not managed in the repo (node_modules, lib,...)
     // If you want to reset your development environment totally, run this command and ./install.sh afterwards.
 
     ./uninstall.sh
 
-## Run Services (WIP)
+## Run Services
 
     // use correct npm version https://github.com/nvm-sh/nvm#deeper-shell-integration
     nvm use
