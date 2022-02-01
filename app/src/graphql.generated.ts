@@ -19,7 +19,10 @@ export type GQLMutation = {
   addProduct: GQLProduct;
   updateProduct: GQLProduct;
   deleteProduct: Scalars['Boolean'];
+<<<<<<< HEAD
   addUser: GQLUser;
+=======
+>>>>>>> add initial global styles
 };
 
 
@@ -36,11 +39,14 @@ export type GQLMutationupdateProductArgs = {
 
 export type GQLMutationdeleteProductArgs = {
   id: Scalars['ID'];
+<<<<<<< HEAD
 };
 
 
 export type GQLMutationaddUserArgs = {
   data: GQLUserInput;
+=======
+>>>>>>> add initial global styles
 };
 
 export type GQLPaginatedProducts = {
@@ -73,7 +79,10 @@ export type GQLQuery = {
   productsAll: Array<GQLProduct>;
   products: GQLPaginatedProducts;
   productsOffsetBased: Array<GQLProduct>;
+<<<<<<< HEAD
   usersAll: Array<GQLUser>;
+=======
+>>>>>>> add initial global styles
 };
 
 
@@ -102,6 +111,7 @@ export type GQLQueryproductsOffsetBasedArgs = {
 export type GQLSortDirection =
   | 'ASC'
   | 'DESC';
+<<<<<<< HEAD
 
 export type GQLUser = {
   __typename?: 'User';
@@ -113,3 +123,5 @@ export type GQLUser = {
 export type GQLUserInput = {
   name: Scalars['String'];
 };
+=======
+>>>>>>> add initial global styles
