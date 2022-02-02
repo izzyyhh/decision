@@ -1,5 +1,6 @@
 import GlobalStyles from "@components/GlobalStyles/GlobalStyles";
 import ThemeProvider from "@components/ThemeProvider/ThemeProvider";
+import { UserProvider } from "@context/user/UserProvider";
 import React, { Component } from "react";
 import * as ReactDOM from "react-dom";
 import Webfontloader from "webfontloader";
@@ -21,11 +22,13 @@ class App extends Component {
         return (
             <>
                 <ApolloProvider>
-                    <ThemeProvider>
-                        <GlobalStyles>
-                            <Router></Router>
-                        </GlobalStyles>
-                    </ThemeProvider>
+                    <UserProvider>
+                        <ThemeProvider>
+                            <GlobalStyles>
+                                <Router />
+                            </GlobalStyles>
+                        </ThemeProvider>
+                    </UserProvider>
                 </ApolloProvider>
             </>
         );
