@@ -1,7 +1,6 @@
 import styled from "styled-components";
 
 export const MobileContainer = styled.div`
-    background-color: ${({ theme }) => theme.palette.primary.main};
     display: block;
     
     @media (min-width: ${({ theme }) => theme.breakpoints.values.sm}px) {
