@@ -60,6 +60,7 @@ type Query {
   pollsAll: [Poll!]!
   getPoll(data: GetPollDto!): Poll!
   usersAll: [User!]!
+  checkToken: Boolean!
   thumbnailsAll: [Thumbnail!]!
   optionsAll: [Decision!]!
 }
