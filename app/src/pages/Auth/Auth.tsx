@@ -1,9 +1,16 @@
 import { useMutation } from "@apollo/client";
 import { auth, signInWithCustomToken } from "@app/firebase/firebase";
+<<<<<<< HEAD
 import Headline from "@components/Headline/Headline";
 import { useAuthToken } from "@hooks/useAuthToken";
 import React, { FunctionComponent, useState } from "react";
 import { useTranslation } from "react-i18next";
+=======
+import { useUser } from "@context/user/useUser";
+import { useAuthToken } from "@hooks/useAuthToken";
+import React, { FunctionComponent, useState } from "react";
+import { Link } from "react-router-dom";
+>>>>>>> add context and private Routes functionality
 
 import addUserMutation from "./addUserMutation.gql";
 import { AuthWrapper, ButtonWrapper, HeadlineWrapper, UserName } from "./Auth.sc";
@@ -12,8 +19,9 @@ const Auth: FunctionComponent = () => {
     const { t } = useTranslation();
     const [name, setName] = useState("Name");
     const [data] = useMutation(addUserMutation, { variables: { data: { name: name } } });
-    const [setAuthToken] = useAuthToken();
-    console.log(auth.currentUser, "currentUser");
+    const [, setAuthToken] = useAuthToken();
+    const { user, setUser } = useUser();
+    console.log(user, "user");
 
     const sendUser = async () => {
         const result = await data();

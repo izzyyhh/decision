@@ -1,5 +1,7 @@
+import PrivateRoute from "@components/CustomRoute/PrivateRoute";
 import Auth from "@pages/Auth/Auth";
 import Home from "@pages/Home/Home";
+import Protected from "@pages/Protected/Protected";
 import React from "react";
 import { Routes } from "react-router";
 import { BrowserRouter, Route } from "react-router-dom";
@@ -8,12 +10,11 @@ const Router = () => {
     return (
         <BrowserRouter>
             <Routes>
-<<<<<<< HEAD
                 <Route path="/auth" element={<Auth />} />
-                <Route path="/" element={<Home />} />
-=======
                 <Route path="/" element={<Home/>} />
->>>>>>> add initial global styles
+                <Route path="/protected" element={<PrivateRoute />}>
+                    <Route path="/protected" element={<Protected />} />
+                </Route>
             </Routes>
         </BrowserRouter>
     );
