@@ -37,19 +37,21 @@ type Poll {
   predefined: Boolean!
 }
 
-type Thumbnail {
-  id: ID!
-  link: String!
-}
-
 type Option {
   id: ID!
   title: String!
+  poll: Poll!
+  thumbnailUrl: String
 }
 
 type Decision {
   id: ID!
   answer: Float!
+}
+
+type Thumbnail {
+  id: ID!
+  link: String!
 }
 
 type Query {
@@ -74,6 +76,7 @@ type Mutation {
   deleteProduct(id: ID!): Boolean!
   addPoll(data: PollInput!): Poll!
   addUser(data: UserInput!): User!
+  addOption(data: OptionInput!): Option!
 }
 
 input ProductInput {
@@ -97,4 +100,9 @@ enum PollType {
 
 input UserInput {
   name: String!
+}
+
+input OptionInput {
+  title: String!
+  poll: String!
 }

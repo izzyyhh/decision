@@ -17,7 +17,6 @@ export class PollsResolver {
 
     @Mutation(() => Poll)
     async addPoll(@Args("data", { type: () => PollInput }) data: PollInput): Promise<Poll> {
-        console.log(data);
         const entity = this.repository.create(data);
         await this.repository.persistAndFlush(entity);
 
