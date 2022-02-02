@@ -63,11 +63,16 @@ type Query {
   usersAll: [User!]!
   thumbnailsAll: [Thumbnail!]!
   optionsAll: [Decision!]!
+  getOptionsForPoll(data: GetOptionsForPollDto!): [Option!]!
 }
 
 enum SortDirection {
   ASC
   DESC
+}
+
+input GetOptionsForPollDto {
+  pollId: String!
 }
 
 type Mutation {

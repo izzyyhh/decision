@@ -3,6 +3,7 @@ import { EntityRepository } from "@mikro-orm/postgresql";
 import { Args, Mutation, Query, Resolver } from "@nestjs/graphql";
 
 import { OptionInput } from "./dto/option.input";
+import { GetOptionsForPollDto } from "./dto/options.for.poll";
 import { Option } from "./entities/option.entity";
 import { OptionsService } from "./options.service";
 
@@ -22,5 +23,12 @@ export class OptionsResolver {
         const optionEntity = await this.repository.findOne(entity.id, { populate: true });
 
         return optionEntity;
+    }
+
+    @Query(() => [Option])
+    async getOptionsForPoll(@Args("data", { type: () => GetOptionsForPollDto }) data: GetOptionsForPollDto): Promise<Option[]> {
+        const entities = await this.repository.find({ poll: data.pollId });
+
+        return entities;
     }
 }
