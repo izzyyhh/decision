@@ -1,20 +1,31 @@
-import React, {FunctionComponent} from "react";
-import { Link } from "react-router-dom";
+import React, { FunctionComponent } from "react";
 
-import { LinkButtonContainer } from "./LinkButton.sc";
-
+import Icon from "./Icon";
+import { Link, LinkButtonContainer, Text } from "./LinkButton.sc";
 interface IProps {
-    link: string;
+    link?: string;
+    title?: string;
     primary?: boolean;
     icon: "add" | undefined;
+    onClick?: (e: Event) => void;
 }
 
-const LinkButton: FunctionComponent <IProps> = ({ children, link, primary, icon }) => {
+const LinkButton: FunctionComponent<IProps> = ({ children, link, title, primary, icon }) => {
+    if (link) {
+        return (
+            <>
+                <Link to={link} title={title}>
+                    <LinkButtonContainer>
+                        <Icon type={icon} />
+                        <Text>{children}</Text>
+                    </LinkButtonContainer>
+                </Link>
+            </>
+        );
+    }
     return (
         <>
-            <LinkButtonContainer>
-                <Link to={link} >{children}</Link>
-            </LinkButtonContainer>
+            <LinkButtonContainer>hello world</LinkButtonContainer>
         </>
     );
 };

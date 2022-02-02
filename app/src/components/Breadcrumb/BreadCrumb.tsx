@@ -14,4 +14,4 @@ const BreadCrumb: FunctionComponent<Iprops> = ({ children, link }) => {
     );
 };
 
-export default BreadCrumb
+export default BreadCrumb;

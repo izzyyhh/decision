@@ -1,14 +1,39 @@
+import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
+import { Link as RouterLink } from "react-router-dom";
 import styled from "styled-components";
 
-export const LinkButtonContainer = styled.button`
+export const Link = styled(RouterLink)`
+    text-decoration: none;
+    font-family: Roboto;
+`;
 
-    background-color: ${({ theme }) => theme.palette.primary.main }
-    color: ${({ theme }) => theme.palette.getContrastText(theme.palette.primary.main)}
+export const LinkButtonContainer = styled.div`
+    background-color: ${({ theme }) => theme.palette.grey[100]};
+    color: black;
     font-size: 1em;
-    margin: 1em;
-    padding: 0.25em 1em;
-    border: 2px solid palevioletred;
     border-radius: 3px;
     text-decoration: none;
-    width: 80%;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-weight: bold;
+    border: 0;
+    display: flex;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    position: relative;
+`;
+
+export const Text = styled.span`
+    margin-left: auto;
+    margin-right: auto;
+`;
+
+export const AddIcon = styled(AddCircleOutlineIcon)`
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-left: 10px;
 `;

@@ -11,7 +11,7 @@ const Router = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/create-decision" element={<CreateDecision />} />
+                <Route path="/poll" element={<CreateDecision />} />
                 <Route path="/auth" element={<Auth />} />
                 <Route path="/" element={<Home />} />
                 <Route path="/protected" element={<PrivateRoute />}>

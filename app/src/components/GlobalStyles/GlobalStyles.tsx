@@ -10,7 +10,7 @@ const GlobalStyles: FunctionComponent = ({ children }) => {
                 <h1>This page only works on mobile devices. Please change to mobile device!</h1>
             </DesktopContainer>
         </>
-    )
-}
+    );
+};
 
 export default GlobalStyles;

@@ -2,7 +2,7 @@ import styled from "styled-components";
 
 export const MobileContainer = styled.div`
     display: block;
-    
+
     @media (min-width: ${({ theme }) => theme.breakpoints.values.sm}px) {
         display: none;
     }
