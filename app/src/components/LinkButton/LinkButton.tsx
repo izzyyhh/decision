@@ -12,13 +12,15 @@ interface IProps {
     title: string;
 }
 
-const LinkButton: FunctionComponent<IProps> = ({ link, primary, icon, title }) => {
+const LinkButton: FunctionComponent<IProps> = ({ children, link, primary, icon, title }) => {
     return (
         <>
             <LinkButtonContainer primary={primary}>
                 <div>
                     {icon === "add" && <AddCircleOutlineIcon color="secondary"></AddCircleOutlineIcon>}
-                    <Link to={link}>{title}</Link>
+                    <Link to={link} title={title}>
+                        {children}
+                    </Link>
                 </div>
                 <ArrowRightAltSharpIcon color="secondary"></ArrowRightAltSharpIcon>
             </LinkButtonContainer>
