@@ -1,6 +1,6 @@
 import BreadCrumb from "@components/Breadcrumb/BreadCrumb";
 import Headline from "@components/Headline/Headline";
-import LinkButton from "@components/LinkButton/LinkButton2;
+import LinkButton from "@components/LinkButton/LinkButton";
 import { HeadlineWrapper } from "@pages/Auth/Auth.sc";
 import React, { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
