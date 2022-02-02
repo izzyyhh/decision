@@ -59,6 +59,7 @@ type Query {
   productsOffsetBased(offset: Int = 0, limit: Int = 20, sortColumnName: String, sortDirection: SortDirection, query: String): [Product!]!
   pollsAll: [Poll!]!
   usersAll: [User!]!
+  checkToken: Boolean!
   thumbnailsAll: [Thumbnail!]!
   optionsAll: [Decision!]!
 }
