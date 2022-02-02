@@ -1,6 +1,7 @@
 import PrivateRoute from "@components/CustomRoute/PrivateRoute";
 import RedirectRoute from "@components/CustomRoute/RedirectRoute";
 import Auth from "@pages/Auth/Auth";
+import DecisionPage from "@pages/DecisionPage/DecisionPage";
 import Home from "@pages/Home/Home";
 import Join from "@pages/Join/Join";
 import Protected from "@pages/Protected/Protected";
@@ -16,6 +17,7 @@ const Router = () => {
                 <Route path="/join" element={<RedirectRoute />}>
                     <Route path="/join" element={<Join />} />
                 </Route>
+                <Route path="/decision" element={<DecisionPage />}/>
                 <Route path="/" element={<Home />} />
                 <Route path="/protected" element={<PrivateRoute />}>
                     <Route path="/protected" element={<Protected />} />
