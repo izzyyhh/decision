@@ -29,7 +29,6 @@ export class AuthGuard implements CanActivate {
                     process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, "\n") as string,
                     { algorithms: ["RS256"] } as VerifyOptions,
                 ) as JwtPayload;
-                console.log(verifiedEntity);
 
                 await this.usersRepository.findOneOrFail(verifiedEntity.uid);
                 return true;
