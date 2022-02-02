@@ -16,7 +16,7 @@ export class Poll extends BaseEntity<Poll, "id"> {
     })
     title: string;
 
-    @Field()
+    @Field({ nullable: true })
     @Property({
         columnType: "text",
         nullable: true,

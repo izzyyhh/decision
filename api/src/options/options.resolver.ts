@@ -16,10 +16,11 @@ export class OptionsResolver {
     }
 
     @Mutation(() => Option)
-    async addOption(@Args("data", { type: () => OptionInput }) data: OptionInput): Promise<Option> {
+    async addOption(@Args("data", { type: () => OptionInput }) data: OptionInput): Promise<Option | null> {
         const entity = this.repository.create(data);
         await this.repository.persistAndFlush(entity);
+        const optionEntity = await this.repository.findOne(entity.id, { populate: true });
 
-        return entity;
+        return optionEntity;
     }
 }

@@ -33,7 +33,7 @@ type PaginatedProducts {
 type Poll {
   id: ID!
   title: String!
-  sharelink: String!
+  sharelink: String
   predefined: Boolean!
 }
 
