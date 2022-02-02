@@ -72,12 +72,27 @@ type Mutation {
   addProduct(data: ProductInput!): Product!
   updateProduct(data: ProductInput!, id: ID!): Product!
   deleteProduct(id: ID!): Boolean!
+  addPoll(data: PollInput!): Poll!
   addUser(data: UserInput!): User!
 }
 
 input ProductInput {
   name: String!
   description: String!
+}
+
+input PollInput {
+  title: String!
+  predefined: Boolean
+  owner: String!
+  type: PollType!
+}
+
+enum PollType {
+  BINARY
+  DATE
+  NUMERICAL
+  TINDER
 }
 
 input UserInput {
