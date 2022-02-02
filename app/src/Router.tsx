@@ -1,5 +1,6 @@
 import PrivateRoute from "@components/CustomRoute/PrivateRoute";
 import Auth from "@pages/Auth/Auth";
+import CreateDecision from "@pages/CreateDecision/CreateDecision";
 import Home from "@pages/Home/Home";
 import Protected from "@pages/Protected/Protected";
 import React from "react";
@@ -10,8 +11,9 @@ const Router = () => {
     return (
         <BrowserRouter>
             <Routes>
+                <Route path="/create-decision" element={<CreateDecision />} />
                 <Route path="/auth" element={<Auth />} />
-                <Route path="/" element={<Home/>} />
+                <Route path="/" element={<Home />} />
                 <Route path="/protected" element={<PrivateRoute />}>
                     <Route path="/protected" element={<Protected />} />
                 </Route>

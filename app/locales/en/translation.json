@@ -5,5 +5,13 @@
     "auth": {
         "headline": "Add your Name",
         "defaultInput": "Name"
+    },
+    "decision": {
+        "headline": "Entscheidung erstellen",
+        "binary": "Binär",
+        "tinder": "Tinder",
+        "date": "Datum",
+        "numerical": "Numerisch Skalieren",
+        "type": "Select Type"
     }
 }

@@ -9,13 +9,11 @@ interface IProps {
     icon: "add" | undefined;
 }
 
-const LinkButton: FunctionComponent<IProps> = ({ link, primary, icon }) => {
+const LinkButton: FunctionComponent <IProps> = ({ children, link, primary, icon }) => {
     return (
         <>
             <LinkButtonContainer>
-                <Link to={link} >
-                    NextStep
-                </Link>
+                <Link to={link} >{children}</Link>
             </LinkButtonContainer>
         </>
     );
