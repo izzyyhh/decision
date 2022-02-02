@@ -1,7 +1,9 @@
 import { InjectRepository } from "@mikro-orm/nestjs";
 import { EntityRepository } from "@mikro-orm/postgresql";
+import { UseGuards } from "@nestjs/common";
 import { Args, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { firebaseApp } from "@src/app.module";
+import { AuthGuard } from "@src/common/guards/auth.guard";
 
 import { UserInput } from "./dto/user.input";
 import { User } from "./entities/user.entity";
@@ -33,5 +35,11 @@ export class UsersResolver {
             });
 
         return entityWithToken;
+    }
+
+    @Query(() => Boolean)
+    @UseGuards(AuthGuard)
+    async checkToken(): Promise<boolean> {
+        return true;
     }
 }

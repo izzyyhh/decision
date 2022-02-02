@@ -30,12 +30,26 @@ type PaginatedProducts {
   totalPages: Int
 }
 
-
 type Poll {
   id: ID!
   title: String!
   sharelink: String!
-  prefifined: Boolean!
+  predefined: Boolean!
+}
+
+type Thumbnail {
+  id: ID!
+  link: String!
+}
+
+type Option {
+  id: ID!
+  title: String!
+}
+
+type Decision {
+  id: ID!
+  answer: Float!
 }
 
 type Query {
@@ -45,6 +59,9 @@ type Query {
   productsOffsetBased(offset: Int = 0, limit: Int = 20, sortColumnName: String, sortDirection: SortDirection, query: String): [Product!]!
   pollsAll: [Poll!]!
   usersAll: [User!]!
+  checkToken: Boolean!
+  thumbnailsAll: [Thumbnail!]!
+  optionsAll: [Decision!]!
 }
 
 enum SortDirection {
