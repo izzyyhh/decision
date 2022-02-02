@@ -12,6 +12,8 @@
         "tinder": "Tinder",
         "date": "Datum",
         "numerical": "Numerisch Skalieren",
-        "type": "Art der Entscheidung wählen"
+        "type": "Art der Entscheidung wählen",
+        "start": "Entscheidung starten",
+        "help": "Hier kannst du deine Entscheidung hinzufügen"
     }
 }
