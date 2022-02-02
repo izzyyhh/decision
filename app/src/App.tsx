@@ -1,9 +1,11 @@
-import Home from "@pages/Home/Home";
+import GlobalStyles from "@components/GlobalStyles/GlobalStyles";
+import ThemeProvider from "@components/ThemeProvider/ThemeProvider";
 import React, { Component } from "react";
 import * as ReactDOM from "react-dom";
 import Webfontloader from "webfontloader";
 
 import ApolloProvider from "./context/apollo/ApolloProvider";
+import Router from "./Router";
 
 class App extends Component {
     public static render(baseEl: Element) {
@@ -19,7 +21,11 @@ class App extends Component {
         return (
             <>
                 <ApolloProvider>
-                    <Home />
+                    <ThemeProvider>
+                        <GlobalStyles>
+                            <Router></Router>
+                        </GlobalStyles>
+                    </ThemeProvider>
                 </ApolloProvider>
             </>
         );

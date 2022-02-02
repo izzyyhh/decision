@@ -1,8 +1,10 @@
 import { FindOptions } from "@mikro-orm/core";
 import { InjectRepository } from "@mikro-orm/nestjs";
 import { EntityRepository } from "@mikro-orm/postgresql";
+import { UseGuards } from "@nestjs/common";
 import { Args, ID, Int, Mutation, Query, ResolveField, Resolver } from "@nestjs/graphql";
 import { SortDirection } from "@src/common/enums";
+import { AuthGuard } from "@src/common/guards/auth.guard";
 import { getSortAndPaginationOptions } from "@src/common/pagination/getPaginatedOptions";
 import { ProductInput } from "@src/products/dto/product.input";
 import { Product } from "@src/products/entities/product.entity";
@@ -31,6 +33,7 @@ export class ProductsResolver {
     }
 
     @Query(() => [Product])
+    @UseGuards(AuthGuard)
     async productsAll(): Promise<Product[]> {
         return this.repository.findAll();
     }

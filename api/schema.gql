@@ -16,6 +16,12 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type User {
+  id: ID!
+  name: String!
+  token: String!
+}
+
 type PaginatedProducts {
   nodes: [Product!]!
   totalCount: Int!
@@ -24,11 +30,6 @@ type PaginatedProducts {
   totalPages: Int
 }
 
-type User {
-  id: ID!
-  name: String!
-  token: String!
-}
 
 type Poll {
   id: ID!
