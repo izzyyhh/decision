@@ -21,7 +21,7 @@ export class Poll extends BaseEntity<Poll, "id"> {
         columnType: "text",
         nullable: true,
     })
-    sharelink: string;
+    sharelink?: string;
 
     @ManyToOne(() => User)
     @Index()
@@ -35,6 +35,11 @@ export class Poll extends BaseEntity<Poll, "id"> {
         default: false,
     })
     predefined: boolean;
+
+    @Property({
+        nullable: true,
+    })
+    hash?: string;
 }
 
 export enum PollType {

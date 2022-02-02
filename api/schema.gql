@@ -60,6 +60,7 @@ type Query {
   products(page: Int = 1, size: Int = 20, sortColumnName: String, sortDirection: SortDirection, query: String): PaginatedProducts!
   productsOffsetBased(offset: Int = 0, limit: Int = 20, sortColumnName: String, sortDirection: SortDirection, query: String): [Product!]!
   pollsAll: [Poll!]!
+  getPoll(data: GetPollDto!): Poll!
   usersAll: [User!]!
   thumbnailsAll: [Thumbnail!]!
   optionsAll: [Decision!]!
@@ -69,6 +70,10 @@ type Query {
 enum SortDirection {
   ASC
   DESC
+}
+
+input GetPollDto {
+  pollId: String!
 }
 
 input GetOptionsForPollDto {
