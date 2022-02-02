@@ -5,7 +5,7 @@ interface IProps {
 }
 
 export const LinkButtonContainer = styled.button<IProps>`
-    background-color: ${props => (props.primary ? ({ theme }) => theme.palette.primary.main : ({ theme }) => theme.palette.primary.main  )};
+    background-color: ${(props) => (props.primary ? ({ theme }) => theme.palette.primary.main : ({ theme }) => theme.palette.primary.main)};
     font-size: 1rem;
     padding: 12px 15px;
     border-radius: 4px;
