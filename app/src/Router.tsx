@@ -1,6 +1,8 @@
 import PrivateRoute from "@components/CustomRoute/PrivateRoute";
+import RedirectRoute from "@components/CustomRoute/RedirectRoute";
 import Auth from "@pages/Auth/Auth";
 import Home from "@pages/Home/Home";
+import Join from "@pages/Join/Join";
 import Protected from "@pages/Protected/Protected";
 import React from "react";
 import { Routes } from "react-router";
@@ -11,7 +13,10 @@ const Router = () => {
         <BrowserRouter>
             <Routes>
                 <Route path="/auth" element={<Auth />} />
-                <Route path="/" element={<Home/>} />
+                <Route path="/join" element={<RedirectRoute />}>
+                    <Route path="/join" element={<Join />} />
+                </Route>
+                <Route path="/" element={<Home />} />
                 <Route path="/protected" element={<PrivateRoute />}>
                     <Route path="/protected" element={<Protected />} />
                 </Route>
