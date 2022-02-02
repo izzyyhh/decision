@@ -1,16 +1,17 @@
 import React, { FunctionComponent } from "react";
 
 import Icon from "./Icon";
-import { Link, LinkButtonContainer, Text } from "./LinkButton.sc";
+import { ArrowIcon, Link, LinkButtonContainer, Text } from "./LinkButton.sc";
 interface IProps {
     link?: string;
     title?: string;
+    arrow: boolean;
     primary?: boolean;
     icon: "add" | undefined;
     onClick?: (e: Event) => void;
 }
 
-const LinkButton: FunctionComponent<IProps> = ({ children, link, title, primary, icon }) => {
+const LinkButton: FunctionComponent<IProps> = ({ children, link, title, primary, icon, arrow }) => {
     if (link) {
         return (
             <>
@@ -18,6 +19,7 @@ const LinkButton: FunctionComponent<IProps> = ({ children, link, title, primary,
                     <LinkButtonContainer>
                         <Icon type={icon} />
                         <Text>{children}</Text>
+                        {arrow && <ArrowIcon />}
                     </LinkButtonContainer>
                 </Link>
             </>
@@ -25,7 +27,13 @@ const LinkButton: FunctionComponent<IProps> = ({ children, link, title, primary,
     }
     return (
         <>
-            <LinkButtonContainer>hello world</LinkButtonContainer>
+            <LinkButtonContainer>
+                <LinkButtonContainer>
+                    <Icon type={icon} />
+                    <Text>{children}</Text>
+                    {arrow && <ArrowIcon />}
+                </LinkButtonContainer>
+            </LinkButtonContainer>
         </>
     );
 };
