@@ -24,7 +24,6 @@ export const LinkButtonContainer = styled.div<ILinkButtonContainer>`
     display: flex;
     margin-bottom: 30px;
     position: relative;
-    -webkit-box-shadow: 0px 0px px 2px rgba(0, 0, 0, 0.49);
     box-shadow: 0px 3px 8px 2px rgba(0, 0, 0, 0.49);
     background-color: white;
     transition: background-color 0.5s ease-in;

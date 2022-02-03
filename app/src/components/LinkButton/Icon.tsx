@@ -9,43 +9,23 @@ interface IProps {
 
 const Icon: FunctionComponent<IProps> = ({ type }) => {
     if (type === "add") {
-        return (
-            <>
-                <AddIcon />
-            </>
-        );
+        return <AddIcon />;
     }
 
     if (type === "calender") {
-        return (
-            <>
-                <CalenderIcon />
-            </>
-        );
+        return <CalenderIcon />;
     }
 
     if (type === "tinder") {
-        return (
-            <>
-                <TinderIcon />
-            </>
-        );
+        return <TinderIcon />;
     }
 
     if (type === "scale") {
-        return (
-            <>
-                <ScaleIcon />
-            </>
-        );
+        return <ScaleIcon />;
     }
 
     if (type === "binar") {
-        return (
-            <>
-                <BinarIcon />
-            </>
-        );
+        return <BinarIcon />;
     }
 
     return <></>;

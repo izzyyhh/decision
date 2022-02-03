@@ -8,11 +8,11 @@ interface IProps {
     arrow: boolean;
     primary?: boolean;
     icon: IconsTypes;
-    onClick?: (e: Event) => void;
     active: boolean;
+    onClick?: () => void;
 }
 
-const LinkButton: FunctionComponent<IProps> = ({ children, link, title, primary, icon, arrow, active }) => {
+const LinkButton: FunctionComponent<IProps> = ({ children, link, title, primary, icon, arrow, active, onClick }) => {
     if (link && active) {
         return (
             <>
@@ -27,13 +27,11 @@ const LinkButton: FunctionComponent<IProps> = ({ children, link, title, primary,
         );
     }
     return (
-        <>
-            <LinkButtonContainer active={active}>
-                <Icon type={icon} />
-                <Text>{children}</Text>
-                {arrow && <ArrowIcon />}
-            </LinkButtonContainer>
-        </>
+        <LinkButtonContainer active={active} onClick={onClick}>
+            <Icon type={icon} />
+            <Text>{children}</Text>
+            {arrow && <ArrowIcon />}
+        </LinkButtonContainer>
     );
 };
 

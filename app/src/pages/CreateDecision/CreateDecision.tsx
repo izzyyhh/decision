@@ -9,7 +9,10 @@ import { BreadCrumbWrapper, ButtonWrapper, CreateDecisionWrapper } from "./Creat
 
 const CreateDecision: FunctionComponent = () => {
     const { t } = useTranslation();
-
+    // link={"/pol/date"}
+    const test = () => {
+        console.log("tett");
+    };
     return (
         <CreateDecisionWrapper>
             <HeadlineWrapper>
@@ -25,7 +28,7 @@ const CreateDecision: FunctionComponent = () => {
                 <LinkButton active={true} arrow={true} link={"/pol/tinder"} icon={"tinder"}>
                     {t("decision.tinder")}
                 </LinkButton>
-                <LinkButton active={true} arrow={true} link={"/pol/date"} icon={"calender"}>
+                <LinkButton active={true} arrow={true} onClick={test} icon={"calender"}>
                     {t("decision.date")}
                 </LinkButton>
                 <LinkButton active={false} arrow={false} link={"/pol/numerical"} icon={"scale"}>
