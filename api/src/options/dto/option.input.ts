@@ -1,7 +1,5 @@
 import { Field, InputType } from "@nestjs/graphql";
-import { Poll } from "@src/polls/entities/poll.entity";
-import { Thumbnail } from "@src/thumbnails/entities/thumbnail.entity";
-import { IsString } from "class-validator";
+import { IsString, IsUUID } from "class-validator";
 
 @InputType()
 export class OptionInput {
@@ -10,8 +8,6 @@ export class OptionInput {
     title: string;
 
     @Field()
-    poll: Poll;
-
-    @Field()
-    thumbnail: Thumbnail;
+    @IsUUID()
+    poll: string;
 }

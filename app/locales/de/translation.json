@@ -13,5 +13,8 @@
         "date": "Datum",
         "numerical": "Numerisch Skalieren",
         "type": "Art der Entscheidung wählen"
+    },
+    "link": {
+        "next": "Nächster Schritt"
     }
 }

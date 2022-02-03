@@ -33,23 +33,29 @@ type PaginatedProducts {
 type Poll {
   id: ID!
   title: String!
-  sharelink: String!
+  sharelink: String
+  owner: User!
   predefined: Boolean!
-}
-
-type Thumbnail {
-  id: ID!
-  link: String!
 }
 
 type Option {
   id: ID!
   title: String!
+  poll: Poll!
+  thumbnailUrl: String
 }
 
 type Decision {
   id: ID!
-  answer: Float!
+  user: User!
+  option: Option!
+  poll: Poll!
+  answer: Float
+}
+
+type Thumbnail {
+  id: ID!
+  link: String!
 }
 
 type Query {
@@ -58,10 +64,14 @@ type Query {
   products(page: Int = 1, size: Int = 20, sortColumnName: String, sortDirection: SortDirection, query: String): PaginatedProducts!
   productsOffsetBased(offset: Int = 0, limit: Int = 20, sortColumnName: String, sortDirection: SortDirection, query: String): [Product!]!
   pollsAll: [Poll!]!
+  getPoll(data: GetPollDto!): Poll!
   usersAll: [User!]!
   checkToken: Boolean!
   thumbnailsAll: [Thumbnail!]!
   optionsAll: [Decision!]!
+  getOptionsForPoll(data: GetOptionsForPollDto!): [Option!]!
+  getDecision(data: GetDecisionDto!): Decision!
+  getDecisionsForPoll(data: GetDecisionForPollDto!): [Decision!]!
 }
 
 enum SortDirection {
@@ -69,11 +79,30 @@ enum SortDirection {
   DESC
 }
 
+input GetPollDto {
+  pollId: String!
+}
+
+input GetOptionsForPollDto {
+  pollId: String!
+}
+
+input GetDecisionDto {
+  id: String!
+}
+
+input GetDecisionForPollDto {
+  pollId: String!
+}
+
 type Mutation {
   addProduct(data: ProductInput!): Product!
   updateProduct(data: ProductInput!, id: ID!): Product!
   deleteProduct(id: ID!): Boolean!
+  addPoll(data: PollInput!): Poll!
   addUser(data: UserInput!): User!
+  addOption(data: OptionInput!): Option!
+  addDecision(data: DecisionInput!): Decision!
 }
 
 input ProductInput {
@@ -81,6 +110,32 @@ input ProductInput {
   description: String!
 }
 
+input PollInput {
+  title: String!
+  predefined: Boolean
+  owner: String!
+  type: PollType!
+}
+
+enum PollType {
+  BINARY
+  DATE
+  NUMERICAL
+  TINDER
+}
+
 input UserInput {
   name: String!
+}
+
+input OptionInput {
+  title: String!
+  poll: String!
+}
+
+input DecisionInput {
+  user: String!
+  poll: String!
+  option: String!
+  answer: Float
 }

@@ -1,5 +1,5 @@
 import { BaseEntity, Entity, Enum, Index, ManyToOne, PrimaryKey, Property } from "@mikro-orm/core";
-import { Field, ID, ObjectType } from "@nestjs/graphql";
+import { Field, ID, ObjectType, registerEnumType } from "@nestjs/graphql";
 import { User } from "@src/users/entities/user.entity";
 import { v4 } from "uuid";
 
@@ -16,27 +16,40 @@ export class Poll extends BaseEntity<Poll, "id"> {
     })
     title: string;
 
-    @Field()
+    @Field({ nullable: true })
     @Property({
         columnType: "text",
+        nullable: true,
     })
-    sharelink: string;
+    sharelink?: string;
 
+    @Field(() => User)
     @ManyToOne(() => User)
     @Index()
     owner: User;
 
     @Enum()
-    type: Type;
+    type: PollType;
 
     @Field()
-    @Property()
+    @Property({
+        default: false,
+    })
     predefined: boolean;
+
+    @Property({
+        nullable: true,
+    })
+    hash?: string;
 }
 
-export const enum Type {
+export enum PollType {
     BINARY,
     DATE,
     NUMERICAL,
     TINDER,
 }
+
+registerEnumType(PollType, {
+    name: "PollType",
+});
