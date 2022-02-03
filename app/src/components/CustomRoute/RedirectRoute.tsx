@@ -14,19 +14,19 @@ const RedirectRoute: FunctionComponent = () => {
     const [authToken] = useAuthToken();
     const [params] = useSearchParams();
 
-    const joinUrl = buildUrl( "/join", { q: params.get("q") });
-    const authUrl = buildUrl( "/auth", { redirect: joinUrl });
+    const joinUrl = buildUrl("/join", { q: params.get("q") });
+    const authUrl = buildUrl("/auth", { redirect: joinUrl });
 
     if (authToken && res.data) {
         const result = res.data.checkToken;
-        if( result ){
-            return <Outlet />
+        if (result) {
+            return <Outlet />;
         } else {
-            navigate(authUrl)
+            navigate(authUrl);
         }
     }
-    if(res.error){
-        navigate(authUrl)
+    if (res.error) {
+        navigate(authUrl);
     }
 
     return <></>;

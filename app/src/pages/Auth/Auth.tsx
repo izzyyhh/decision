@@ -27,19 +27,19 @@ const Auth: FunctionComponent = () => {
         const result = await data();
         const { token } = result.data.addUser;
 
-        signInWithCustomToken(auth, token).then((userCredential: any) => {
-            setAuthToken(token);
-            setUser(result.data.addUser);
-            navigate(redirect ? redirect : "/protected");
+        signInWithCustomToken(auth, token)
+            .then((userCredential: any) => {
+                setAuthToken(token);
+                setUser(result.data.addUser);
+                navigate(redirect ? redirect : "/protected");
+            })
+            .catch((error: any) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log({ errorCode, errorMessage }, "error");
+            });
+    };
 
-        })
-          .catch((error: any) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log({errorCode, errorMessage}, "error")
-          });
-    }
-    
     return (
         <AuthWrapper>
             <HeadlineWrapper>
