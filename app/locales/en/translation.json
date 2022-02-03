@@ -15,5 +15,8 @@
         "type": "Select Type",
         "start": "Start decision",
         "help": "Add your decision here"
+    },
+    "link": {
+        "next": "Next Step"
     }
 }

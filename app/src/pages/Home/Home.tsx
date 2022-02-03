@@ -6,7 +6,7 @@ const Home: FunctionComponent = () => {
     const { t } = useTranslation();
     return (
         <>
-            <LinkButton link="/step-1" primary={true} icon="add">
+            <LinkButton link="/step-1" primary={true} icon="add" title="">
                 {t("link.next")}
             </LinkButton>
         </>

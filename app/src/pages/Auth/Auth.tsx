@@ -5,12 +5,14 @@ import { useUser } from "@context/user/useUser";
 import { useAuthToken } from "@hooks/useAuthToken";
 import React, { FunctionComponent, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router";
 
 import addUserMutation from "./addUserMutation.gql";
 import { AuthWrapper, ButtonWrapper, HeadlineWrapper, UserName } from "./Auth.sc";
 
 const Auth: FunctionComponent = () => {
     const { t } = useTranslation();
+    const navigate = useNavigate();
     const [name, setName] = useState("Name");
     const [data] = useMutation(addUserMutation, { variables: { data: { name: name } } });
     const [, setAuthToken] = useAuthToken();
@@ -23,10 +25,12 @@ const Auth: FunctionComponent = () => {
 
         console.log(token, "token")
         signInWithCustomToken(auth, token).then((userCredential: any) => {
-    //     //     // Signed in
             const user = userCredential.user;
             console.log(user.uid, "credential2")
-            setAuthToken(token)
+            setAuthToken(token);
+            setUser(result.data.addUser);
+            navigate("/protected");
+
           })
           .catch((error: any) => {
             const errorCode = error.code;

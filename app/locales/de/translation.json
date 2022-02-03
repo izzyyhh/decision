@@ -15,5 +15,8 @@
         "type": "Art der Entscheidung wählen",
         "start": "Entscheidung starten",
         "help": "Hier kannst du deine Entscheidung hinzufügen"
+    },
+    "link": {
+        "next": "Nächster Schritt"
     }
 }

@@ -1,4 +1,4 @@
-import { BaseEntity, Collection, Entity, Index, ManyToOne, OneToMany, PrimaryKey, Property } from "@mikro-orm/core";
+import { BaseEntity, Entity, Index, ManyToOne, PrimaryKey, Property } from "@mikro-orm/core";
 import { Field, ID, ObjectType } from "@nestjs/graphql";
 import { Option } from "@src/options/entities/option.entity";
 import { Poll } from "@src/polls/entities/poll.entity";
@@ -16,12 +16,13 @@ export class Decision extends BaseEntity<Decision, "id"> {
     @Index()
     user: User;
 
+    @ManyToOne(() => Option)
+    @Index()
+    option: Option;
+
     @ManyToOne(() => Poll)
     @Index()
     poll: Poll;
-
-    @OneToMany({ entity: () => Option, mappedBy: "decision", orphanRemoval: true })
-    options = new Collection<Option>(this);
 
     @Field()
     @Property({
