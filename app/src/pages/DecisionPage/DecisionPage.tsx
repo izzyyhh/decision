@@ -49,7 +49,7 @@ const DecisionPage: FunctionComponent = () => {
                             <FormControlLabel
                                 key={option.id}
                                 value={option.id}
-                                control={<Radio color="secondary" required={true} onSelect={(e) => console.log(e)} />}
+                                control={<Radio color="secondary" required={true} />}
                                 label={option.title}
                             />
                         ))}
