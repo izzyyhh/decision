@@ -9,9 +9,10 @@ interface IProps {
     primary?: boolean;
     icon: "add" | undefined;
     onClick?: (e: Event) => void;
+    active: boolean;
 }
 
-const LinkButton: FunctionComponent<IProps> = ({ children, link, title, primary, icon, arrow }) => {
+const LinkButton: FunctionComponent<IProps> = ({ children, link, title, primary, icon, arrow, active }) => {
     if (link) {
         return (
             <>

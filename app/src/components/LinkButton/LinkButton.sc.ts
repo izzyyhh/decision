@@ -9,20 +9,19 @@ export const Link = styled(RouterLink)`
 `;
 
 export const LinkButtonContainer = styled.div`
-    background-color: ${({ theme }) => theme.palette.grey[100]};
     color: black;
     font-size: 1em;
     border-radius: 3px;
     text-decoration: none;
-    padding-top: 10px;
-    padding-bottom: 10px;
+    padding-top: 15px;
+    padding-bottom: 15px;
     font-weight: bold;
     border: 0;
     display: flex;
     margin-bottom: 30px;
     position: relative;
-    -webkit-box-shadow: 0px 0px 16px 2px rgba(0, 0, 0, 0.49);
-    box-shadow: 0px 0px 16px 2px rgba(0, 0, 0, 0.49);
+    -webkit-box-shadow: 0px 0px px 2px rgba(0, 0, 0, 0.49);
+    box-shadow: 0px 3px 8px 2px rgba(0, 0, 0, 0.49);
 `;
 
 export const Text = styled.span`
