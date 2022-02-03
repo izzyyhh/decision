@@ -38,14 +38,11 @@ type Poll {
   predefined: Boolean!
 }
 
-type Thumbnail {
-  id: ID!
-  link: String!
-}
-
 type Option {
   id: ID!
   title: String!
+  poll: Poll!
+  thumbnailUrl: String
 }
 
 type Decision {

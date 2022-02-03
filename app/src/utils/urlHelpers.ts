@@ -5,10 +5,10 @@ const buildUrl = (path: string, params: Object, replace: boolean = true): string
     Object.entries(params).forEach(([key, value]) => {
         url.searchParams.append(key, value);
     });
-    if(replace) {
+    if (replace) {
         return url.href.replace(document.location.origin, "");
     }
-    return url.href
+    return url.href;
 };
 
 export { useSearchParams as useSearchParams, buildUrl as buildUrl };
