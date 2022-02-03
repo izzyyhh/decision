@@ -1,13 +1,13 @@
 import React, { FunctionComponent } from "react";
 
-import Icon from "./Icon";
+import Icon, { IconsTypes } from "./Icon";
 import { ArrowIcon, Link, LinkButtonContainer, Text } from "./LinkButton.sc";
 interface IProps {
     link?: string;
     title?: string;
     arrow: boolean;
     primary?: boolean;
-    icon: "add" | undefined;
+    icon: IconsTypes;
     onClick?: (e: Event) => void;
     active: boolean;
 }
