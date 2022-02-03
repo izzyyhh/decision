@@ -20,4 +20,18 @@ const getOptions = gql`
     }
 `;
 
-export { getPoll as getPoll, getOptions as getOptions };
+const addDecision = gql`
+    mutation addDecision($data: DecisionInput!) {
+        addDecision(data: $data) {
+            id
+            user {
+                id
+            }
+            option {
+                id
+            }
+        }
+    }
+`;
+
+export { getPoll as getPoll, getOptions as getOptions, addDecision as addDecision };
