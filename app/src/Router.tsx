@@ -4,7 +4,7 @@ import Auth from "@pages/Auth/Auth";
 import CreateDecision from "@pages/CreateDecision/CreateDecision";
 import DecisionPage from "@pages/DecisionPage/DecisionPage";
 import Home from "@pages/Home/Home";
-import Join from "@pages/Join/Join";
+import PollWithType from "@pages/PollWithType/PollWithType";
 import Protected from "@pages/Protected/Protected";
 import React from "react";
 import { Routes } from "react-router";

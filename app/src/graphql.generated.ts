@@ -17,7 +17,25 @@ export type Scalars = {
 export type GQLDecision = {
   __typename?: 'Decision';
   id: Scalars['ID'];
-  answer: Scalars['Float'];
+  user: GQLUser;
+  option: GQLOption;
+  poll: GQLPoll;
+  answer: Maybe<Scalars['Float']>;
+};
+
+export type GQLDecisionInput = {
+  user: Scalars['String'];
+  poll: Scalars['String'];
+  option: Scalars['String'];
+  answer?: Maybe<Scalars['Float']>;
+};
+
+export type GQLGetDecisionDto = {
+  id: Scalars['String'];
+};
+
+export type GQLGetDecisionForPollDto = {
+  pollId: Scalars['String'];
 };
 
 export type GQLGetOptionsForPollDto = {
@@ -69,6 +87,11 @@ export type GQLMutationaddOptionArgs = {
   data: GQLOptionInput;
 };
 
+
+export type GQLMutationaddDecisionArgs = {
+  data: GQLDecisionInput;
+};
+
 export type GQLOption = {
   __typename?: 'Option';
   id: Scalars['ID'];
@@ -96,6 +119,7 @@ export type GQLPoll = {
   id: Scalars['ID'];
   title: Scalars['String'];
   sharelink: Maybe<Scalars['String']>;
+  owner: GQLUser;
   predefined: Scalars['Boolean'];
 };
 
@@ -140,6 +164,8 @@ export type GQLQuery = {
   thumbnailsAll: Array<GQLThumbnail>;
   optionsAll: Array<GQLDecision>;
   getOptionsForPoll: Array<GQLOption>;
+  getDecision: GQLDecision;
+  getDecisionsForPoll: Array<GQLDecision>;
 };
 
 
@@ -173,6 +199,16 @@ export type GQLQuerygetPollArgs = {
 
 export type GQLQuerygetOptionsForPollArgs = {
   data: GQLGetOptionsForPollDto;
+};
+
+
+export type GQLQuerygetDecisionArgs = {
+  data: GQLGetDecisionDto;
+};
+
+
+export type GQLQuerygetDecisionsForPollArgs = {
+  data: GQLGetDecisionForPollDto;
 };
 
 export type GQLSortDirection =

@@ -1,5 +1,7 @@
 import React, { FunctionComponent } from "react";
 
+import { LinkButtonContainer } from "./LinkButton.sc";
+
 import Icon, { IconsTypes } from "./Icon";
 import { ArrowIcon, Link, LinkButtonContainer, Text } from "./LinkButton.sc";
 interface IProps {
