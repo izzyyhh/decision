@@ -1,19 +1,21 @@
 import { Field, InputType } from "@nestjs/graphql";
-import { Option } from "@src/options/entities/option.entity";
-import { Poll } from "@src/polls/entities/poll.entity";
-import { User } from "@src/users/entities/user.entity";
+import { IsOptional, IsUUID } from "class-validator";
 
 @InputType()
 export class DecisionInput {
     @Field()
-    user: User;
+    @IsUUID()
+    user: string;
 
     @Field()
-    poll: Poll;
+    @IsUUID()
+    poll: string;
 
     @Field()
-    options: Array<Option>;
+    @IsUUID()
+    option: string;
 
-    @Field()
+    @Field({ nullable: true })
+    @IsOptional()
     answer?: number;
 }

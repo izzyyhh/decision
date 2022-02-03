@@ -12,19 +12,22 @@ export class Decision extends BaseEntity<Decision, "id"> {
     @PrimaryKey({ type: "uuid" })
     id: string = v4();
 
+    @Field(() => User)
     @ManyToOne(() => User)
     @Index()
     user: User;
 
+    @Field(() => Option)
     @ManyToOne(() => Option)
     @Index()
     option: Option;
 
+    @Field(() => Poll)
     @ManyToOne(() => Poll)
     @Index()
     poll: Poll;
 
-    @Field()
+    @Field({ nullable: true })
     @Property({
         nullable: true,
     })
