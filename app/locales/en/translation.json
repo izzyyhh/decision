@@ -5,5 +5,8 @@
     "auth": {
         "headline": "Add your Name",
         "defaultInput": "Name"
+    },
+    "link": {
+        "next": "Next Step"
     }
 }

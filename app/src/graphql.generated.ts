@@ -19,10 +19,7 @@ export type GQLMutation = {
   addProduct: GQLProduct;
   updateProduct: GQLProduct;
   deleteProduct: Scalars['Boolean'];
-<<<<<<< HEAD
   addUser: GQLUser;
-=======
->>>>>>> add initial global styles
 };
 
 
