@@ -1,8 +1,6 @@
-import { BaseEntity, Entity, Index, ManyToOne, OneToOne, PrimaryKey, Property } from "@mikro-orm/core";
+import { BaseEntity, Entity, ManyToOne, PrimaryKey, Property } from "@mikro-orm/core";
 import { Field, ID, ObjectType } from "@nestjs/graphql";
-import { Decision } from "@src/decisions/entities/decision.entity";
 import { Poll } from "@src/polls/entities/poll.entity";
-import { Thumbnail } from "@src/thumbnails/entities/thumbnail.entity";
 import { v4 } from "uuid";
 
 @ObjectType()
@@ -18,15 +16,13 @@ export class Option extends BaseEntity<Option, "id"> {
     })
     title: string;
 
+    @Field(() => Poll)
     @ManyToOne(() => Poll)
-    @Index()
     poll: Poll;
 
-    @OneToOne(() => Thumbnail)
-    @Index()
-    thumbnail: Thumbnail;
-
-    @ManyToOne(() => Decision)
-    @Index()
-    decision: Decision;
+    @Field({ nullable: true })
+    @Property({
+        nullable: true,
+    })
+    thumbnailUrl?: string;
 }
