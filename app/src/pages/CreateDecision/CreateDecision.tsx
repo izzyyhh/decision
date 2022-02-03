@@ -9,7 +9,10 @@ import { BreadCrumbWrapper, ButtonWrapper, CreateDecisionWrapper } from "./Creat
 
 const CreateDecision: FunctionComponent = () => {
     const { t } = useTranslation();
-    
+    // link={"/pol/date"}
+    const test = () => {
+        console.log("tett");
+    };
     return (
         <CreateDecisionWrapper>
             <HeadlineWrapper>
@@ -19,10 +22,18 @@ const CreateDecision: FunctionComponent = () => {
                 <BreadCrumb>{t("decision.type")}</BreadCrumb>
             </BreadCrumbWrapper>
             <ButtonWrapper>
-                <LinkButton link={"/binary"} icon={"add"}>{t("decision.binary")}</LinkButton>
-                <LinkButton link={"/tinder"} icon={"add"}>{t("decision.tinder")}</LinkButton>
-                <LinkButton link={"/date"} icon={"add"}>{t("decision.date")}</LinkButton>
-                <LinkButton link={"/numerical"} icon={"add"}>{t("decision.numerical")}</LinkButton>
+                <LinkButton active={true} arrow={true} link={"/pol/binary"} icon={"binar"}>
+                    {t("decision.binary")}
+                </LinkButton>
+                <LinkButton active={true} arrow={true} link={"/pol/tinder"} icon={"tinder"}>
+                    {t("decision.tinder")}
+                </LinkButton>
+                <LinkButton active={true} arrow={true} onClick={test} icon={"calender"}>
+                    {t("decision.date")}
+                </LinkButton>
+                <LinkButton active={false} arrow={false} link={"/pol/numerical"} icon={"scale"}>
+                    {t("decision.numerical")}
+                </LinkButton>
             </ButtonWrapper>
         </CreateDecisionWrapper>
     );

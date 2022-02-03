@@ -1,29 +1,39 @@
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import ArrowRightAltSharpIcon from "@mui/icons-material/ArrowRightAltSharp";
 import React, { FunctionComponent } from "react";
 
 import { LinkButtonContainer } from "./LinkButton.sc";
 
+import Icon, { IconsTypes } from "./Icon";
+import { ArrowIcon, Link, LinkButtonContainer, Text } from "./LinkButton.sc";
 interface IProps {
-    link: string;
+    link?: string;
+    title?: string;
+    arrow: boolean;
     primary?: boolean;
-    icon: "add" | undefined;
-    title: string;
+    icon: IconsTypes;
+    active: boolean;
+    onClick?: () => void;
 }
 
-const LinkButton: FunctionComponent<IProps> = ({ children, link, primary, icon, title }) => {
+const LinkButton: FunctionComponent<IProps> = ({ children, link, title, primary, icon, arrow, active, onClick }) => {
+    if (link && active) {
+        return (
+            <>
+                <Link to={link} title={title}>
+                    <LinkButtonContainer active={active}>
+                        <Icon type={icon} />
+                        <Text>{children}</Text>
+                        {arrow && <ArrowIcon />}
+                    </LinkButtonContainer>
+                </Link>
+            </>
+        );
+    }
     return (
-        <>
-            <LinkButtonContainer primary={primary}>
-                <div>
-                    {icon === "add" && <AddCircleOutlineIcon color="secondary"></AddCircleOutlineIcon>}
-                    {/* <Link to={link} title={title}>
-                        {children}
-                    </Link> */}
-                </div>
-                <ArrowRightAltSharpIcon color="secondary"></ArrowRightAltSharpIcon>
-            </LinkButtonContainer>
-        </>
+        <LinkButtonContainer active={active} onClick={onClick}>
+            <Icon type={icon} />
+            <Text>{children}</Text>
+            {arrow && <ArrowIcon />}
+        </LinkButtonContainer>
     );
 };
 

@@ -1,29 +1,55 @@
-import styled from "styled-components";
+import ArrowRightAltIcon from "@material-ui/icons/ArrowRightAlt";
+import { Link as RouterLink } from "react-router-dom";
+import styled, { css } from "styled-components";
 
-interface IProps {
-    primary: boolean | undefined;
+export const Link = styled(RouterLink)`
+    text-decoration: none;
+    font-family: Roboto;
+`;
+
+interface ILinkButtonContainer {
+    active: boolean;
 }
 
-export const LinkButtonContainer = styled.button<IProps>`
-    background-color: ${(props) => (props.primary ? ({ theme }) => theme.palette.primary.main : ({ theme }) => theme.palette.primary.main)};
-    font-size: 1rem;
-    padding: 12px 15px;
-    border-radius: 4px;
-    width: 80%;
-    box-shadow: 0 8px 8px -4px ${({ theme }) => theme.palette.primary.light};
-    border: 0px;
+export const LinkButtonContainer = styled.div<ILinkButtonContainer>`
+    cursor: ${({ active }) => (active ? "pointer" : "default")};
+    color: black;
+    font-size: 1em;
+    border-radius: 3px;
+    text-decoration: none;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    font-weight: bold;
+    border: 0;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    > div {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-    }
-    > div a {
-        text-decoration: none;
-        color: ${({ theme }) => theme.palette.getContrastText(theme.palette.primary.main)};
-        padding: 0px 25px;
-    }
+    margin-bottom: 30px;
+    position: relative;
+    box-shadow: 0px 3px 8px 2px rgba(0, 0, 0, 0.49);
+    background-color: white;
+    transition: background-color 0.5s ease-in;
+    opacity: ${({ active }) => (active ? 1 : 0.3)};
+
+    ${({ active }) =>
+        active &&
+        css`
+            &:hover {
+                background-color: #dfdfdf;
+            }
+        `}
+`;
+
+export const Text = styled.span`
+    margin-left: auto;
+    margin-right: auto;
+`;
+
+export const ArrowIcon = styled(ArrowRightAltIcon)`
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin-top: auto;
+    margin-bottom: auto;
+    margin-right: 10px;
+    color: #807dff;
 `;

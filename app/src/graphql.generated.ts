@@ -54,7 +54,6 @@ export type GQLMutation = {
   addPoll: GQLPoll;
   addUser: GQLUser;
   addOption: GQLOption;
-  addDecision: GQLDecision;
 };
 
 
