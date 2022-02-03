@@ -13,11 +13,11 @@ interface IProps {
 }
 
 const LinkButton: FunctionComponent<IProps> = ({ children, link, title, primary, icon, arrow, active }) => {
-    if (link) {
+    if (link && active) {
         return (
             <>
                 <Link to={link} title={title}>
-                    <LinkButtonContainer>
+                    <LinkButtonContainer active={active}>
                         <Icon type={icon} />
                         <Text>{children}</Text>
                         {arrow && <ArrowIcon />}
@@ -28,12 +28,10 @@ const LinkButton: FunctionComponent<IProps> = ({ children, link, title, primary,
     }
     return (
         <>
-            <LinkButtonContainer>
-                <LinkButtonContainer>
-                    <Icon type={icon} />
-                    <Text>{children}</Text>
-                    {arrow && <ArrowIcon />}
-                </LinkButtonContainer>
+            <LinkButtonContainer active={active}>
+                <Icon type={icon} />
+                <Text>{children}</Text>
+                {arrow && <ArrowIcon />}
             </LinkButtonContainer>
         </>
     );

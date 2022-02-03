@@ -1,13 +1,18 @@
 import ArrowRightAltIcon from "@material-ui/icons/ArrowRightAlt";
 import { Link as RouterLink } from "react-router-dom";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 export const Link = styled(RouterLink)`
     text-decoration: none;
     font-family: Roboto;
 `;
 
-export const LinkButtonContainer = styled.div`
+interface ILinkButtonContainer {
+    active: boolean;
+}
+
+export const LinkButtonContainer = styled.div<ILinkButtonContainer>`
+    cursor: ${({ active }) => (active ? "pointer" : "default")};
     color: black;
     font-size: 1em;
     border-radius: 3px;
@@ -23,10 +28,15 @@ export const LinkButtonContainer = styled.div`
     box-shadow: 0px 3px 8px 2px rgba(0, 0, 0, 0.49);
     background-color: white;
     transition: background-color 0.5s ease-in;
+    opacity: ${({ active }) => (active ? 1 : 0.3)};
 
-    &:hover {
-        background-color: #dfdfdf;
-    }
+    ${({ active }) =>
+        active &&
+        css`
+            &:hover {
+                background-color: #dfdfdf;
+            }
+        `}
 `;
 
 export const Text = styled.span`
