@@ -38,11 +38,14 @@ type Poll {
   predefined: Boolean!
 }
 
+type Thumbnail {
+  id: ID!
+  link: String!
+}
+
 type Option {
   id: ID!
   title: String!
-  poll: Poll!
-  thumbnailUrl: String
 }
 
 type Decision {
@@ -51,11 +54,6 @@ type Decision {
   option: Option!
   poll: Poll!
   answer: Float
-}
-
-type Thumbnail {
-  id: ID!
-  link: String!
 }
 
 type Query {
