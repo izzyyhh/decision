@@ -3,12 +3,14 @@ import { GQLQuery } from "@app/graphql.generated";
 import Headline from "@components/Headline/Headline";
 import React, { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
+import { useSearchParams } from "react-router-dom";
 
 import { DecisionsPollQuery, OptionsForPollQuery, PollQuery } from "./Result.gql";
 
 const Result: FunctionComponent = () => {
     const { t } = useTranslation();
-    const pollId = "c29b3cc7-3ada-40bb-b325-3e88c3b44fc8";
+    const [params] = useSearchParams();
+    const pollId = params.get("q");
     const options = useQuery<GQLQuery>(OptionsForPollQuery, { variables: { data: { pollId } } });
     const poll = useQuery<GQLQuery>(PollQuery, { variables: { data: { pollId } } });
     const decisions = useQuery<GQLQuery>(DecisionsPollQuery, { variables: { data: { pollId } } });

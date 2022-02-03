@@ -5,12 +5,14 @@ import { useUser } from "@context/user/useUser";
 import { Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from "@material-ui/core";
 import { buildUrl, useSearchParams } from "@utils/urlHelpers";
 import React, { FunctionComponent, useState } from "react";
+import { useNavigate } from "react-router";
 
 import { AuthWrapper, ButtonWrapper, HeadlineWrapper, MiddleWrapper } from "../Auth/Auth.sc";
 import { addDecision, getOptions, getPoll } from "./pollData.gql";
 
 const DecisionPage: FunctionComponent = () => {
     const { user } = useUser();
+    const navigate = useNavigate();
 
     const [params] = useSearchParams();
     const pollId = params.get("q");
@@ -32,8 +34,10 @@ const DecisionPage: FunctionComponent = () => {
 
     const sendDecision = async () => {
         const res = await data();
-        console.log("asdf");
-        console.log(res, "res");
+        if (!res.errors) {
+            const url = buildUrl("/result", { q: pollId });
+            navigate(url);
+        }
     };
 
     console.log(user, "user");
