@@ -3,17 +3,20 @@ import { GQLOption, GQLQuery } from "@app/graphql.generated";
 import Headline from "@components/Headline/Headline";
 import { useUser } from "@context/user/useUser";
 import { Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from "@material-ui/core";
+import { buildUrl, useSearchParams } from "@utils/urlHelpers";
 import React, { FunctionComponent, useState } from "react";
 
 import { AuthWrapper, ButtonWrapper, HeadlineWrapper, MiddleWrapper } from "../Auth/Auth.sc";
 import { addDecision, getOptions, getPoll } from "./pollData.gql";
 
 const DecisionPage: FunctionComponent = () => {
-    const pollId = "09268120-d59f-4de9-a81f-a13f9e94e032";
-    const userId = "b2aad1a7-3fbe-4190-9d76-c76dd6422fb9";
-
-    const [optionId, setOption] = useState<string>();
     const { user } = useUser();
+    
+    const [params] = useSearchParams();
+    const pollId = params.get("q");
+    
+    const [optionId, setOption] = useState<string>();
+    const userId = user.id
 
     const poll = useQuery<GQLQuery>(getPoll, { variables: { data: { pollId } } });
     const pollData = poll.data ? poll.data.getPoll : null;
@@ -24,7 +27,7 @@ const DecisionPage: FunctionComponent = () => {
     const [data] = useMutation(addDecision, { variables: { data: { user: userId, poll: pollId, option: optionId, answer: 0.6 } } });
 
     const copyToClipBoard = () => {
-        navigator.clipboard.writeText("HALLO");
+        navigator.clipboard.writeText(buildUrl("/join", {q: pollId}, false));
     };
 
     const sendDecision = async () => {

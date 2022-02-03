@@ -31,7 +31,7 @@ const Auth: FunctionComponent = () => {
             .then((userCredential: any) => {
                 setAuthToken(token);
                 setUser(result.data.addUser);
-                navigate(redirect ? redirect : "/protected");
+                navigate(redirect ? redirect : "/poll");
             })
             .catch((error: any) => {
                 const errorCode = error.code;
