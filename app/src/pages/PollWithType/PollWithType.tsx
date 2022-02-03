@@ -1,24 +1,45 @@
+import { useMutation } from "@apollo/client";
 import IOption from "@app/types/IOption";
 import BreadCrumb from "@components/Breadcrumb/BreadCrumb";
 import Headline from "@components/Headline/Headline";
 import LinkButton from "@components/LinkButton/LinkButton";
 import OptionList from "@components/OptionList/OptionList";
+import {useUser} from "@context/user/useUser";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import React, { FunctionComponent, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { useParams } from "react-router";
+import { useNavigate,useParams } from "react-router";
 
+import { addOptionsMutation, addPollMutation } from "./PollWithType.gql";
 import { BreadCrumbWrapper, ButtonWrapper, CreatePollWithTypeWrapper, HeadlineWrapper, HelpText, Input, OptionListWrapper, OptionWrapper, QuestionInput } from "./PollWithType.sc";
-
-
 
 const PollWithType: FunctionComponent = () => {
     const { t } = useTranslation();
     const { type } = useParams();
+    const { user } = useUser();
+    const navigate = useNavigate();
     const [question, setQuestion] = useState("Question");
     const [option, setOption] = useState("");
     const [optionPlaceholder, setOptionPlaceholder] = useState("New Option");
-    const [options, setOptions] = useState<Array<IOption>>([])
+    const [options, setOptions] = useState<Array<IOption>>([]);
+    const [pollId, setPollId] = useState("");
+    const [currentOption, setCurrentOption] = useState("");
+
+    const predefined = type === "predefined";
+
+    const [data] = useMutation(addPollMutation, { variables: { data: { title: question, predefined, owner: user.id, type: 'BINARY'}}})
+    const [optionData] = useMutation(addOptionsMutation, {variables: { data: { title: currentOption, poll: pollId}}})
+    const addPollHandler = async () => {
+        const pollData = await data();
+        setPollId(pollData.data.addPoll.id);
+        for (const o of options) {
+            setCurrentOption(o.name);
+            const t = await optionData();
+            console.log(t);
+            navigate("/decision");
+        }
+
+    }
 
     const setOptionFromIcon = () => {
         if (option !== "") {
@@ -40,6 +61,8 @@ const PollWithType: FunctionComponent = () => {
         }
     }
     
+
+    
     return (
         <CreatePollWithTypeWrapper>
             <HeadlineWrapper>
@@ -59,8 +82,8 @@ const PollWithType: FunctionComponent = () => {
             <OptionListWrapper>
                 <OptionList options={options} setOptions={setOptions}></OptionList>
             </OptionListWrapper>
-            <ButtonWrapper>
-                <LinkButton link={"/binary"} icon={"add"}>{t("decision.start")}</LinkButton>
+            <ButtonWrapper onClick={addPollHandler}>
+                <LinkButton link={"/binary"} icon={"add"} title={""}>{t("decision.start")}</LinkButton>
             </ButtonWrapper>
         </CreatePollWithTypeWrapper>
     )

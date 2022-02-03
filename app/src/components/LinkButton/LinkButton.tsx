@@ -1,7 +1,6 @@
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import ArrowRightAltSharpIcon from "@mui/icons-material/ArrowRightAltSharp";
 import React, { FunctionComponent } from "react";
-import { Link } from "react-router-dom";
 
 import { LinkButtonContainer } from "./LinkButton.sc";
 
@@ -18,9 +17,9 @@ const LinkButton: FunctionComponent<IProps> = ({ children, link, primary, icon, 
             <LinkButtonContainer primary={primary}>
                 <div>
                     {icon === "add" && <AddCircleOutlineIcon color="secondary"></AddCircleOutlineIcon>}
-                    <Link to={link} title={title}>
+                    {/* <Link to={link} title={title}>
                         {children}
-                    </Link>
+                    </Link> */}
                 </div>
                 <ArrowRightAltSharpIcon color="secondary"></ArrowRightAltSharpIcon>
             </LinkButtonContainer>

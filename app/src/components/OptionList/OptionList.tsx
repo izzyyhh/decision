@@ -23,7 +23,7 @@ const OptionList: FunctionComponent<IProps> = ({options, setOptions}) => {
     return (
         <List>
             {options.map((option, index)=> (
-                <ListElement>
+                <ListElement key={index}>
                     <Input name="option" type="text" value={option.name} onChange={(e) => changeOption(e.target.value, index)} />
                     <DeleteSharpIcon onClick={() => deleteOption(index)} color="primary"></DeleteSharpIcon>
                 </ListElement>

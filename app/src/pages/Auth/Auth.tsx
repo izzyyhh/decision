@@ -29,7 +29,7 @@ const Auth: FunctionComponent = () => {
             console.log(user.uid, "credential2")
             setAuthToken(token);
             setUser(result.data.addUser);
-            navigate("/protected");
+            navigate("/poll/binary");
 
           })
           .catch((error: any) => {
