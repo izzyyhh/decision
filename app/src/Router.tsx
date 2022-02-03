@@ -7,6 +7,7 @@ import Home from "@pages/Home/Home";
 import Join from "@pages/Join/Join";
 import PollWithType from "@pages/PollWithType/PollWithType";
 import Protected from "@pages/Protected/Protected";
+import Result from "@pages/Result/Result";
 import React from "react";
 import { Routes } from "react-router";
 import { BrowserRouter, Route } from "react-router-dom";
@@ -20,6 +21,9 @@ const Router = () => {
                 <Route path="/auth" element={<Auth />} />
                 <Route path="/join" element={<RedirectRoute />}>
                     <Route path="/join" element={<Join />} />
+                </Route>
+                <Route path="/result" element={<RedirectRoute />}>
+                    <Route path="/result" element={<Result />} />
                 </Route>
                 <Route path="/decision" element={<DecisionPage />} />
                 <Route path="/" element={<Home />} />
