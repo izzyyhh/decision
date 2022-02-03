@@ -41,6 +41,6 @@ export class PollsResolver {
     @UseGuards(AuthGuard)
     @Query(() => Poll)
     async getPoll(@Args("data", { type: () => GetPollDto }) data: GetPollDto): Promise<Poll> {
-        return this.repository.findOneOrFail(data.pollId);
+        return this.repository.findOneOrFail(data.pollId, { populate: true });
     }
 }
