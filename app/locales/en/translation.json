@@ -6,7 +6,25 @@
         "headline": "Add your Name",
         "defaultInput": "Name"
     },
+    "decision": {
+        "headline": "Entscheidung erstellen",
+        "binary": "Binär",
+        "tinder": "Tinder",
+        "date": "Datum",
+        "numerical": "Numerisch Skalieren",
+        "type": "Select Type",
+        "start": "Start decision",
+        "help": "Add your decision here"
+    },
     "link": {
         "next": "Next Step"
+    },
+    "decision": {
+        "headline": "Entscheidung erstellen",
+        "binary": "Binär",
+        "tinder": "Tinder",
+        "date": "Datum",
+        "numerical": "Numerisch Skalieren",
+        "type": "Select Type"
     }
 }
