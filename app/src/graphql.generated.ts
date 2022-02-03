@@ -19,7 +19,10 @@ export type GQLMutation = {
   addProduct: GQLProduct;
   updateProduct: GQLProduct;
   deleteProduct: Scalars['Boolean'];
+<<<<<<< HEAD
   addUser: GQLUser;
+=======
+>>>>>>> add initial global styles
 };
 
 
@@ -74,6 +77,7 @@ export type GQLQuery = {
   products: GQLPaginatedProducts;
   productsOffsetBased: Array<GQLProduct>;
   usersAll: Array<GQLUser>;
+  checkToken: Scalars['Boolean'];
 };
 
 
