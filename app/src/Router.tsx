@@ -4,6 +4,7 @@ import Auth from "@pages/Auth/Auth";
 import CreateDecision from "@pages/CreateDecision/CreateDecision";
 import DecisionPage from "@pages/DecisionPage/DecisionPage";
 import Home from "@pages/Home/Home";
+import Join from "@pages/Join/Join";
 import PollWithType from "@pages/PollWithType/PollWithType";
 import Protected from "@pages/Protected/Protected";
 import React from "react";
@@ -14,6 +15,7 @@ const Router = () => {
     return (
         <BrowserRouter>
             <Routes>
+                <Route path="/poll/binary" element={<PollWithType />} />
                 <Route path="/poll" element={<CreateDecision />} />
                 <Route path="/auth" element={<Auth />} />
                 <Route path="/join" element={<RedirectRoute />}>

@@ -6,6 +6,7 @@ import LinkButton from "@components/LinkButton/LinkButton";
 import OptionList from "@components/OptionList/OptionList";
 import {useUser} from "@context/user/useUser";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
+import { buildUrl } from "@utils/urlHelpers";
 import React, { FunctionComponent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate,useParams } from "react-router";
@@ -31,14 +32,17 @@ const PollWithType: FunctionComponent = () => {
     const [optionData] = useMutation(addOptionsMutation, {variables: { data: { title: currentOption, poll: pollId}}})
     const addPollHandler = async () => {
         const pollData = await data();
-        setPollId(pollData.data.addPoll.id);
+        const p_id = pollData.data.addPoll.id;
+        setPollId(p_id);
+        
         for (const o of options) {
             setCurrentOption(o.name);
             const t = await optionData();
-            console.log(t);
-            navigate("/decision");
+            console.log({t})
+            console.log("asdfaskdlf");
         }
-
+        const decisionUrl = buildUrl("/decision", { q: p_id });
+        navigate(decisionUrl)
     }
 
     const setOptionFromIcon = () => {
