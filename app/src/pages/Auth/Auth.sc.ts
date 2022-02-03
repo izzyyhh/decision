@@ -23,6 +23,15 @@ export const UserName = styled.input`
     font-size: 22px;
 `;
 
+export const MiddleWrapper = styled.div`
+    grid-column: 2 / span 22;
+    grid-row: 2;
+    margin-top: 200px;
+    margin-bottom: 100px;
+    border: 0;
+    position: relative;
+    font-size: 22px;
+`;
 export const ButtonWrapper = styled.div`
     grid-column: 2 / span 22;
     grid-row: 3;

@@ -30,13 +30,42 @@ type PaginatedProducts {
   totalPages: Int
 }
 
+type Poll {
+  id: ID!
+  title: String!
+  sharelink: String
+  predefined: Boolean!
+}
+
+type Option {
+  id: ID!
+  title: String!
+  poll: Poll!
+  thumbnailUrl: String
+}
+
+type Decision {
+  id: ID!
+  answer: Float!
+}
+
+type Thumbnail {
+  id: ID!
+  link: String!
+}
+
 type Query {
   product(id: ID!): Product!
   productsAll: [Product!]!
   products(page: Int = 1, size: Int = 20, sortColumnName: String, sortDirection: SortDirection, query: String): PaginatedProducts!
   productsOffsetBased(offset: Int = 0, limit: Int = 20, sortColumnName: String, sortDirection: SortDirection, query: String): [Product!]!
+  pollsAll: [Poll!]!
+  getPoll(data: GetPollDto!): Poll!
   usersAll: [User!]!
   checkToken: Boolean!
+  thumbnailsAll: [Thumbnail!]!
+  optionsAll: [Decision!]!
+  getOptionsForPoll(data: GetOptionsForPollDto!): [Option!]!
 }
 
 enum SortDirection {
@@ -44,11 +73,21 @@ enum SortDirection {
   DESC
 }
 
+input GetPollDto {
+  pollId: String!
+}
+
+input GetOptionsForPollDto {
+  pollId: String!
+}
+
 type Mutation {
   addProduct(data: ProductInput!): Product!
   updateProduct(data: ProductInput!, id: ID!): Product!
   deleteProduct(id: ID!): Boolean!
+  addPoll(data: PollInput!): Poll!
   addUser(data: UserInput!): User!
+  addOption(data: OptionInput!): Option!
 }
 
 input ProductInput {
@@ -56,6 +95,25 @@ input ProductInput {
   description: String!
 }
 
+input PollInput {
+  title: String!
+  predefined: Boolean
+  owner: String!
+  type: PollType!
+}
+
+enum PollType {
+  BINARY
+  DATE
+  NUMERICAL
+  TINDER
+}
+
 input UserInput {
   name: String!
+}
+
+input OptionInput {
+  title: String!
+  poll: String!
 }
