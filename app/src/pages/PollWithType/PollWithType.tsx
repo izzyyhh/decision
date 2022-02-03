@@ -6,7 +6,6 @@ import LinkButton from "@components/LinkButton/LinkButton";
 import OptionList from "@components/OptionList/OptionList";
 import { useUser } from "@context/user/useUser";
 import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
-import { buildUrl } from "@utils/urlHelpers";
 import React, { FunctionComponent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router";
@@ -36,14 +35,16 @@ const PollWithType: FunctionComponent = () => {
     const [pollId, setPollId] = useState("");
     const [currentOption, setCurrentOption] = useState("");
 
-    const predefined = type === "predefined";
+    const enumType = type === "binary" ? "BINARY" : "";
 
-    const [data] = useMutation(addPollMutation, { variables: { data: { title: question, predefined, owner: user?.id, type: "BINARY" } } });
+    const predefined = false;
+
+    const [data] = useMutation(addPollMutation, { variables: { data: { title: question, predefined, owner: user?.id, type: enumType } } });
     const [optionData] = useMutation(addOptionsMutation, { variables: { data: { title: currentOption, poll: pollId } } });
     const addPollHandler = async () => {
         const pollData = await data();
-        const p_id = pollData.data.addPoll.id;
-        setPollId(p_id);
+        const pollId = pollData.data.addPoll.id;
+        setPollId(pollId);
 
         for (const o of options) {
             setCurrentOption(o.name);
@@ -51,8 +52,8 @@ const PollWithType: FunctionComponent = () => {
             console.log({ t });
             console.log("asdfaskdlf");
         }
-        const decisionUrl = buildUrl("/decision", { q: p_id });
-        navigate(decisionUrl);
+        // const decisionUrl = buildUrl("/result/", { q: p_id });
+        navigate(`/result/${pollId}`);
     };
 
     const setOptionFromIcon = () => {
@@ -95,8 +96,8 @@ const PollWithType: FunctionComponent = () => {
             <OptionListWrapper>
                 <OptionList options={options} setOptions={setOptions}></OptionList>
             </OptionListWrapper>
-            <ButtonWrapper onClick={addPollHandler}>
-                <LinkButton link={"/binary"} arrow={true} active={true} icon={"add"} title={""}>
+            <ButtonWrapper>
+                <LinkButton onClick={addPollHandler} arrow={true} active={true} icon={"add"} title={""}>
                     {t("decision.start")}
                 </LinkButton>
             </ButtonWrapper>

@@ -3,12 +3,14 @@ import { GQLQuery } from "@app/graphql.generated";
 import Headline from "@components/Headline/Headline";
 import React, { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
+import { useParams } from "react-router";
 
 import { DecisionsPollQuery, OptionsForPollQuery, PollQuery } from "./Result.gql";
+import { OptionItem, OptionList, Proposal, Title, VoteContainer, Winner } from "./Result.sc";
 
 const Result: FunctionComponent = () => {
     const { t } = useTranslation();
-    const pollId = "c29b3cc7-3ada-40bb-b325-3e88c3b44fc8";
+    const { pollId } = useParams();
     const options = useQuery<GQLQuery>(OptionsForPollQuery, { variables: { data: { pollId } } });
     const poll = useQuery<GQLQuery>(PollQuery, { variables: { data: { pollId } } });
     const decisions = useQuery<GQLQuery>(DecisionsPollQuery, { variables: { data: { pollId } } });
@@ -32,19 +34,19 @@ const Result: FunctionComponent = () => {
     return (
         <>
             <Headline type="h2">{t("result.headline")}</Headline>
-            {poll.data && <h3>{poll.data.getPoll.title}</h3>}
+            {poll.data && <Title>{poll.data.getPoll.title}</Title>}
             {options.data && (
-                <ul>
+                <OptionList>
                     {options.data.getOptionsForPoll.map((option) => (
-                        <li key={option.id}>{option.title}</li>
+                        <OptionItem key={option.id}>{option.title}</OptionItem>
                     ))}
-                </ul>
+                </OptionList>
             )}
             {max > -1 && (
-                <>
-                    <h2>Proposal</h2>
-                    <h1>{maxTitle}</h1>
-                </>
+                <VoteContainer>
+                    <Proposal>Proposal</Proposal>
+                    <Winner>{maxTitle}</Winner>
+                </VoteContainer>
             )}
         </>
     );

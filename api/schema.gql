@@ -53,6 +53,11 @@ type Decision {
   answer: Float
 }
 
+type Thumbnail {
+  id: ID!
+  link: String!
+}
+
 type Query {
   product(id: ID!): Product!
   productsAll: [Product!]!
