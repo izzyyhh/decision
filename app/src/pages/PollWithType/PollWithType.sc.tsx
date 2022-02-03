@@ -76,4 +76,3 @@ export const OptionListWrapper = styled.div`
     justify-content: flex-start;
     align-items: center;
 `;
-

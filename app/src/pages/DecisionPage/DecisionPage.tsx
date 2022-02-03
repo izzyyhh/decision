@@ -11,12 +11,12 @@ import { addDecision, getOptions, getPoll } from "./pollData.gql";
 
 const DecisionPage: FunctionComponent = () => {
     const { user } = useUser();
-    
+
     const [params] = useSearchParams();
     const pollId = params.get("q");
-    
+
     const [optionId, setOption] = useState<string>();
-    const userId = user.id
+    const userId = user?.id;
 
     const poll = useQuery<GQLQuery>(getPoll, { variables: { data: { pollId } } });
     const pollData = poll.data ? poll.data.getPoll : null;
@@ -27,7 +27,7 @@ const DecisionPage: FunctionComponent = () => {
     const [data] = useMutation(addDecision, { variables: { data: { user: userId, poll: pollId, option: optionId, answer: 0.6 } } });
 
     const copyToClipBoard = () => {
-        navigator.clipboard.writeText(buildUrl("/join", {q: pollId}, false));
+        navigator.clipboard.writeText(buildUrl("/join", { q: pollId }, false));
     };
 
     const sendDecision = async () => {
