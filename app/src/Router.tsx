@@ -17,7 +17,7 @@ const Router = () => {
                 <Route path="/join" element={<RedirectRoute />}>
                     <Route path="/join" element={<Join />} />
                 </Route>
-                <Route path="/decision" element={<DecisionPage />}/>
+                <Route path="/decision" element={<DecisionPage />} />
                 <Route path="/" element={<Home />} />
                 <Route path="/protected" element={<PrivateRoute />}>
                     <Route path="/protected" element={<Protected />} />

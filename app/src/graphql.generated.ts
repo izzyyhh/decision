@@ -14,15 +14,28 @@ export type Scalars = {
 };
 
 
+export type GQLDecision = {
+  __typename?: 'Decision';
+  id: Scalars['ID'];
+  answer: Scalars['Float'];
+};
+
+export type GQLGetOptionsForPollDto = {
+  pollId: Scalars['String'];
+};
+
+export type GQLGetPollDto = {
+  pollId: Scalars['String'];
+};
+
 export type GQLMutation = {
   __typename?: 'Mutation';
   addProduct: GQLProduct;
   updateProduct: GQLProduct;
   deleteProduct: Scalars['Boolean'];
-<<<<<<< HEAD
+  addPoll: GQLPoll;
   addUser: GQLUser;
-=======
->>>>>>> add initial global styles
+  addOption: GQLOption;
 };
 
 
@@ -42,8 +55,31 @@ export type GQLMutationdeleteProductArgs = {
 };
 
 
+export type GQLMutationaddPollArgs = {
+  data: GQLPollInput;
+};
+
+
 export type GQLMutationaddUserArgs = {
   data: GQLUserInput;
+};
+
+
+export type GQLMutationaddOptionArgs = {
+  data: GQLOptionInput;
+};
+
+export type GQLOption = {
+  __typename?: 'Option';
+  id: Scalars['ID'];
+  title: Scalars['String'];
+  poll: GQLPoll;
+  thumbnailUrl: Maybe<Scalars['String']>;
+};
+
+export type GQLOptionInput = {
+  title: Scalars['String'];
+  poll: Scalars['String'];
 };
 
 export type GQLPaginatedProducts = {
@@ -54,6 +90,27 @@ export type GQLPaginatedProducts = {
   previousPage: Maybe<Scalars['Int']>;
   totalPages: Maybe<Scalars['Int']>;
 };
+
+export type GQLPoll = {
+  __typename?: 'Poll';
+  id: Scalars['ID'];
+  title: Scalars['String'];
+  sharelink: Maybe<Scalars['String']>;
+  predefined: Scalars['Boolean'];
+};
+
+export type GQLPollInput = {
+  title: Scalars['String'];
+  predefined?: Maybe<Scalars['Boolean']>;
+  owner: Scalars['String'];
+  type: GQLPollType;
+};
+
+export type GQLPollType =
+  | 'BINARY'
+  | 'DATE'
+  | 'NUMERICAL'
+  | 'TINDER';
 
 export type GQLProduct = {
   __typename?: 'Product';
@@ -76,8 +133,13 @@ export type GQLQuery = {
   productsAll: Array<GQLProduct>;
   products: GQLPaginatedProducts;
   productsOffsetBased: Array<GQLProduct>;
+  pollsAll: Array<GQLPoll>;
+  getPoll: GQLPoll;
   usersAll: Array<GQLUser>;
   checkToken: Scalars['Boolean'];
+  thumbnailsAll: Array<GQLThumbnail>;
+  optionsAll: Array<GQLDecision>;
+  getOptionsForPoll: Array<GQLOption>;
 };
 
 
@@ -103,9 +165,25 @@ export type GQLQueryproductsOffsetBasedArgs = {
   query?: Maybe<Scalars['String']>;
 };
 
+
+export type GQLQuerygetPollArgs = {
+  data: GQLGetPollDto;
+};
+
+
+export type GQLQuerygetOptionsForPollArgs = {
+  data: GQLGetOptionsForPollDto;
+};
+
 export type GQLSortDirection =
   | 'ASC'
   | 'DESC';
+
+export type GQLThumbnail = {
+  __typename?: 'Thumbnail';
+  id: Scalars['ID'];
+  link: Scalars['String'];
+};
 
 export type GQLUser = {
   __typename?: 'User';
