@@ -34,24 +34,26 @@ type Poll {
   id: ID!
   title: String!
   sharelink: String
+  owner: User!
   predefined: Boolean!
-}
-
-type Option {
-  id: ID!
-  title: String!
-  poll: Poll!
-  thumbnailUrl: String
-}
-
-type Decision {
-  id: ID!
-  answer: Float!
 }
 
 type Thumbnail {
   id: ID!
   link: String!
+}
+
+type Option {
+  id: ID!
+  title: String!
+}
+
+type Decision {
+  id: ID!
+  user: User!
+  option: Option!
+  poll: Poll!
+  answer: Float
 }
 
 type Query {
@@ -66,6 +68,8 @@ type Query {
   thumbnailsAll: [Thumbnail!]!
   optionsAll: [Decision!]!
   getOptionsForPoll(data: GetOptionsForPollDto!): [Option!]!
+  getDecision(data: GetDecisionDto!): Decision!
+  getDecisionsForPoll(data: GetDecisionForPollDto!): [Decision!]!
 }
 
 enum SortDirection {
@@ -81,6 +85,14 @@ input GetOptionsForPollDto {
   pollId: String!
 }
 
+input GetDecisionDto {
+  id: String!
+}
+
+input GetDecisionForPollDto {
+  pollId: String!
+}
+
 type Mutation {
   addProduct(data: ProductInput!): Product!
   updateProduct(data: ProductInput!, id: ID!): Product!
@@ -88,6 +100,7 @@ type Mutation {
   addPoll(data: PollInput!): Poll!
   addUser(data: UserInput!): User!
   addOption(data: OptionInput!): Option!
+  addDecision(data: DecisionInput!): Decision!
 }
 
 input ProductInput {
@@ -116,4 +129,11 @@ input UserInput {
 input OptionInput {
   title: String!
   poll: String!
+}
+
+input DecisionInput {
+  user: String!
+  poll: String!
+  option: String!
+  answer: Float
 }

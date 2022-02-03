@@ -6,11 +6,15 @@ import { useAuthToken } from "@hooks/useAuthToken";
 import React, { FunctionComponent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
+import { useSearchParams } from "react-router-dom";
 
 import addUserMutation from "./addUserMutation.gql";
 import { AuthWrapper, ButtonWrapper, HeadlineWrapper, UserName } from "./Auth.sc";
 
 const Auth: FunctionComponent = () => {
+    const [params] = useSearchParams();
+    const redirect = params.get("redirect");
+
     const { t } = useTranslation();
     const navigate = useNavigate();
     const [name, setName] = useState("Name");
@@ -23,22 +27,19 @@ const Auth: FunctionComponent = () => {
         const result = await data();
         const { token } = result.data.addUser;
 
-        console.log(token, "token")
-        signInWithCustomToken(auth, token).then((userCredential: any) => {
-            const user = userCredential.user;
-            console.log(user.uid, "credential2")
-            setAuthToken(token);
-            setUser(result.data.addUser);
-            navigate("/poll/binary");
+        signInWithCustomToken(auth, token)
+            .then((userCredential: any) => {
+                setAuthToken(token);
+                setUser(result.data.addUser);
+                navigate(redirect ? redirect : "/protected");
+            })
+            .catch((error: any) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log({ errorCode, errorMessage }, "error");
+            });
+    };
 
-          })
-          .catch((error: any) => {
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log({errorCode, errorMessage}, "error")
-          });
-    }
-    
     return (
         <AuthWrapper>
             <HeadlineWrapper>

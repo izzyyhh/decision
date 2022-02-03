@@ -26,7 +26,7 @@ export class AuthGuard implements CanActivate {
             try {
                 const verifiedEntity: JwtPayload = jwt.verify(
                     token,
-                    process.env.FIREBASE_PRIVATE_KEY?.replace(/\\n/g, "\n") as string,
+                    Buffer.from(process.env.FIREBASE_PRIVATE_KEY as string, "base64").toString("utf-8"),
                     { algorithms: ["RS256"] } as VerifyOptions,
                 ) as JwtPayload;
 

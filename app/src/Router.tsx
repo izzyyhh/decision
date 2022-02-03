@@ -1,4 +1,5 @@
 import PrivateRoute from "@components/CustomRoute/PrivateRoute";
+import RedirectRoute from "@components/CustomRoute/RedirectRoute";
 import Auth from "@pages/Auth/Auth";
 import CreateDecision from "@pages/CreateDecision/CreateDecision";
 import Home from "@pages/Home/Home";

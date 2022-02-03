@@ -18,5 +18,13 @@
     },
     "link": {
         "next": "Nächster Schritt"
+    },
+    "decision": {
+        "headline": "Entscheidung erstellen",
+        "binary": "Binär",
+        "tinder": "Tinder",
+        "date": "Datum",
+        "numerical": "Numerisch Skalieren",
+        "type": "Art der Entscheidung wählen"
     }
 }

@@ -23,6 +23,7 @@ export class Poll extends BaseEntity<Poll, "id"> {
     })
     sharelink?: string;
 
+    @Field(() => User)
     @ManyToOne(() => User)
     @Index()
     owner: User;
