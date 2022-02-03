@@ -6,6 +6,16 @@
         "headline": "Trage deine Namen ein",
         "defaultInput": "Name"
     },
+    "decision": {
+        "headline": "Entscheidung erstellen",
+        "binary": "Binär",
+        "tinder": "Tinder",
+        "date": "Datum",
+        "numerical": "Numerisch Skalieren",
+        "type": "Art der Entscheidung wählen",
+        "start": "Entscheidung starten",
+        "help": "Hier kannst du deine Entscheidung hinzufügen"
+    },
     "link": {
         "next": "Nächster Schritt"
     },
