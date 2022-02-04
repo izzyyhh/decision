@@ -21,8 +21,8 @@ const Router = () => {
                     <Route path="/poll/:type" element={<PollWithType />} />
                     <Route path="/poll" element={<CreateDecision />} />
                     <Route path="/auth" element={<Auth />} />
-                    <Route path="/join" element={<RedirectRoute />}>
-                        <Route path="/join" element={<Join />} />
+                    <Route path="/join/:pollId" element={<RedirectRoute />}>
+                        <Route path="/join/:pollId" element={<Join />} />
                     </Route>
                     <Route path="/result/:pollId" element={<RedirectRoute />}>
                         <Route path="/result/:pollId" element={<Result />} />
