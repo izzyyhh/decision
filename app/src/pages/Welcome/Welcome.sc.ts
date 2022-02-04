@@ -3,11 +3,11 @@ import styled from "styled-components";
 
 export const Logo = styled(MergeTypeIcon)`
     && {
-        width: 350px;
-        height: 350px;
+        width: 300px;
+        height: 300px;
         margin-left: auto;
         margin-right: auto;
-        margin-top: 75px;
-        margin-bottom: 75px;
+        margin-top: 50px;
+        margin-bottom: 50px;
     }
 `;
