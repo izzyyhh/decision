@@ -10,7 +10,7 @@ import React, { FunctionComponent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router";
 
-import { addOptionsMutation, addPollMutation } from "./PollWithType.gql";
+import { addPollMutation } from "./PollWithType.gql";
 import {
     BreadCrumbWrapper,
     ButtonWrapper,
@@ -32,27 +32,24 @@ const PollWithType: FunctionComponent = () => {
     const [option, setOption] = useState("");
     const [optionPlaceholder, setOptionPlaceholder] = useState("New Option");
     const [options, setOptions] = useState<Array<IOption>>([]);
-    const [pollId, setPollId] = useState("");
-    const [currentOption, setCurrentOption] = useState("");
+    const [test1, setPollId] = useState<string>("");
+    const [test2, setCurrentOption] = useState<string>("");
 
     const enumType = type === "binary" ? "BINARY" : "";
 
     const predefined = false;
 
     const [data] = useMutation(addPollMutation, { variables: { data: { title: question, predefined, owner: user?.id, type: enumType } } });
-    const [optionData] = useMutation(addOptionsMutation, { variables: { data: { title: currentOption, poll: pollId } } });
     const addPollHandler = async () => {
         const pollData = await data();
-        const pollId = pollData.data.addPoll.id;
-        setPollId(pollId);
+        const pollId: string = pollData.data.addPoll.id;
+        setPollId(pollId ? pollId : "");
 
-        for (const o of options) {
-            setCurrentOption(o.name);
-            const t = await optionData();
-            console.log({ t });
-            console.log("asdfaskdlf");
+        console.log(test1, test2);
+
+        for (const option of options) {
+            setCurrentOption(`${option.name}`);
         }
-        // const decisionUrl = buildUrl("/result/", { q: p_id });
         navigate(`/decision/${pollId}`);
     };
 
@@ -82,6 +79,7 @@ const PollWithType: FunctionComponent = () => {
             </BreadCrumbWrapper>
             <HelpText>{t("decision.help")}</HelpText>
             <QuestionInput name="question" type="text" placeholder={question} onChange={(e) => setQuestion(e.target.value)} />
+            {(options.length < 2 && 
             <OptionWrapper>
                 <AddCircleOutlineIcon onClick={setOptionFromIcon}></AddCircleOutlineIcon>
                 <Input
@@ -93,6 +91,7 @@ const PollWithType: FunctionComponent = () => {
                     onChange={(e) => setOption(e.target.value)}
                 />
             </OptionWrapper>
+            )}
             <OptionListWrapper>
                 <OptionList options={options} setOptions={setOptions}></OptionList>
             </OptionListWrapper>

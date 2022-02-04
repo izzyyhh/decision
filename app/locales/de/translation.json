@@ -14,12 +14,28 @@
         "numerical": "Numerisch Skalieren",
         "type": "Art der Entscheidung wählen",
         "start": "Entscheidung starten",
-        "help": "Hier kannst du deine Entscheidung hinzufügen"
+        "help": "Hier kannst du deine Entscheidung hinzufügen",
+        "options": "Optionen",
+        "vote": "Abstimmen",
+        "copyLink": "Link kopieren",
+        "linkCopied": "Link zur Abstimmung wurde kopiert"
     },
     "link": {
         "next": "Nächster Schritt"
     },
     "result": {
-        "headline": "Ergebnis"
+        "headline": "Ergebnis",
+        "home": "Startseite",
+        "proposal": "Entscheidungsvorschlag"
+    },
+    "welcome": {
+        "headline": "Willkommen",
+        "helpText": "Verschwende keine Zeit. Treffe eine schnelle Entscheidung",
+        "links": {
+            "create": "Entscheidung erstellen",
+            "predefined": "Vordefinierte Entscheidungen",
+            "join": "Entscheidung betretten",
+            "about": "Über uns"
+        }
     }
 }
