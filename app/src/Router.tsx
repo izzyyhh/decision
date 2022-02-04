@@ -16,14 +16,14 @@ const Router = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/poll/binary" element={<PollWithType />} />
+                <Route path="/poll/:type" element={<PollWithType />} />
                 <Route path="/poll" element={<CreateDecision />} />
                 <Route path="/auth" element={<Auth />} />
                 <Route path="/join" element={<RedirectRoute />}>
                     <Route path="/join" element={<Join />} />
                 </Route>
-                <Route path="/result" element={<RedirectRoute />}>
-                    <Route path="/result" element={<Result />} />
+                <Route path="/result/:pollId" element={<RedirectRoute />}>
+                    <Route path="/result/:pollId" element={<Result />} />
                 </Route>
                 <Route path="/decision" element={<DecisionPage />} />
                 <Route path="/" element={<Home />} />

@@ -1,6 +1,7 @@
 import { useMutation } from "@apollo/client";
 import { auth, signInWithCustomToken } from "@app/firebase/firebase";
 import Headline from "@components/Headline/Headline";
+import LinkButton from "@components/LinkButton/LinkButton";
 import { useUser } from "@context/user/useUser";
 import { useAuthToken } from "@hooks/useAuthToken";
 import React, { FunctionComponent, useState } from "react";
@@ -47,7 +48,9 @@ const Auth: FunctionComponent = () => {
             </HeadlineWrapper>
             <UserName name="name" type="text" value={name} onChange={(e) => setName(e.target.value)} />
             <ButtonWrapper>
-                <button onClick={sendUser}>SEnd</button>
+                <LinkButton onClick={sendUser} active={true} arrow={true} icon={undefined}>
+                    Send
+                </LinkButton>
             </ButtonWrapper>
         </AuthWrapper>
     );

@@ -39,6 +39,7 @@ export const LinkButtonContainer = styled.div<ILinkButtonContainer>`
 `;
 
 export const Text = styled.span`
+    font-family: Roboto;
     margin-left: auto;
     margin-right: auto;
 `;

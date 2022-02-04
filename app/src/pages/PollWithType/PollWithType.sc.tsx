@@ -13,7 +13,7 @@ export const HeadlineWrapper = styled.div`
 `;
 
 export const ButtonWrapper = styled.div`
-    grid-column: 4 / span 22;
+    grid-column: 2 / span 22;
     grid-row: 8;
     margin-top: 100px;
 `;
