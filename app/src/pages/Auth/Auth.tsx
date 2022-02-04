@@ -21,8 +21,7 @@ const Auth: FunctionComponent = () => {
     const [name, setName] = useState("Name");
     const [data] = useMutation(addUserMutation, { variables: { data: { name: name } } });
     const [, setAuthToken] = useAuthToken();
-    const { user, setUser } = useUser();
-    console.log(user, "user");
+    const { setUser } = useUser();
 
     const sendUser = async () => {
         const result = await data();
