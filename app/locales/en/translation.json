@@ -14,7 +14,11 @@
         "numerical": "Numerisch Skalieren",
         "type": "Select Type",
         "start": "Start decision",
-        "help": "Add your decision here"
+        "help": "Add your decision here",
+        "options": "Options",
+        "vote": "Vote",
+        "copyLink": "Copy Link",
+        "linkCopied": "Link copied to Clipboard"
     },
     "link": {
         "next": "Next Step"

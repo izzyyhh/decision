@@ -1,7 +1,9 @@
 import AddCircleOutlineIcon from "@material-ui/icons/AddCircleOutline";
 import BallotIcon from "@material-ui/icons/Ballot";
+import HowToVoteIcon from "@material-ui/icons/HowToVote";
 import InsertInvitationIcon from "@material-ui/icons/InsertInvitation";
 import LinearScaleIcon from "@material-ui/icons/LinearScale";
+import Share from "@material-ui/icons/Share";
 import WhatshotIcon from "@material-ui/icons/Whatshot";
 import styled, { css } from "styled-components";
 
@@ -16,6 +18,13 @@ const IconStyle = css`
 `;
 
 export const AddIcon = styled(AddCircleOutlineIcon)`
+    ${IconStyle}
+`;
+
+export const VoteIcon = styled(HowToVoteIcon)`
+    ${IconStyle}
+`;
+export const ShareIcon = styled(Share)`
     ${IconStyle}
 `;
 
