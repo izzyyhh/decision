@@ -1,8 +1,8 @@
 import React, { FunctionComponent } from "react";
 
-import { AddIcon, BinarIcon, CalenderIcon, ScaleIcon, TinderIcon } from "./Icon.sc";
+import { AddIcon, BinarIcon, CalenderIcon, ScaleIcon, ShareIcon, TinderIcon, VoteIcon } from "./Icon.sc";
 
-export type IconsTypes = "add" | "calender" | "tinder" | "scale" | "binar" | undefined;
+export type IconsTypes = "add" | "calender" | "tinder" | "scale" | "binar" | "vote" | "share" | undefined;
 interface IProps {
     type: IconsTypes;
 }
@@ -18,6 +18,14 @@ const Icon: FunctionComponent<IProps> = ({ type }) => {
 
     if (type === "tinder") {
         return <TinderIcon />;
+    }
+
+    if (type === "vote") {
+        return <VoteIcon />;
+    }
+
+    if (type === "share") {
+        return <ShareIcon />;
     }
 
     if (type === "scale") {

@@ -14,7 +14,11 @@
         "numerical": "Numerisch Skalieren",
         "type": "Art der Entscheidung wählen",
         "start": "Entscheidung starten",
-        "help": "Hier kannst du deine Entscheidung hinzufügen"
+        "help": "Hier kannst du deine Entscheidung hinzufügen",
+        "options": "Optionen",
+        "vote": "Abstimmen",
+        "copyLink": "Link kopieren",
+        "linkCopied": "Link zur Abstimmung wurde kopiert"
     },
     "link": {
         "next": "Nächster Schritt"
