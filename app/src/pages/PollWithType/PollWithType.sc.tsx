@@ -65,7 +65,7 @@ export const Input = styled.input`
     font-size: 22px;
     width: 100%;
     margin-left: 20px;
-    color: lightgrey;
+    color: black;
 `;
 
 export const OptionListWrapper = styled.div`

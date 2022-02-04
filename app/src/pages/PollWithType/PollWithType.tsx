@@ -82,6 +82,7 @@ const PollWithType: FunctionComponent = () => {
             </BreadCrumbWrapper>
             <HelpText>{t("decision.help")}</HelpText>
             <QuestionInput name="question" type="text" placeholder={question} onChange={(e) => setQuestion(e.target.value)} />
+            {(options.length < 2 && 
             <OptionWrapper>
                 <AddCircleOutlineIcon onClick={setOptionFromIcon}></AddCircleOutlineIcon>
                 <Input
@@ -93,6 +94,7 @@ const PollWithType: FunctionComponent = () => {
                     onChange={(e) => setOption(e.target.value)}
                 />
             </OptionWrapper>
+            )}
             <OptionListWrapper>
                 <OptionList options={options} setOptions={setOptions}></OptionList>
             </OptionListWrapper>
