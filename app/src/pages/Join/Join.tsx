@@ -1,13 +1,12 @@
 import LinkButton from "@components/LinkButton/LinkButton";
-import { buildUrl, useSearchParams } from "@utils/urlHelpers";
 import React, { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
+import { useParams } from "react-router";
 
 const Join: FunctionComponent = () => {
-    const [params] = useSearchParams();
-    const pid = params.get("q");
+    const {pollId} = useParams();
     const { t } = useTranslation();
-    const url = buildUrl("/decision", { q: pid });
+    const url = `/decision/${pollId}`;
     return (
         <>
             <LinkButton active={true} arrow={true} link={url} primary={true} icon="add">
