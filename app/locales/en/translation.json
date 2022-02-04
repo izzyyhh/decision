@@ -25,5 +25,15 @@
     },
     "result": {
         "headline": "Result"
+    },
+    "welcome": {
+        "headline": "Welcome",
+        "helpText": "Don’t waste time. Make fast decisions.",
+        "links": {
+            "create": "Create Decision",
+            "predefined": "Predefined Decisions",
+            "join": "Join Decision",
+            "about": "About"
+        }
     }
 }

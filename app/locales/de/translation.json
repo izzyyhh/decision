@@ -25,5 +25,15 @@
     },
     "result": {
         "headline": "Ergebnis"
+    },
+    "welcome": {
+        "headline": "Willkommen",
+        "helpText": "Verschwende keine Zeit. Treffe eine schnelle Entscheidung",
+        "links": {
+            "create": "Entscheidung erstellen",
+            "predefined": "Vordefinierte Entscheidungen",
+            "join": "Entscheidung betretten",
+            "about": "Über uns"
+        }
     }
 }
