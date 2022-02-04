@@ -1,7 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { GQLQuery } from "@app/graphql.generated";
 import Headline from "@components/Headline/Headline";
-import LinkButton from "@components/LinkButton/LinkButton";
 import { PageContainer } from "@theme/common.sc";
 import React, { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
@@ -56,9 +55,6 @@ const Result: FunctionComponent = () => {
                     </Winner>
                 </VoteContainer>
             )}
-            <LinkButton arrow={true} active={true} icon={undefined} link="/">
-                {t("result.home")}
-            </LinkButton>
         </PageContainer>
     );
 };

@@ -10,7 +10,7 @@ import React, { FunctionComponent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router";
 
-import { addPollMutation } from "./PollWithType.gql";
+import { addOptionsMutation, addPollMutation } from "./PollWithType.gql";
 import {
     BreadCrumbWrapper,
     ButtonWrapper,
@@ -34,6 +34,7 @@ const PollWithType: FunctionComponent = () => {
     const [options, setOptions] = useState<Array<IOption>>([]);
     const [test1, setPollId] = useState<string>("");
     const [test2, setCurrentOption] = useState<string>("");
+    const [optionData] = useMutation(addOptionsMutation, { variables: { data: { title: test2, poll: test1 } } });
 
     const enumType = type === "binary" ? "BINARY" : "";
 
@@ -41,16 +42,19 @@ const PollWithType: FunctionComponent = () => {
 
     const [data] = useMutation(addPollMutation, { variables: { data: { title: question, predefined, owner: user?.id, type: enumType } } });
     const addPollHandler = async () => {
-        const pollData = await data();
-        const pollId: string = pollData.data.addPoll.id;
-        setPollId(pollId ? pollId : "");
+        if (options.length == 2 && question != "") {
+            const pollData = await data();
+            const pollId: string = pollData.data.addPoll.id;
+            setPollId(pollId ? pollId : "");
 
-        console.log(test1, test2);
+            console.log(test1, test2);
 
-        for (const option of options) {
-            setCurrentOption(`${option.name}`);
+            for (const option of options) {
+                setCurrentOption(`${option.name}`);
+                await optionData();
+            }
+            navigate(`/decision/${pollId}`);
         }
-        navigate(`/decision/${pollId}`);
     };
 
     const setOptionFromIcon = () => {
@@ -79,24 +83,24 @@ const PollWithType: FunctionComponent = () => {
             </BreadCrumbWrapper>
             <HelpText>{t("decision.help")}</HelpText>
             <QuestionInput name="question" type="text" placeholder={question} onChange={(e) => setQuestion(e.target.value)} />
-            {(options.length < 2 && 
-            <OptionWrapper>
-                <AddCircleOutlineIcon onClick={setOptionFromIcon}></AddCircleOutlineIcon>
-                <Input
-                    onKeyUp={addOption}
-                    name="option"
-                    type="text"
-                    placeholder={optionPlaceholder}
-                    value={option}
-                    onChange={(e) => setOption(e.target.value)}
-                />
-            </OptionWrapper>
+            {options.length < 2 && (
+                <OptionWrapper>
+                    <AddCircleOutlineIcon onClick={setOptionFromIcon}></AddCircleOutlineIcon>
+                    <Input
+                        onKeyUp={addOption}
+                        name="option"
+                        type="text"
+                        placeholder={optionPlaceholder}
+                        value={option}
+                        onChange={(e) => setOption(e.target.value)}
+                    />
+                </OptionWrapper>
             )}
             <OptionListWrapper>
                 <OptionList options={options} setOptions={setOptions}></OptionList>
             </OptionListWrapper>
             <ButtonWrapper>
-                <LinkButton onClick={addPollHandler} arrow={true} active={true} icon={"add"} title={""}>
+                <LinkButton onClick={addPollHandler} arrow={true} active={options.length == 2 && question != ""} icon={"add"} title={""}>
                     {t("decision.start")}
                 </LinkButton>
             </ButtonWrapper>

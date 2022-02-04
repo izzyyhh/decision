@@ -28,7 +28,9 @@ const Router = () => {
                         <Route path="/result/:pollId" element={<Result />} />
                     </Route>
                     <Route path="/decision/:pollId" element={<DecisionPage />} />
-                    <Route path="/" element={<Home />} />
+                    <Route path="/" element={<PrivateRoute />}>
+                        <Route path="/" element={<Welcome />} />
+                    </Route>
                     <Route path="/protected" element={<PrivateRoute />}>
                         <Route path="/protected" element={<Protected />} />
                     </Route>
