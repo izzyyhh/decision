@@ -4,6 +4,7 @@ export const AuthWrapper = styled.div`
     display: grid;
     grid-template-columns: repeat(24, 1fr);
     grid-template-rows: auto;
+    margin-bottom: 50px;
 `;
 
 export const HeadlineWrapper = styled.div`
