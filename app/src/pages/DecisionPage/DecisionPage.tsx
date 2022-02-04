@@ -55,8 +55,6 @@ const DecisionPage: FunctionComponent = () => {
         }
     };
 
-    console.log(optionId);
-
     return (
         <AuthWrapper>
             <HeadlineWrapper>{pollData?.title && <Headline type="h2">{pollData.title}</Headline>}</HeadlineWrapper>

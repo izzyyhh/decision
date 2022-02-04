@@ -6,7 +6,9 @@ export const Title = styled.h3`
 `;
 
 export const OptionList = styled.ul`
+    margin-top: -0.3em;
     list-style: none;
+    color: grey;
 `;
 
 export const OptionItem = styled.li`
@@ -27,4 +29,5 @@ export const Proposal = styled.p`
 
 export const Winner = styled.p`
     font-family: Roboto;
+    font-size: 1.5rem;
 `;

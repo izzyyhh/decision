@@ -1,6 +1,8 @@
 import { useQuery } from "@apollo/client";
 import { GQLQuery } from "@app/graphql.generated";
 import Headline from "@components/Headline/Headline";
+import LinkButton from "@components/LinkButton/LinkButton";
+import { PageContainer } from "@theme/common.sc";
 import React, { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
@@ -32,23 +34,32 @@ const Result: FunctionComponent = () => {
     });
 
     return (
-        <>
+        <PageContainer>
             <Headline type="h2">{t("result.headline")}</Headline>
             {poll.data && <Title>{poll.data.getPoll.title}</Title>}
             {options.data && (
                 <OptionList>
                     {options.data.getOptionsForPoll.map((option) => (
-                        <OptionItem key={option.id}>{option.title}</OptionItem>
+                        <OptionItem key={option.id}>
+                            <div>{`${option.title} (${c[option.title] ? c[option.title] : 0})`}</div>
+                        </OptionItem>
                     ))}
                 </OptionList>
             )}
             {max > -1 && (
                 <VoteContainer>
-                    <Proposal>Proposal</Proposal>
-                    <Winner>{maxTitle}</Winner>
+                    <Proposal>
+                        <h3>{t("result.proposal")}</h3>
+                    </Proposal>
+                    <Winner>
+                        <h3>{maxTitle}</h3>
+                    </Winner>
                 </VoteContainer>
             )}
-        </>
+            <LinkButton arrow={true} active={true} icon={undefined} link="/">
+                {t("result.home")}
+            </LinkButton>
+        </PageContainer>
     );
 };
 

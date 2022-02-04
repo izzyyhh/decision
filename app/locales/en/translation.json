@@ -24,7 +24,9 @@
         "next": "Next Step"
     },
     "result": {
-        "headline": "Result"
+        "headline": "Result",
+        "home": "Home",
+        "proposal": "Decision proposal"
     },
     "welcome": {
         "headline": "Welcome",

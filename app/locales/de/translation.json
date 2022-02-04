@@ -24,7 +24,9 @@
         "next": "Nächster Schritt"
     },
     "result": {
-        "headline": "Ergebnis"
+        "headline": "Ergebnis",
+        "home": "Startseite",
+        "proposal": "Entscheidungsvorschlag"
     },
     "welcome": {
         "headline": "Willkommen",
