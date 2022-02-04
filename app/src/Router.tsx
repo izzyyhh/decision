@@ -25,7 +25,7 @@ const Router = () => {
                 <Route path="/result/:pollId" element={<RedirectRoute />}>
                     <Route path="/result/:pollId" element={<Result />} />
                 </Route>
-                <Route path="/decision" element={<DecisionPage />} />
+                <Route path="/decision/:pollId" element={<DecisionPage />} />
                 <Route path="/" element={<Home />} />
                 <Route path="/protected" element={<PrivateRoute />}>
                     <Route path="/protected" element={<Protected />} />

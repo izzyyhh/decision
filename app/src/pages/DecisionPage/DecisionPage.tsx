@@ -5,7 +5,7 @@ import { useUser } from "@context/user/useUser";
 import { Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from "@material-ui/core";
 import { buildUrl, useSearchParams } from "@utils/urlHelpers";
 import React, { FunctionComponent, useState } from "react";
-import { useNavigate } from "react-router";
+import { useNavigate, useParams } from "react-router";
 
 import { AuthWrapper, ButtonWrapper, HeadlineWrapper, MiddleWrapper } from "../Auth/Auth.sc";
 import { addDecision, getOptions, getPoll } from "./pollData.gql";
@@ -14,8 +14,7 @@ const DecisionPage: FunctionComponent = () => {
     const { user } = useUser();
     const navigate = useNavigate();
 
-    const [params] = useSearchParams();
-    const pollId = params.get("q");
+    const { pollId } = useParams();
 
     const [optionId, setOption] = useState<string>();
     const userId = user?.id;
@@ -29,14 +28,13 @@ const DecisionPage: FunctionComponent = () => {
     const [data] = useMutation(addDecision, { variables: { data: { user: userId, poll: pollId, option: optionId, answer: 0.6 } } });
 
     const copyToClipBoard = () => {
-        navigator.clipboard.writeText(buildUrl("/join", { q: pollId }, false));
+        navigator.clipboard.writeText(`/result/${pollId}`);
     };
 
     const sendDecision = async () => {
         const res = await data();
         if (!res.errors) {
-            const url = buildUrl("/result", { q: pollId });
-            navigate(url);
+            navigate(`/result/${pollId}`);
         }
     };
 

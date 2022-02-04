@@ -53,7 +53,7 @@ const PollWithType: FunctionComponent = () => {
             console.log("asdfaskdlf");
         }
         // const decisionUrl = buildUrl("/result/", { q: p_id });
-        navigate(`/result/${pollId}`);
+        navigate(`/decision/${pollId}`);
     };
 
     const setOptionFromIcon = () => {
