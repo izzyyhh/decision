@@ -3,7 +3,6 @@ import { GQLOption, GQLQuery } from "@app/graphql.generated";
 import Headline from "@components/Headline/Headline";
 import { useUser } from "@context/user/useUser";
 import { Button, FormControl, FormControlLabel, FormLabel, Radio, RadioGroup } from "@material-ui/core";
-import { buildUrl, useSearchParams } from "@utils/urlHelpers";
 import React, { FunctionComponent, useState } from "react";
 import { useNavigate, useParams } from "react-router";
 
