@@ -47,7 +47,7 @@ const Auth: FunctionComponent = () => {
             </HeadlineWrapper>
             <UserName name="name" type="text" value={name} onChange={(e) => setName(e.target.value)} />
             <ButtonWrapper>
-                <LinkButton onClick={sendUser} active={true} arrow={true} icon={undefined}>
+                <LinkButton onClick={sendUser} active={true} arrow={true}>
                     Send
                 </LinkButton>
             </ButtonWrapper>

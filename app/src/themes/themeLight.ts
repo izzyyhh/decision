@@ -7,10 +7,10 @@ interface MuiDropzoneNameToClassKey {
 }
 
 const colors = {
-    primary: "#007DD8",
+    primary: "#FFFFFF",
     primaryLight: "#5CACFF",
     primaryDark: "#002350",
-    secondary: "#D63B30",
+    secondary: "#2C2B2D",
     secondaryLight: "#FF6F5B",
     secondaryDark: "#9D0007",
 };
@@ -53,8 +53,8 @@ export default createTheme({
     palette: {
         primary: {
             main: colors.primary,
-            light: colors.primaryLight,
-            dark: colors.primary,
+            light: "#ffffff",
+            dark: "#000000",
             contrastText: "#ffffff",
         },
         secondary: {
@@ -79,14 +79,15 @@ export default createTheme({
             main: "#A9A9A9",
         },
         text: {
-            primary: "#000000",
-            secondary: "#FBFBFB",
+            primary: "#FFFFFF",
+            secondary: "#7E7E7E",
             disabled: "#b6b6b6",
         },
         grey: neutral,
         divider: neutral[100],
         background: {
-            paper: "#ffffff",
+            default: "#191A1C",
+            paper: "#2C2B2D",
         },
         common: {
             white: "#1F1F1F",

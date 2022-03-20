@@ -100,7 +100,7 @@ const PollWithType: FunctionComponent = () => {
                 <OptionList options={options} setOptions={setOptions}></OptionList>
             </OptionListWrapper>
             <ButtonWrapper>
-                <LinkButton onClick={addPollHandler} arrow={true} active={options.length == 2 && question != ""} icon={"add"} title={""}>
+                <LinkButton onClick={addPollHandler} arrow={true} active={options.length == 2 && question != ""} title={""}>
                     {t("decision.start")}
                 </LinkButton>
             </ButtonWrapper>
