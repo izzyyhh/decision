@@ -1,37 +1,62 @@
-import BreadCrumb from "@components/Breadcrumb/BreadCrumb";
+import { ColumnFullWidth } from "@app/common/Column.sc";
+import { Eyebrow } from "@app/common/Eyebrow.sc";
+import Card from "@components/Card/Card";
 import Headline from "@components/Headline/Headline";
+import Input from "@components/Input/Input";
 import LinkButton from "@components/LinkButton/LinkButton";
-import { HeadlineWrapper } from "@pages/Auth/Auth.sc";
-import React, { FunctionComponent } from "react";
+import Option from "@components/Option/Option";
+import TypeSwitch from "@components/TypeSwitch/TypeSwitch";
+import React, { FunctionComponent, useState } from "react";
 import { useTranslation } from "react-i18next";
 
-import { BreadCrumbWrapper, ButtonWrapper, CreateDecisionWrapper } from "./CreateDecision.sc";
+export enum Type {
+    binare = "binare",
+    tinder = "tinder",
+    date = "date",
+}
+
+export interface Option {
+    value: string;
+    key: number;
+}
 
 const CreateDecision: FunctionComponent = () => {
+    const [question, setQuestion] = useState<string>();
+    const [options, setOptions] = useState<Array<Option>>([]);
+    const [type, setType] = useState<Type>(Type.binare);
     const { t } = useTranslation();
+
+    console.log(question);
+    console.log(type);
+    console.log(options);
+
     return (
-        <CreateDecisionWrapper>
-            <HeadlineWrapper>
+        <>
+            <ColumnFullWidth>
                 <Headline type="h2">{t("decision.headline")}</Headline>
-            </HeadlineWrapper>
-            <BreadCrumbWrapper>
-                <BreadCrumb>{t("decision.type")}</BreadCrumb>
-            </BreadCrumbWrapper>
-            <ButtonWrapper>
-                <LinkButton active={true} arrow={true} link={"/poll/binary"}>
-                    {t("decision.binary")}
-                </LinkButton>
-                <LinkButton active={false} arrow={true} link={"/poll/tinder"}>
-                    {t("decision.tinder")}
-                </LinkButton>
-                <LinkButton active={false} arrow={true}>
-                    {t("decision.date")}
-                </LinkButton>
-                <LinkButton active={false} arrow={false} link={"/poll/numerical"}>
-                    {t("decision.numerical")}
-                </LinkButton>
-            </ButtonWrapper>
-        </CreateDecisionWrapper>
+            </ColumnFullWidth>
+            <ColumnFullWidth>
+                <Eyebrow>{t("decision.type")}</Eyebrow>
+            </ColumnFullWidth>
+            <ColumnFullWidth>
+                <Card title={t("create.question.title")}>
+                    <Input label={t("create.question.title")} update={(value: string) => setQuestion(value)} />
+                </Card>
+            </ColumnFullWidth>
+            <ColumnFullWidth>
+                <Card title={t("create.type.title")}>
+                    <TypeSwitch update={(value) => setType(value)} />
+                </Card>
+            </ColumnFullWidth>
+            <ColumnFullWidth>
+                <Card title={t("create.options.title")}>
+                    <Option typeDecision={type} update={(values: Array<any>) => setOptions(values)} />
+                </Card>
+            </ColumnFullWidth>
+            <ColumnFullWidth>
+                <LinkButton active={true}>{t("decision.start")}</LinkButton>
+            </ColumnFullWidth>
+        </>
     );
 };
 

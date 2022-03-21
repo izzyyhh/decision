@@ -1,19 +1,39 @@
-import IOption from "@app/types/IOption";
-import { Input } from "@material-ui/core";
-import React, { FunctionComponent, useState } from "react";
+import { Option as OptionInterface, Type } from "@pages/CreateDecision/CreateDecision";
+import React, { FunctionComponent, useEffect, useState } from "react";
 
-interface IProps {
-    value: string;
-    options: Array<IOption>;
+import Binare from "./Binare/Binare";
+
+interface Props {
+    typeDecision: Type;
+    update: (values: Array<OptionInterface>) => void;
 }
 
-const Option: FunctionComponent<IProps> = ({ value }) => {
-    const [option, setOption] = useState(value);
+const Options: any = {
+    binare: Binare,
+};
+
+const Option: FunctionComponent<Props> = ({ typeDecision, update }) => {
+    const [options, setOptions] = useState<Array<OptionInterface>>([]);
+
+    useEffect(() => {
+        update(options);
+    }, [options]);
+
+    if (typeof Options[typeDecision] !== "undefined") {
+        const Component = Options[typeDecision];
+        return (
+            <>
+                <Component update={(values: Array<any>) => setOptions(values)} />
+            </>
+        );
+    }
 
     return (
-        <>
-            <Input name="option" type="text" value={option} onChange={(e) => setOption(e.target.value)} />
-        </>
+        <div>
+            <p>
+                The component <strong>{typeDecision}</strong> has not been created yet.
+            </p>
+        </div>
     );
 };
 

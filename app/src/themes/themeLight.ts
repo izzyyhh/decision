@@ -59,7 +59,7 @@ export default createTheme({
         },
         secondary: {
             main: colors.secondary,
-            light: colors.secondaryLight,
+            light: "#929293",
             dark: colors.secondaryDark,
             contrastText: "#ffffff",
         },
