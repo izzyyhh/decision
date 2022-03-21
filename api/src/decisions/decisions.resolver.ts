@@ -5,7 +5,6 @@ import { Args, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { AuthGuard } from "@src/common/guards/auth.guard";
 import { ForbiddenError } from "apollo-server-core";
 
-import { User } from "../users/entities/user.entity";
 import { DecisionsService } from "./decisions.service";
 import { GetDecisionForUserAndPollDto } from "./dto/decision.for.user.and.poll.get";
 import { GetDecisionDto } from "./dto/decision.get";
@@ -18,7 +17,6 @@ export class DecisionsResolver {
     constructor(
         private readonly optionsService: DecisionsService,
         @InjectRepository(Decision) private readonly repository: EntityRepository<Decision>,
-        @InjectRepository(User) private readonly userRepository: EntityRepository<User>,
     ) {}
 
     @Query(() => [Decision])
