@@ -3,8 +3,11 @@ import { EntityRepository } from "@mikro-orm/postgresql";
 import { UseGuards } from "@nestjs/common";
 import { Args, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { AuthGuard } from "@src/common/guards/auth.guard";
+import { ForbiddenError } from "apollo-server-core";
 
+import { User } from "../users/entities/user.entity";
 import { DecisionsService } from "./decisions.service";
+import { GetDecisionForUserAndPollDto } from "./dto/decision.for.user.and.poll.get";
 import { GetDecisionDto } from "./dto/decision.get";
 import { DecisionInput } from "./dto/decision.input";
 import { GetDecisionForPollDto } from "./dto/decisions.for.poll.get";
@@ -15,6 +18,7 @@ export class DecisionsResolver {
     constructor(
         private readonly optionsService: DecisionsService,
         @InjectRepository(Decision) private readonly repository: EntityRepository<Decision>,
+        @InjectRepository(User) private readonly userRepository: EntityRepository<User>,
     ) {}
 
     @Query(() => [Decision])
@@ -25,6 +29,10 @@ export class DecisionsResolver {
     @UseGuards(AuthGuard)
     @Mutation(() => Decision)
     async addDecision(@Args("data", { type: () => DecisionInput }) data: DecisionInput): Promise<Decision | null> {
+        const currentDecision = await this.repository.findOne({ poll: data.poll, user: data.user }, { populate: true });
+        if (currentDecision) {
+            throw new ForbiddenError("You have already taken a decision");
+        }
         const entity = this.repository.create(data);
         await this.repository.persistAndFlush(entity);
         const decision = await this.repository.findOneOrFail(entity.id, { populate: true });
@@ -42,5 +50,16 @@ export class DecisionsResolver {
     @Query(() => [Decision])
     async getDecisionsForPoll(@Args("data", { type: () => GetDecisionForPollDto }) data: GetDecisionForPollDto): Promise<Decision[] | null> {
         return await this.repository.find({ poll: data.pollId }, { populate: true });
+    }
+
+    @UseGuards(AuthGuard)
+    @Query(() => Boolean)
+    async canDecide(@Args("data", { type: () => GetDecisionForUserAndPollDto }) data: GetDecisionForUserAndPollDto): Promise<boolean> {
+        const desicion = await this.repository.findOne({ user: data.user, poll: data.poll }, { populate: true });
+        if (desicion) {
+            return false;
+        } else {
+            return true;
+        }
     }
 }
