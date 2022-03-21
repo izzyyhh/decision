@@ -6,7 +6,7 @@ import Input from "@components/Input/Input";
 import LinkButton from "@components/LinkButton/LinkButton";
 import Option from "@components/Option/Option";
 import TypeSwitch from "@components/TypeSwitch/TypeSwitch";
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 export enum Type {
@@ -17,6 +17,7 @@ export enum Type {
 
 export interface Option {
     value: string;
+    image?: File;
     key: number;
 }
 
@@ -25,6 +26,10 @@ const CreateDecision: FunctionComponent = () => {
     const [options, setOptions] = useState<Array<Option>>([]);
     const [type, setType] = useState<Type>(Type.binare);
     const { t } = useTranslation();
+
+    useEffect(() => {
+        setOptions([]);
+    }, [type]);
 
     console.log(question);
     console.log(type);

@@ -7,10 +7,10 @@
         "defaultInput": "Name"
     },
     "decision": {
-        "headline": "Entscheidung erstellen",
-        "binary": "Binär",
+        "headline": "Create your Decision",
+        "binary": "Binary",
         "tinder": "Tinder",
-        "date": "Datum",
+        "date": "Date",
         "numerical": "Numerisch Skalieren",
         "type": "Select Type",
         "start": "Start decision",
@@ -36,6 +36,18 @@
             "predefined": "Predefined Decisions",
             "join": "Join Decision",
             "about": "About"
+        }
+    },
+    "create": {
+        "question": {
+            "title": "Question",
+            "label": "Type your question"
+        },
+        "type": {
+            "title": "Select Type"
+        },
+        "options": {
+            "title": "Add your Options"
         }
     }
 }
