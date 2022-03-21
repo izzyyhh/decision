@@ -1,4 +1,3 @@
-import GlobalStyles from "@components/GlobalStyles/GlobalStyles";
 import ThemeProvider from "@components/ThemeProvider/ThemeProvider";
 import { UserProvider } from "@context/user/UserProvider";
 import React, { Component, Suspense } from "react";
@@ -6,6 +5,7 @@ import * as ReactDOM from "react-dom";
 import { I18nextProvider } from "react-i18next";
 import Webfontloader from "webfontloader";
 
+import GlobalStyle, { Container } from "./common/GlobalStyles";
 import ApolloProvider from "./context/apollo/ApolloProvider";
 import i18n from "./i18n";
 import Router from "./Router";
@@ -27,11 +27,12 @@ class App extends Component {
                     <UserProvider>
                         <ThemeProvider>
                             <I18nextProvider i18n={i18n}>
-                                <GlobalStyles>
-                                    <Suspense fallback="loading">
+                                <GlobalStyle />
+                                <Suspense fallback="loading">
+                                    <Container>
                                         <Router />
-                                    </Suspense>
-                                </GlobalStyles>
+                                    </Container>
+                                </Suspense>
                             </I18nextProvider>
                         </ThemeProvider>
                     </UserProvider>

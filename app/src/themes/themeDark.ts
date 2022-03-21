@@ -66,7 +66,7 @@ export default createMuiTheme({
         neutral: {
             main: "#393939",
             light: "#202020",
-            dark: "#262626",
+            dark: "#191A1C",
         },
         error: {
             dark: "#801B0E",

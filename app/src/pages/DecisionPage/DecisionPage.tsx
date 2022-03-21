@@ -67,10 +67,10 @@ const DecisionPage: FunctionComponent = () => {
                 </RadioGroup>
             </DecideWrapper>
             <ButtonWrapper>
-                <LinkButton onClick={sendDecision} arrow={false} active={true} icon={"vote"} title={""}>
+                <LinkButton onClick={sendDecision} arrow={false} active={true} title={""}>
                     {t("decision.vote")}
                 </LinkButton>
-                <LinkButton onClick={copyToClipBoard} arrow={false} active={true} icon={"share"} title={""}>
+                <LinkButton onClick={copyToClipBoard} arrow={false} active={true} title={""}>
                     {t("decision.copyLink")}
                 </LinkButton>
                 {showNotification && (

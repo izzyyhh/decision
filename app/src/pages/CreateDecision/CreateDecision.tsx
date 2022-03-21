@@ -18,16 +18,16 @@ const CreateDecision: FunctionComponent = () => {
                 <BreadCrumb>{t("decision.type")}</BreadCrumb>
             </BreadCrumbWrapper>
             <ButtonWrapper>
-                <LinkButton active={true} arrow={true} link={"/poll/binary"} icon={"binar"}>
+                <LinkButton active={true} arrow={true} link={"/poll/binary"}>
                     {t("decision.binary")}
                 </LinkButton>
-                <LinkButton active={false} arrow={true} link={"/poll/tinder"} icon={"tinder"}>
+                <LinkButton active={false} arrow={true} link={"/poll/tinder"}>
                     {t("decision.tinder")}
                 </LinkButton>
-                <LinkButton active={false} arrow={true} icon={"calender"}>
+                <LinkButton active={false} arrow={true}>
                     {t("decision.date")}
                 </LinkButton>
-                <LinkButton active={false} arrow={false} link={"/poll/numerical"} icon={"scale"}>
+                <LinkButton active={false} arrow={false} link={"/poll/numerical"}>
                     {t("decision.numerical")}
                 </LinkButton>
             </ButtonWrapper>

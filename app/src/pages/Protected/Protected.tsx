@@ -6,7 +6,7 @@ const Protected: FunctionComponent = () => {
         <>
             <h1>You can only see this page if you are logged In</h1>
             <button>Logout</button>
-            <LinkButton arrow={true} active={true} link="/decision" primary={true} icon="add">
+            <LinkButton arrow={true} active={true} link="/decision" primary={true}>
                 Decision
             </LinkButton>
         </>
