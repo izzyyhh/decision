@@ -9,6 +9,7 @@ import admin from "firebase-admin";
 import { ServiceAccount } from "firebase-admin/app";
 
 import serviceAccount from "../firebase-config";
+import { ActivityModule } from "./activity/activity.module";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { DecisionsModule } from "./decisions/decisions.module";
@@ -46,6 +47,7 @@ export const firebaseApp = admin.initializeApp({
         ThumbnailsModule,
         OptionsModule,
         DecisionsModule,
+        ActivityModule,
     ],
     controllers: [AppController],
     providers: [AppService],
