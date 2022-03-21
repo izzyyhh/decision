@@ -53,8 +53,8 @@ export class DecisionsResolver {
     @UseGuards(AuthGuard)
     @Query(() => Boolean)
     async canDecide(@Args("data", { type: () => GetDecisionForUserAndPollDto }) data: GetDecisionForUserAndPollDto): Promise<boolean> {
-        const desicion = await this.repository.findOne({ user: data.user, poll: data.poll }, { populate: true });
-        if (desicion) {
+        const decision = await this.repository.findOne({ user: data.user, poll: data.poll }, { populate: true });
+        if (decision) {
             return false;
         } else {
             return true;
