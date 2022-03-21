@@ -1,5 +1,6 @@
 import { ColumnFullWidth } from "@app/common/Column.sc";
 import { Eyebrow } from "@app/common/Eyebrow.sc";
+import BackBtn from "@components/BackBtn/BackBtn";
 import Card from "@components/Card/Card";
 import Headline from "@components/Headline/Headline";
 import Input from "@components/Input/Input";
@@ -37,6 +38,7 @@ const CreateDecision: FunctionComponent = () => {
 
     return (
         <>
+            <BackBtn />
             <ColumnFullWidth>
                 <Headline type="h2">{t("decision.headline")}</Headline>
             </ColumnFullWidth>
