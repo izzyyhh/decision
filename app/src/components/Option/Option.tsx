@@ -10,8 +10,8 @@ interface Props {
 }
 
 const Options: any = {
-    binare: Binare,
-    tinder: Tinder,
+    BINARY: Binare,
+    TINDER: Tinder,
 };
 
 const Option: FunctionComponent<Props> = ({ typeDecision, update }) => {
