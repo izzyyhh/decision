@@ -2,6 +2,7 @@ import { Option as OptionInterface, Type } from "@pages/CreateDecision/CreateDec
 import React, { FunctionComponent, useEffect, useState } from "react";
 
 import Binare from "./Binare/Binare";
+import Tinder from "./Tinder/Tinder";
 
 interface Props {
     typeDecision: Type;
@@ -10,6 +11,7 @@ interface Props {
 
 const Options: any = {
     binare: Binare,
+    tinder: Tinder,
 };
 
 const Option: FunctionComponent<Props> = ({ typeDecision, update }) => {

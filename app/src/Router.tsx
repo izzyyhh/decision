@@ -5,7 +5,6 @@ import Auth from "@pages/Auth/Auth";
 import CreateDecision from "@pages/CreateDecision/CreateDecision";
 import DecisionPage from "@pages/DecisionPage/DecisionPage";
 import Join from "@pages/Join/Join";
-import PollWithType from "@pages/PollWithType/PollWithType";
 import Protected from "@pages/Protected/Protected";
 import Result from "@pages/Result/Result";
 import Welcome from "@pages/Welcome/Welcome";
@@ -16,7 +15,6 @@ import { BrowserRouter, Route } from "react-router-dom";
 export enum AppRoutes {
     Root = "/",
     Poll = "/poll",
-    PollByType = "/poll/:type",
     Auth = "/auth",
     JoinByPoll = "/join/:pollId",
     ResultByPoll = "/result/:pollId",
@@ -29,7 +27,6 @@ const Router = () => {
         <>
             <BrowserRouter>
                 <Routes>
-                    <Route path={AppRoutes.PollByType} element={<PollWithType />} />
                     <Route path={AppRoutes.Poll} element={<CreateDecision />} />
                     <Route path={AppRoutes.Auth} element={<Auth />} />
                     <Route path={AppRoutes.JoinByPoll} element={<RedirectRoute />}>

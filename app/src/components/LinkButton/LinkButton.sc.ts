@@ -4,7 +4,6 @@ import styled, { css } from "styled-components";
 
 export const Link = styled(RouterLink)`
     text-decoration: none;
-    font-family: Roboto;
 `;
 
 interface ILinkButtonContainer {
