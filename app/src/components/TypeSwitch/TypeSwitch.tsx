@@ -9,7 +9,7 @@ interface Props {
 }
 
 const TypeSwitch: FunctionComponent<Props> = ({ update }) => {
-    const [option, setOption] = useState<Type>(Type.binare);
+    const [option, setOption] = useState<Type>(Type.BINARY);
     const { t } = useTranslation();
 
     useEffect(() => {
@@ -18,13 +18,13 @@ const TypeSwitch: FunctionComponent<Props> = ({ update }) => {
 
     return (
         <Wrapper>
-            <Item active={option === Type.binare} onClick={() => setOption(Type.binare)}>
+            <Item active={option === Type.BINARY} onClick={() => setOption(Type.BINARY)}>
                 {t("decision.binary")}
             </Item>
-            <Item active={option === Type.tinder} onClick={() => setOption(Type.tinder)}>
+            <Item active={option === Type.TINDER} onClick={() => setOption(Type.TINDER)}>
                 {t("decision.tinder")}
             </Item>
-            <Item active={option === Type.date} onClick={() => setOption(Type.date)}>
+            <Item active={option === Type.DATE} onClick={() => setOption(Type.DATE)}>
                 {t("decision.date")}
             </Item>
         </Wrapper>
