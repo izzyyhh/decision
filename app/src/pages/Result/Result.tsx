@@ -1,14 +1,26 @@
-import { useQuery } from "@apollo/client";
+import { useLazyQuery, useQuery } from "@apollo/client";
 import { GQLQuery } from "@app/graphql.generated";
+import { AppRoutes } from "@app/Router";
 import Headline from "@components/Headline/Headline";
-import { PageContainer } from "@theme/common.sc";
-import React, { FunctionComponent } from "react";
+import LinkButton from "@components/LinkButton/LinkButton";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
 
 import { DecisionsPollQuery, OptionsForPollQuery, PollQuery } from "./Result.gql";
-import { OptionItem, OptionList, Proposal, Title, VoteContainer, Winner } from "./Result.sc";
+import {
+    Box,
+    BoxHeader,
+    ColumnFullWidth,
+    OptionContainer,
+    StatBar,
+    OptionTitle,
+    StatBarFiller,
+    OptionPercentage,
+    ButtonContainer,
+} from "./Result.sc";
 
+// refactor me
 const Result: FunctionComponent = () => {
     const { t } = useTranslation();
     const { pollId } = useParams();
@@ -22,8 +34,14 @@ const Result: FunctionComponent = () => {
         return agg;
     }, {});
 
+    const [getDecisions, { data }] = useLazyQuery(DecisionsPollQuery, { variables: { data: { pollId } }, pollInterval: 500 });
+
+    const [resultObject, setResultObject] = useState(c);
+
     let max = -1;
     let maxTitle = "";
+
+    let [decisionAmount, setAmount] = useState(0);
 
     Object.keys(c).forEach((k) => {
         if (max < c[k]) {
@@ -32,30 +50,58 @@ const Result: FunctionComponent = () => {
         }
     });
 
+    useEffect(() => {
+        getDecisions();
+    }, []);
+
+    useEffect(() => {
+        if (data) {
+            setAmount(data.getDecisionsForPoll.length);
+            const results = data.getDecisionsForPoll.reduce((agg: any, curr: any) => {
+                agg[curr.option.title] = agg[curr.option.title] ? agg[curr.option.title] + 1 : 1;
+                return agg;
+            }, {});
+            setResultObject(results);
+        }
+    }, [data]);
+
     return (
-        <PageContainer>
-            <Headline type="h2">{t("result.headline")}</Headline>
-            {poll.data && <Title>{poll.data.getPoll.title}</Title>}
-            {options.data && (
-                <OptionList>
-                    {options.data.getOptionsForPoll.map((option) => (
-                        <OptionItem key={option.id}>
-                            <div>{`${option.title} (${c[option.title] ? c[option.title] : 0})`}</div>
-                        </OptionItem>
-                    ))}
-                </OptionList>
-            )}
-            {max > -1 && (
-                <VoteContainer>
-                    <Proposal>
-                        <h3>{t("result.proposal")}</h3>
-                    </Proposal>
-                    <Winner>
-                        <h3>{maxTitle}</h3>
-                    </Winner>
-                </VoteContainer>
-            )}
-        </PageContainer>
+        <>
+            <ColumnFullWidth>
+                <Headline type="h2">{poll.data?.getPoll.title}</Headline>
+                <Box>
+                    <BoxHeader>Results</BoxHeader>
+                    {options.data && (
+                        <>
+                            {options.data.getOptionsForPoll.map((option) => {
+                                const percentage = isNaN((resultObject[option.title] * 100) / decisionAmount)
+                                    ? 0
+                                    : (resultObject[option.title] * 100) / decisionAmount;
+
+                                return (
+                                    <OptionContainer>
+                                        <OptionTitle>{option.title}</OptionTitle>
+                                        <StatBar>
+                                            <StatBarFiller id={option.title} style={{ width: `${percentage}%` }}>
+                                                <OptionPercentage>{Math.round(percentage)}%</OptionPercentage>
+                                            </StatBarFiller>
+                                        </StatBar>
+                                    </OptionContainer>
+                                );
+                            })}
+                        </>
+                    )}
+                </Box>
+                <ButtonContainer>
+                    <LinkButton active={true} link={AppRoutes.Poll}>
+                        {t("result.vote")}
+                    </LinkButton>
+                    <LinkButton active={true} link={AppRoutes.Poll}>
+                        {t("result.share")}
+                    </LinkButton>
+                </ButtonContainer>
+            </ColumnFullWidth>
+        </>
     );
 };
 

@@ -14,7 +14,7 @@ class App extends Component {
     public static render(baseEl: Element) {
         Webfontloader.load({
             google: {
-                families: ["Roboto:400,500,700", "Asap:400,500,700", "Work Sans:500"],
+                families: ["Roboto:100,400,500,700", "Asap:400,500,700", "Work Sans:500", "Open Sans:300,400,500,600,700"],
             },
         });
         ReactDOM.render(<App />, baseEl);
