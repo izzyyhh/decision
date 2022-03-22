@@ -5,22 +5,28 @@ import { ConfigModule } from "@src/config/config.module";
 import { configNS } from "@src/config/config.namespace";
 import { DbModule } from "@src/db/db.module";
 import { ProductsModule } from "@src/products/products.module";
+import { initializeApp as storageApp } from "firebase/app";
+import { getStorage } from "firebase/storage";
 import admin from "firebase-admin";
 import { ServiceAccount } from "firebase-admin/app";
 
 import serviceAccount from "../firebase-config";
+import storageConf from "../firebase-storageconf";
 import { ActivityModule } from "./activity/activity.module";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { DecisionsModule } from "./decisions/decisions.module";
+import { OptionsController } from "./options/options.controller";
 import { OptionsModule } from "./options/options.module";
 import { PollsModule } from "./polls/polls.module";
 import { ThumbnailsModule } from "./thumbnails/thumbnails.module";
 import { UsersModule } from "./users/users.module";
-
 export const firebaseApp = admin.initializeApp({
     credential: admin.credential.cert(serviceAccount as ServiceAccount),
 });
+
+export const firebaseStorage = getStorage(storageApp(storageConf));
+
 @Module({
     imports: [
         ConfigModule,
@@ -49,7 +55,7 @@ export const firebaseApp = admin.initializeApp({
         DecisionsModule,
         ActivityModule,
     ],
-    controllers: [AppController],
+    controllers: [AppController, OptionsController],
     providers: [AppService],
 })
 export class AppModule {}

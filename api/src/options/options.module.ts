@@ -9,6 +9,6 @@ import { OptionsService } from "./options.service";
 @Module({
     imports: [MikroOrmModule.forFeature([Option, User])],
     providers: [OptionsService, OptionsResolver],
-    exports: [OptionsService],
+    exports: [OptionsService, MikroOrmModule.forFeature([Option, User])],
 })
 export class OptionsModule {}

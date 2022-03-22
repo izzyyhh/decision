@@ -12,6 +12,9 @@ export class AuthGuard implements CanActivate {
     constructor(@InjectRepository(User) private readonly usersRepository: EntityRepository<User>) {}
 
     canActivate(context: ExecutionContext): boolean | Promise<boolean> | Observable<boolean> {
+        if (process.env.NODE_ENV === "development") {
+            return true;
+        }
         const ctx = GqlExecutionContext.create(context);
         const req: Request = ctx.getContext().req;
         return this.validateRequest(req);

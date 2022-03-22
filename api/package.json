@@ -29,6 +29,7 @@
         "fixtures": "npm run console fixtures --"
     },
     "dependencies": {
+        "@firebase/storage": "^0.9.3",
         "@mikro-orm/cli": "^4.5.10",
         "@mikro-orm/core": "^4.5.10",
         "@mikro-orm/nestjs": "^4.3.1",
@@ -52,6 +53,7 @@
         "dotenv-cli": "^4.1.1",
         "elastic-apm-node": "^3.27.0",
         "faker": "^5.4.0",
+        "firebase": "^9.6.9",
         "firebase-admin": "^10.0.2",
         "graphql": "^15.5.0",
         "helmet": "^5.0.2",
@@ -81,6 +83,7 @@
         "@types/express": "^4.17.13",
         "@types/faker": "^5.1.6",
         "@types/minio": "^7.0.11",
+        "@types/multer": "^1.4.7",
         "@types/node": "^17.0.12",
         "@types/node-fetch": "^3.0.2",
         "@types/passport-http-bearer": "^1.0.37",
