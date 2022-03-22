@@ -19,6 +19,9 @@ export class OptionsService {
                         description: {
                             $ilike: `%${query}%`,
                         },
+                        id: {
+                            $ilike: `%${query}%`,
+                        },
                     },
                 ],
             };
