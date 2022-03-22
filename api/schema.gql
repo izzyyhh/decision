@@ -79,6 +79,7 @@ type Query {
   getOptionsForPoll(data: GetOptionsForPollDto!): [Option!]!
   getDecision(data: GetDecisionDto!): Decision!
   getDecisionsForPoll(data: GetDecisionForPollDto!): [Decision!]!
+  canDecide(data: GetDecisionForUserAndPollDto!): Boolean!
   getActivity(data: ActivityInput!): [Activity!]!
 }
 
@@ -101,6 +102,11 @@ input GetDecisionDto {
 
 input GetDecisionForPollDto {
   pollId: String!
+}
+
+input GetDecisionForUserAndPollDto {
+  user: String!
+  poll: String!
 }
 
 input ActivityInput {
