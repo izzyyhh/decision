@@ -14,6 +14,12 @@ export class Genre extends BaseEntity<Genre, "id"> {
     @Property({
         columnType: "text",
     })
+    apiId: string;
+
+    @Field()
+    @Property({
+        columnType: "text",
+    })
     title: string;
 
     @Field(() => [Movie])

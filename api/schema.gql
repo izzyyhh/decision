@@ -65,6 +65,7 @@ enum ActivityType {
   DECISION
 type Genre {
   id: ID!
+  apiId: String!
   title: String!
   movies: [Movie!]!
 }
@@ -105,6 +106,7 @@ type Query {
   getActivity(data: ActivityInput!): [Activity!]!
   getRestaurantsPreset(data: LocationDto!): [Option!]!
   moviesAll: [Movie!]!
+  addGenres: Boolean!
   getMoviesByGenre(data: MoviesGetByGenre!): [Movie!]!
   addMovies: Boolean!
 }
