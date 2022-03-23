@@ -2,6 +2,7 @@ import { InjectRepository } from "@mikro-orm/nestjs";
 import { EntityRepository } from "@mikro-orm/postgresql";
 import { Inject } from "@nestjs/common";
 import { Args, Query, Resolver } from "@nestjs/graphql";
+import { Genre } from "@src/genres/entities/genre.entity";
 import { GenresResolver } from "@src/genres/genres.resolver";
 import * as https from "https";
 
@@ -51,7 +52,11 @@ export class MoviesResolver {
                     try {
                         for (const movie of d.results) {
                             const genres = movie.genre_ids;
-                            const genreArray = await this.genreResolver.addGenres(genres);
+                            const genreArray: Genre[] = [];
+                            await genres.forEach(async (genre: string) => {
+                                const g = await this.genreResolver.getGenre(genre.toString());
+                                genreArray.push(g);
+                            });
                             const movieEntity = this.repository.create({
                                 title: movie.title,
                                 posterPath: movie.poster_path,

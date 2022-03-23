@@ -62,6 +62,7 @@ type Activity {
 
 type Genre {
   id: ID!
+  apiId: String!
   title: String!
   movies: [Movie!]!
 }
@@ -101,6 +102,7 @@ type Query {
   canDecide(data: GetDecisionForUserAndPollDto!): Boolean!
   getActivity(data: ActivityInput!): [Activity!]!
   moviesAll: [Movie!]!
+  addGenres: Boolean!
   getMoviesByGenre(data: MoviesGetByGenre!): [Movie!]!
   addMovies: Boolean!
 }
