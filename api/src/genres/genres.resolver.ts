@@ -18,10 +18,9 @@ export class GenresResolver {
         return this.repository.findAll();
     }
 
-    async addGenres(genres: any): Promise<Genre[]> {
-        const entities = genres.map((g: any) => this.repository.create({ title: g }));
+    async addGenres(genres: string[]): Promise<Genre[]> {
+        const entities = genres.map((g: string) => this.repository.create({ title: g }));
         await this.repository.persistAndFlush(entities);
-
         return entities;
     }
 }
