@@ -56,8 +56,13 @@ type Decision {
 type Activity {
   name: String!
   date: Float!
-  type: Float!
+  type: ActivityType!
   id: String!
+}
+
+enum ActivityType {
+  POLL
+  DECISION
 }
 
 type Thumbnail {
@@ -81,6 +86,7 @@ type Query {
   getDecisionsForPoll(data: GetDecisionForPollDto!): [Decision!]!
   canDecide(data: GetDecisionForUserAndPollDto!): Boolean!
   getActivity(data: ActivityInput!): [Activity!]!
+  getRestaurantsPreset: [Option!]!
 }
 
 enum SortDirection {

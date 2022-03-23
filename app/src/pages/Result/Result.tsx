@@ -1,6 +1,7 @@
 import { useLazyQuery, useQuery } from "@apollo/client";
 import { GQLQuery } from "@app/graphql.generated";
 import { AppRoutes } from "@app/Router";
+import Card from "@components/Card/Card";
 import Headline from "@components/Headline/Headline";
 import LinkButton from "@components/LinkButton/LinkButton";
 import React, { FunctionComponent, useEffect, useState } from "react";
@@ -9,15 +10,13 @@ import { useParams } from "react-router";
 
 import { DecisionsPollQuery, OptionsForPollQuery, PollQuery } from "./Result.gql";
 import {
-    Box,
-    BoxHeader,
+    ButtonContainer,
     ColumnFullWidth,
     OptionContainer,
-    StatBar,
-    OptionTitle,
-    StatBarFiller,
     OptionPercentage,
-    ButtonContainer,
+    OptionTitle,
+    StatBar,
+    StatBarFiller,
 } from "./Result.sc";
 
 // refactor me
@@ -29,24 +28,22 @@ const Result: FunctionComponent = () => {
     const decisions = useQuery<GQLQuery>(DecisionsPollQuery, { variables: { data: { pollId } } });
 
     const decisionsArr = decisions.data ? decisions.data?.getDecisionsForPoll : [];
-    const c = decisionsArr.reduce((agg: any, curr: any) => {
+    const resultData = decisionsArr.reduce((agg: any, curr: any) => {
         agg[curr.option.title] = agg[curr.option.title] ? agg[curr.option.title] + 1 : 1;
         return agg;
     }, {});
 
     const [getDecisions, { data }] = useLazyQuery(DecisionsPollQuery, { variables: { data: { pollId } }, pollInterval: 500 });
 
-    const [resultObject, setResultObject] = useState(c);
+    const [resultObject, setResultObject] = useState(resultData);
 
     let max = -1;
-    let maxTitle = "";
 
-    let [decisionAmount, setAmount] = useState(0);
+    const [decisionAmount, setAmount] = useState(0);
 
-    Object.keys(c).forEach((k) => {
-        if (max < c[k]) {
-            max = c[k];
-            maxTitle = k;
+    Object.keys(resultData).forEach((key) => {
+        if (max < resultData[key]) {
+            max = resultData[key];
         }
     });
 
@@ -69,8 +66,7 @@ const Result: FunctionComponent = () => {
         <>
             <ColumnFullWidth>
                 <Headline type="h2">{poll.data?.getPoll.title}</Headline>
-                <Box>
-                    <BoxHeader>Results</BoxHeader>
+                <Card title="Result">
                     {options.data && (
                         <>
                             {options.data.getOptionsForPoll.map((option) => {
@@ -91,7 +87,7 @@ const Result: FunctionComponent = () => {
                             })}
                         </>
                     )}
-                </Box>
+                </Card>
                 <ButtonContainer>
                     <LinkButton active={true} link={AppRoutes.Poll}>
                         {t("result.vote")}
