@@ -57,25 +57,11 @@ export class TasksService {
                 return;
             }
             data = JSON.parse(data);
+
             data.results.forEach(async (movie: any) => {
                 //console.log(movie.original_title);
                 const genres = movie.genre_ids;
-                const genreArray: any = [];
-                genres.forEach((g: any) => {
-                    console.log(g);
-                    //const genre = this.genreRepository.create({ title: g, movies: null });
-                    const genre = new Genre();
-                    genre.title = g;
-
-                    try {
-                        console.log(genre);
-                        //this.genreRepository.persist(genre);
-                        //await this.genreRepository.flush();
-                    } catch (e) {
-                        console.log(e);
-                    }
-                    genreArray.push(genre);
-                });
+                const genreArray: any = this.addGenres(genres);
                 const entity = this.repository.create({
                     title: movie.original_title,
                     posterPath: movie.poster_path,
@@ -95,5 +81,11 @@ export class TasksService {
                 }
             });
         });
+    }
+
+    async addGenres(genres: any): Promise<Genre[]> {
+        const entities = genres.map((g: any) => this.genreRepository.create({ title: g }));
+        await this.repository.persistAndFlush(entities);
+        return entities;
     }
 }
