@@ -6,19 +6,19 @@ import { Genre } from "@src/genres/entities/genre.entity";
 import { Movie } from "@src/presets/movies/entities/movies.entity";
 
 @Injectable()
-export class TasksService {
+export class TasksConsole {
     constructor(
-        @InjectRepository(Movie) private readonly repository: EntityRepository<Movie>,
+        @InjectRepository(Movie) private readonly movieRepository: EntityRepository<Movie>,
         @InjectRepository(Genre) private readonly genreRepository: EntityRepository<Genre>,
     ) {}
-    private readonly logger = new Logger(TasksService.name);
+    private readonly logger = new Logger(TasksConsole.name);
 
     @Cron("45 * * * * *")
     handleCron() {
         this.logger.debug("Called when the current second is 45");
     }
 
-    @Timeout(1000)
+    @Timeout(1)
     handleTimeout() {
         this.logger.debug("Called once after 5 seconds");
         /*let https;
@@ -51,41 +51,37 @@ export class TasksService {
         // eslint-disable-next-line @typescript-eslint/no-var-requires
         const fs = require("fs");
 
-        fs.readFile(`${process.cwd()}/src/tasks/movies.json`, "utf8", (err: any, data: any) => {
-            if (err) {
-                console.error(err);
-                return;
-            }
-            data = JSON.parse(data);
+        // fs.readFile(`${process.cwd()}/src/tasks/movies.json`, "utf8", (err: any, data: any) => {
+        //     if (err) {
+        //         console.error(err);
+        //         return;
+        //     }
+        //     data = JSON.parse(data);
 
-            data.results.forEach(async (movie: any) => {
-                //console.log(movie.original_title);
-                const genres = movie.genre_ids;
-                const genreArray: any = this.addGenres(genres);
-                const entity = this.repository.create({
-                    title: movie.original_title,
-                    posterPath: movie.poster_path,
-                    backdropPath: movie.backdrop_path,
-                    rating: movie.vote_average,
-                    description: movie.overview,
-                    releaseDate: movie.release_date,
-                    adult: movie.adult,
-                    mediaType: movie.mediaType,
-                    genres: genreArray,
-                });
-                //console.log(entity);
-                try {
-                    await this.repository.persistAndFlush(entity);
-                } catch (e) {
-                    console.log(e);
-                }
-            });
-        });
+        //     data.results.forEach(async (movie: any) => {
+        //         console.log(movie.original_title);
+        //         const genres = movie.genre_ids;
+        //         const genreArray = this.addGenres(genres);
+        //         const movieEntity = this.movieRepository.create({
+        //             title: movie.original_title,
+        //             posterPath: movie.poster_path,
+        //             backdropPath: movie.backdrop_path,
+        //             rating: movie.vote_average,
+        //             description: movie.overview,
+        //             releaseDate: movie.release_date,
+        //             adult: movie.adult,
+        //             mediaType: movie.mediaType,
+        //             genres: genreArray,
+        //         });
+        //         console.log(movieEntity);
+        //         await this.movieRepository.persistAndFlush(movieEntity);
+        //     });
+        // });
     }
 
     async addGenres(genres: any): Promise<Genre[]> {
         const entities = genres.map((g: any) => this.genreRepository.create({ title: g }));
-        await this.repository.persistAndFlush(entities);
+        await this.genreRepository.persistAndFlush(entities);
         return entities;
     }
 }

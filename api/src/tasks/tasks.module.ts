@@ -1,11 +1,12 @@
+import { MikroOrmModule } from "@mikro-orm/nestjs";
 import { Module } from "@nestjs/common";
-import { GenresModule } from "@src/genres/genres.module";
-import { MoviesModule } from "@src/presets/movies/movies.module";
+import { Genre } from "@src/genres/entities/genre.entity";
+import { Movie } from "@src/presets/movies/entities/movies.entity";
 
-import { TasksService } from "./tasks.service";
+import { TasksConsole } from "./tasks.console";
 
 @Module({
-    providers: [TasksService],
-    imports: [MoviesModule, GenresModule],
+    providers: [TasksConsole],
+    imports: [MikroOrmModule.forFeature([Movie, Genre])],
 })
 export class TasksModule {}
