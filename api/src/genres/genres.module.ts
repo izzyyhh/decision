@@ -9,6 +9,6 @@ import { GenresService } from "./genres.service";
 @Module({
     imports: [MikroOrmModule.forFeature([Genre, Movie])],
     providers: [GenresService, GenresResolver],
-    exports: [GenresService],
+    exports: [GenresService, GenresResolver],
 })
 export class GenresModule {}

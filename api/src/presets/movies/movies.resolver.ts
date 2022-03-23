@@ -1,16 +1,76 @@
 import { InjectRepository } from "@mikro-orm/nestjs";
 import { EntityRepository } from "@mikro-orm/postgresql";
-import { Query, Resolver } from "@nestjs/graphql";
+import { Inject } from "@nestjs/common";
+import { Args, Query, Resolver } from "@nestjs/graphql";
+import { GenresResolver } from "@src/genres/genres.resolver";
+import * as https from "https";
 
+import { MoviesGetByGenre } from "./dto/movies.get.by.genre";
 import { Movie } from "./entities/movies.entity";
 import { MoviesService } from "./movies.service";
 
 @Resolver(() => Movie)
 export class MoviesResolver {
-    constructor(private readonly moviesService: MoviesService, @InjectRepository(Movie) private readonly repository: EntityRepository<Movie>) {}
+    constructor(
+        private readonly moviesService: MoviesService,
+        @InjectRepository(Movie) private readonly repository: EntityRepository<Movie>,
+        @Inject(GenresResolver) private readonly genreResolver: any,
+    ) {}
 
     @Query(() => [Movie])
-    async usersAll(): Promise<Movie[]> {
+    async moviesAll(): Promise<Movie[]> {
         return this.repository.findAll();
+    }
+
+    @Query(() => [Movie])
+    async getMoviesByGenre(@Args("data", { type: () => MoviesGetByGenre }) data: MoviesGetByGenre): Promise<Movie[] | null> {
+        const movies = await this.repository.find({ genres: data.genre }, { populate: true });
+        return movies;
+    }
+
+    @Query(() => Boolean)
+    async addMovies(page: number) {
+        //const file = fs.readFileSync(`${process.cwd()}/src/tasks/popular.json`, "utf8");
+        //const data = JSON.parse(file);
+
+        const options = {
+            hostname: "api.themoviedb.org",
+            port: 443,
+            path: `/3/movie/popular?api_key=${process.env.MOVIE_API_KEY}&language=en-US&page=${page}`,
+            method: "GET",
+        };
+
+        const req = https.request(options, (res: any) => {
+            console.log(`statusCode: ${res.statusCode}`);
+
+            res.on("data", async (data: Buffer) => {
+                //process.stdout.write(data);
+                const d = JSON.parse(data.toString());
+                for (const movie of d.results) {
+                    const genres = movie.genre_ids;
+                    const genreArray = await this.genreResolver.addGenres(genres);
+                    const movieEntity = this.repository.create({
+                        title: movie.original_title,
+                        posterPath: movie.poster_path,
+                        backdropPath: movie.backdrop_path,
+                        rating: movie.vote_average,
+                        description: movie.overview,
+                        releaseDate: movie.release_date,
+                        adult: movie.adult,
+                        mediaType: movie.mediaType ?? "",
+                        genres: genreArray,
+                    });
+                    await this.repository.persistAndFlush(movieEntity);
+                }
+            });
+        });
+
+        req.on("error", (error: any) => {
+            console.error(error);
+            return false;
+        });
+
+        req.end();
+        return true;
     }
 }
