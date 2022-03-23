@@ -1,84 +1,73 @@
 import { HttpService } from "@nestjs/axios";
-import { Query, Resolver } from "@nestjs/graphql";
+import { Args, Query, Resolver } from "@nestjs/graphql";
 import { Option } from "@src/options/entities/option.entity";
 
+import { LocationDto } from "./dto/location.dto";
 import { OptionDto } from "./dto/restaurant.get";
+import sample from "./sample.js";
 
 @Resolver(() => Option)
 export class RestaurantsResolver {
-    client: any;
-    constructor(private httpService: HttpService) {
-        // this.client = axios.create({
-        //     baseUrl: "https://api.foursquare.com/v3",
-        //     timeout: 1000,
-        //     headers: {
-        //         // eslint-disable-next-line @typescript-eslint/naming-convention
-        //         Accept: "application/json",
-        //         // eslint-disable-next-line @typescript-eslint/naming-convention
-        //         Authorization: "fsq3BD/nBQxS+cXMcNWyndE2/KmDnjpMkFz6yVTdeotjbVw=",
-        //     },
-        // });
-    }
+    constructor(private httpService: HttpService) {}
     @Query(() => [Option])
-    async getRestaurantsPreset(): Promise<OptionDto[]> {
-        let restaurants: any[] = [];
-        await this.httpService
-            .get("https://api.foursquare.com/v3/places/search", {
-                params: {
-                    query: "restaurant",
-                    ll: "47.8095,13.0550",
-                },
-                headers: {
-                    // eslint-disable-next-line @typescript-eslint/naming-convention
-                    Accept: "application/json",
-                    // eslint-disable-next-line @typescript-eslint/naming-convention
-                    Authorization: "fsq3BD/nBQxS+cXMcNWyndE2/KmDnjpMkFz6yVTdeotjbVw=",
-                },
-            })
-            .subscribe(
-                (value) => {
-                    console.log("halo");
-                    console.log(value.data.results.slice(0, 5));
-                    restaurants = value.data.results.slice(0, 5);
-                },
-                (error) => {
-                    return null;
-                },
-            );
+    async getRestaurantsPreset(@Args("data", { type: () => LocationDto }) location: LocationDto): Promise<OptionDto[]> {
+        console.log(location);
+        return sample;
+        // return new Promise((mainresolve) => {
+        //     this.httpService
+        //         .get("https://api.foursquare.com/v3/places/search", {
+        //             params: {
+        //                 query: "restaurant",
+        //                 ll: "47.8095,13.0550",
+        //             },
+        //             headers: {
+        //                 // eslint-disable-next-line @typescript-eslint/naming-convention
+        //                 Accept: "application/json",
+        //                 // eslint-disable-next-line @typescript-eslint/naming-convention
+        //                 Authorization: "fsq3BD/nBQxS+cXMcNWyndE2/KmDnjpMkFz6yVTdeotjbVw=",
+        //             },
+        //         })
+        //         .subscribe(
+        //             (value) => {
+        //                 console.log("halo");
+        //                 console.log(value.data.results.slice(0, 5));
+        //                 const restaurants = value.data.results.slice(0, 5);
 
-        console.log(restaurants, "restaurants");
-        if (restaurants) {
-            const proms = restaurants.map((restaurant: any) => {
-                return new Promise<OptionDto>(async (resolve, reject) => {
-                    let url = "";
-                    await this.httpService
-                        .get(`https://api.foursquare.com/v3/places/${restaurant.fsq_id}/photos`, {
-                            headers: {
-                                // eslint-disable-next-line @typescript-eslint/naming-convention
-                                Accept: "application/json",
-                                // eslint-disable-next-line @typescript-eslint/naming-convention
-                                Authorization: "fsq3BD/nBQxS+cXMcNWyndE2/KmDnjpMkFz6yVTdeotjbVw=",
-                            },
-                        })
-                        .subscribe(
-                            (value) => {
-                                const imgData = value.data.results[0];
-                                url = `${imgData.prefix}original${imgData.suffix}`;
-                            },
-                            (error) => {
-                                return null;
-                            },
-                        );
+        //                 const proms = restaurants.map((restaurant: any) => {
+        //                     return new Promise<OptionDto>(async (resolve, reject) => {
+        //                         let url = "";
+        //                         await this.httpService
+        //                             .get(`https://api.foursquare.com/v3/places/${restaurant.fsq_id}/photos`, {
+        //                                 headers: {
+        //                                     // eslint-disable-next-line @typescript-eslint/naming-convention
+        //                                     Accept: "application/json",
+        //                                     // eslint-disable-next-line @typescript-eslint/naming-convention
+        //                                     Authorization: "fsq3BD/nBQxS+cXMcNWyndE2/KmDnjpMkFz6yVTdeotjbVw=",
+        //                                 },
+        //                             })
+        //                             .subscribe(
+        //                                 (value) => {
+        //                                     const imgData = value.data[0];
+        //                                     url = `${imgData.prefix}original${imgData.suffix}`;
+        //                                     resolve({ thumbnailUrl: url, title: restaurant.name });
+        //                                 },
+        //                                 (error) => {
+        //                                     return null;
+        //                                 },
+        //                             );
+        //                     });
+        //                 });
 
-                    resolve({ thumbnailUrl: url, title: restaurant.name });
-                });
-            });
+        //                 Promise.all(proms).then((values) => {
+        //                     mainresolve(values);
+        //                 });
+        //             },
+        //             (error) => {
+        //                 return null;
+        //             },
+        //         );
+        // });
 
-            const result = await Promise.all(proms);
-            return result;
-        } else {
-            return [];
-        }
         // sample.map((s: any, index: number): Option => {
         //     let url = "";
         //     if(s.categories[0].icon){
