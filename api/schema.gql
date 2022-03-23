@@ -56,8 +56,13 @@ type Decision {
 type Activity {
   name: String!
   date: Float!
-  type: Float!
+  type: ActivityType!
   id: String!
+}
+
+enum ActivityType {
+  POLL
+  DECISION
 }
 
 type Thumbnail {

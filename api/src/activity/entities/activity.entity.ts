@@ -1,4 +1,10 @@
 import { Field, ObjectType, registerEnumType } from "@nestjs/graphql";
+import { IsEnum } from "class-validator";
+
+export enum ActivityType {
+    POLL,
+    DECISION,
+}
 
 @ObjectType()
 export class Activity {
@@ -8,16 +14,12 @@ export class Activity {
     @Field()
     date: number;
 
-    @Field()
+    @Field((type) => ActivityType)
+    @IsEnum(ActivityType)
     type: ActivityType;
 
     @Field()
     id: string;
-}
-
-export enum ActivityType {
-    POLL,
-    DECISION,
 }
 
 registerEnumType(ActivityType, {
