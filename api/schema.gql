@@ -60,6 +60,25 @@ type Activity {
   id: String!
 }
 
+type Movie {
+  id: ID!
+  title: String!
+  posterPath: String!
+  backdropPath: String!
+  rating: String!
+  description: String!
+  releaseDate: String!
+  adult: Boolean!
+  mediaType: String!
+  genres: [Genre!]!
+}
+
+type Genre {
+  id: ID!
+  title: String!
+  movies: [Movie!]!
+}
+
 type Thumbnail {
   id: ID!
   link: String!
@@ -72,13 +91,14 @@ type Query {
   productsOffsetBased(offset: Int = 0, limit: Int = 20, sortColumnName: String, sortDirection: SortDirection, query: String): [Product!]!
   pollsAll: [Poll!]!
   getPoll(data: GetPollDto!): Poll!
-  usersAll: [User!]!
+  usersAll: [Genre!]!
   checkToken: Boolean!
   thumbnailsAll: [Thumbnail!]!
   optionsAll: [Decision!]!
   getOptionsForPoll(data: GetOptionsForPollDto!): [Option!]!
   getDecision(data: GetDecisionDto!): Decision!
   getDecisionsForPoll(data: GetDecisionForPollDto!): [Decision!]!
+  canDecide(data: GetDecisionForUserAndPollDto!): Boolean!
   getActivity(data: ActivityInput!): [Activity!]!
 }
 
@@ -101,6 +121,11 @@ input GetDecisionDto {
 
 input GetDecisionForPollDto {
   pollId: String!
+}
+
+input GetDecisionForUserAndPollDto {
+  user: String!
+  poll: String!
 }
 
 input ActivityInput {
