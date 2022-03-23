@@ -60,6 +60,12 @@ type Activity {
   id: String!
 }
 
+type Genre {
+  id: ID!
+  title: String!
+  movies: [Movie!]!
+}
+
 type Movie {
   id: ID!
   title: String!
@@ -71,12 +77,6 @@ type Movie {
   adult: Boolean!
   mediaType: String!
   genres: [Genre!]!
-}
-
-type Genre {
-  id: ID!
-  title: String!
-  movies: [Movie!]!
 }
 
 type Thumbnail {
@@ -91,7 +91,7 @@ type Query {
   productsOffsetBased(offset: Int = 0, limit: Int = 20, sortColumnName: String, sortDirection: SortDirection, query: String): [Product!]!
   pollsAll: [Poll!]!
   getPoll(data: GetPollDto!): Poll!
-  usersAll: [Genre!]!
+  usersAll: [User!]!
   checkToken: Boolean!
   thumbnailsAll: [Thumbnail!]!
   optionsAll: [Decision!]!
@@ -100,6 +100,9 @@ type Query {
   getDecisionsForPoll(data: GetDecisionForPollDto!): [Decision!]!
   canDecide(data: GetDecisionForUserAndPollDto!): Boolean!
   getActivity(data: ActivityInput!): [Activity!]!
+  moviesAll: [Movie!]!
+  getMoviesByGenre(data: MoviesGetByGenre!): [Movie!]!
+  addMovies: Boolean!
 }
 
 enum SortDirection {
@@ -130,6 +133,10 @@ input GetDecisionForUserAndPollDto {
 
 input ActivityInput {
   id: String!
+}
+
+input MoviesGetByGenre {
+  genre: String!
 }
 
 type Mutation {

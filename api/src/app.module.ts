@@ -18,6 +18,7 @@ import { GenresModule } from "./genres/genres.module";
 import { OptionsModule } from "./options/options.module";
 import { PollsModule } from "./polls/polls.module";
 import { MoviesModule } from "./presets/movies/movies.module";
+import { TasksModule } from "./tasks/tasks.module";
 import { ThumbnailsModule } from "./thumbnails/thumbnails.module";
 import { UsersModule } from "./users/users.module";
 
@@ -52,7 +53,7 @@ export const firebaseApp = admin.initializeApp({
         DecisionsModule,
         ActivityModule,
         ScheduleModule.forRoot(),
-        // TasksModule,
+        TasksModule,
         MoviesModule,
         GenresModule,
     ],
