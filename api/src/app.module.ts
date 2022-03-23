@@ -23,7 +23,6 @@ import { GenresModule } from "./genres/genres.module";
 import { OptionsModule } from "./options/options.module";
 import { PollsModule } from "./polls/polls.module";
 import { MoviesModule } from "./presets/movies/movies.module";
-import { TasksModule } from "./tasks/tasks.module";
 import { ThumbnailsModule } from "./thumbnails/thumbnails.module";
 import { UsersModule } from "./users/users.module";
 export const firebaseApp = admin.initializeApp({
@@ -61,7 +60,7 @@ export const firebaseStorage = getStorage(storageApp(storageConf));
         ActivityModule,
         RestaurantsModule,
         ScheduleModule.forRoot(),
-        TasksModule,
+        // TasksModule,
         MoviesModule,
         GenresModule,
     ],
