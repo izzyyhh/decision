@@ -14,7 +14,7 @@ export class MoviesResolver {
     constructor(
         private readonly moviesService: MoviesService,
         @InjectRepository(Movie) private readonly repository: EntityRepository<Movie>,
-        @Inject(GenresResolver) private readonly genreResolver: any,
+        @Inject(GenresResolver) private readonly genreResolver: GenresResolver,
     ) {}
 
     @Query(() => [Movie])
@@ -30,9 +30,6 @@ export class MoviesResolver {
 
     @Query(() => Boolean)
     async addMovies(page: number) {
-        //const file = fs.readFileSync(`${process.cwd()}/src/tasks/popular.json`, "utf8");
-        //const data = JSON.parse(file);
-
         const options = {
             hostname: "api.themoviedb.org",
             port: 443,
@@ -40,32 +37,41 @@ export class MoviesResolver {
             method: "GET",
         };
 
-        const req = https.request(options, (res: any) => {
+        const req = https.request(options, async (res) => {
             console.log(`statusCode: ${res.statusCode}`);
 
-            res.on("data", async (data: Buffer) => {
-                //process.stdout.write(data);
-                const d = JSON.parse(data.toString());
-                for (const movie of d.results) {
-                    const genres = movie.genre_ids;
-                    const genreArray = await this.genreResolver.addGenres(genres);
-                    const movieEntity = this.repository.create({
-                        title: movie.original_title,
-                        posterPath: movie.poster_path,
-                        backdropPath: movie.backdrop_path,
-                        rating: movie.vote_average,
-                        description: movie.overview,
-                        releaseDate: movie.release_date,
-                        adult: movie.adult,
-                        mediaType: movie.mediaType ?? "",
-                        genres: genreArray,
-                    });
-                    await this.repository.persistAndFlush(movieEntity);
-                }
-            });
+            const data: Buffer[] = [];
+            await res
+                .on("data", (d: Buffer) => {
+                    data.push(d);
+                })
+                .on("end", async () => {
+                    const buffer = Buffer.concat(data);
+                    const d = JSON.parse(buffer.toString("utf8"));
+                    try {
+                        for (const movie of d.results) {
+                            const genres = movie.genre_ids;
+                            const genreArray = await this.genreResolver.addGenres(genres);
+                            const movieEntity = this.repository.create({
+                                title: movie.title,
+                                posterPath: movie.poster_path,
+                                backdropPath: movie.backdrop_path,
+                                rating: movie.vote_average,
+                                description: movie.overview,
+                                releaseDate: movie.release_date,
+                                adult: movie.adult,
+                                mediaType: movie.mediaType ?? "",
+                                genres: genreArray,
+                            });
+                            await this.repository.persistAndFlush(movieEntity);
+                        }
+                    } catch (e) {
+                        console.log("error");
+                    }
+                });
         });
 
-        req.on("error", (error: any) => {
+        req.on("error", (error: Error) => {
             console.error(error);
             return false;
         });
