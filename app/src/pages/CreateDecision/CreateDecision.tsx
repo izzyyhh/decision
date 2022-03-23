@@ -14,7 +14,11 @@ import { buildUrl } from "@utils/urlHelpers";
 import React, { FunctionComponent, useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
+import config from "@app/config";
 import { AppRoutes } from "@app/Router";
+import { useAuthToken } from "@hooks/useAuthToken";
+import { StringMap } from "i18next";
+import { auth } from "@app/firebase/firebase";
 
 export enum Type {
     BINARY = "BINARY",
@@ -39,10 +43,13 @@ const CreateDecision: FunctionComponent = () => {
     const [addOption] = useMutation(addOptionsMutation);
     const [active, setActive] = useState(true);
     const navigate = useNavigate();
+    const [authToken] = useAuthToken();
 
     useEffect(() => {
         setOptions([]);
     }, [type]);
+
+    console.log(options);
 
     return (
         <>
@@ -69,7 +76,7 @@ const CreateDecision: FunctionComponent = () => {
                 </Card>
             </ColumnFullWidth>
             <ColumnFullWidth>
-                <LinkButton active={active} onClick={() => createPoll(type, options, question, addPoll, addOption, setActive, navigate)}>
+                <LinkButton active={active} onClick={() => createPoll(type, options, question, addPoll, addOption, setActive, navigate, authToken)}>
                     {t("decision.start")}
                 </LinkButton>
             </ColumnFullWidth>
@@ -85,6 +92,7 @@ const createPoll = async (
     addOptionMutation: any,
     setActive: any,
     navigate: any,
+    authToken: string,
 ) => {
     if (type === Type.BINARY) {
         if (question != undefined && question != "" && options.length == 2) {
@@ -104,8 +112,46 @@ const createPoll = async (
             }
         }
     } else if (type === Type.TINDER) {
-        console.log("Ok");
+        if (question != undefined && question != "" && options.length > 1) {
+            console.log(type);
+            const pollData = await addPollMutation();
+            const pollId = pollData.data.addPoll.id;
+            const optionPromises: Promise<any>[] = [];
+            const imagePromises: Promise<any>[] = [];
+
+            console.log(optionPromises);
+            console.log(imagePromises);
+
+            options.forEach(async (o) => {
+                console.log("option");
+                console.log(o);
+                const optionId = await addOptionMutation({ variables: { data: { poll: pollId, title: o.value } } });
+
+                if (optionId.data.addOption.id) {
+                    imagePromises.push(uploadImage(o.image, optionId.data.addOption.id, authToken));
+                }
+            });
+
+            Promise.all(imagePromises).then(() => {
+                setActive(false);
+                navigate(`/decision/${pollId}`);
+            });
+        }
     }
+};
+
+const uploadImage = (file: File, optionId: string, authToken: string) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    formData.append("optionId", optionId);
+
+    return fetch(`${config.REACT_APP_API_URL}/test/test`, {
+        method: "POST",
+        body: formData,
+        headers: {
+            Authorization: `Bearer ${authToken}`,
+        },
+    });
 };
 
 export default CreateDecision;
