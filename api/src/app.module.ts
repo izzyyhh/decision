@@ -19,6 +19,7 @@ import { DecisionsModule } from "./decisions/decisions.module";
 import { OptionsController } from "./options/options.controller";
 import { OptionsModule } from "./options/options.module";
 import { PollsModule } from "./polls/polls.module";
+import { RestaurantsModule } from "./presets/restaurants/restaurants.module";
 import { ThumbnailsModule } from "./thumbnails/thumbnails.module";
 import { UsersModule } from "./users/users.module";
 export const firebaseApp = admin.initializeApp({
@@ -54,6 +55,7 @@ export const firebaseStorage = getStorage(storageApp(storageConf));
         OptionsModule,
         DecisionsModule,
         ActivityModule,
+        RestaurantsModule,
     ],
     controllers: [AppController, OptionsController],
     providers: [AppService],
