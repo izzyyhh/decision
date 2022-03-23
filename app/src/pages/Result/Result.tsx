@@ -1,6 +1,7 @@
 import { useLazyQuery, useQuery } from "@apollo/client";
 import { GQLQuery } from "@app/graphql.generated";
 import { AppRoutes } from "@app/Router";
+import Auth from "@components/Auth/Auth";
 import Card from "@components/Card/Card";
 import Headline from "@components/Headline/Headline";
 import LinkButton from "@components/LinkButton/LinkButton";
@@ -9,15 +10,7 @@ import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
 
 import { DecisionsPollQuery, OptionsForPollQuery, PollQuery } from "./Result.gql";
-import {
-    ButtonContainer,
-    ColumnFullWidth,
-    OptionContainer,
-    OptionPercentage,
-    OptionTitle,
-    StatBar,
-    StatBarFiller,
-} from "./Result.sc";
+import { ButtonContainer, ColumnFullWidth, OptionContainer, OptionPercentage, OptionTitle, StatBar, StatBarFiller } from "./Result.sc";
 
 // refactor me
 const Result: FunctionComponent = () => {
@@ -63,7 +56,7 @@ const Result: FunctionComponent = () => {
     }, [data]);
 
     return (
-        <>
+        <Auth>
             <ColumnFullWidth>
                 <Headline type="h2">{poll.data?.getPoll.title}</Headline>
                 <Card title="Result">
@@ -97,7 +90,7 @@ const Result: FunctionComponent = () => {
                     </LinkButton>
                 </ButtonContainer>
             </ColumnFullWidth>
-        </>
+        </Auth>
     );
 };
 

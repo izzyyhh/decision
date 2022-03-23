@@ -1,5 +1,6 @@
 import { useMutation, useQuery } from "@apollo/client";
 import { GQLOption, GQLQuery } from "@app/graphql.generated";
+import Auth from "@components/Auth/Auth";
 import Headline from "@components/Headline/Headline";
 import LinkButton from "@components/LinkButton/LinkButton";
 import { useUser } from "@context/user/useUser";
@@ -11,7 +12,6 @@ import React, { FunctionComponent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router";
 
-import { AuthWrapper, ButtonWrapper, HeadlineWrapper } from "../Auth/Auth.sc";
 import { DecideWrapper } from "./DecisionPage.sc";
 import { addDecision, getOptions, getPoll } from "./pollData.gql";
 
@@ -56,8 +56,8 @@ const DecisionPage: FunctionComponent = () => {
     };
 
     return (
-        <AuthWrapper>
-            <HeadlineWrapper>{pollData?.title && <Headline type="h2">{pollData.title}</Headline>}</HeadlineWrapper>
+        <Auth>
+            <>{pollData?.title && <Headline type="h2">{pollData.title}</Headline>}</>
             <DecideWrapper>
                 <Headline type="h3">{t("decision.options")}</Headline>
                 <RadioGroup onChange={(e) => setOption(e.target.value)} aria-labelledby="demo-radio-buttons-group-label" name="radio-buttons-group">
@@ -66,7 +66,7 @@ const DecisionPage: FunctionComponent = () => {
                     ))}
                 </RadioGroup>
             </DecideWrapper>
-            <ButtonWrapper>
+            <>
                 <LinkButton onClick={sendDecision} arrow={false} active={true} title={""}>
                     {t("decision.vote")}
                 </LinkButton>
@@ -79,8 +79,8 @@ const DecisionPage: FunctionComponent = () => {
                         {t("decision.linkCopied")}
                     </Alert>
                 )}
-            </ButtonWrapper>
-        </AuthWrapper>
+            </>
+        </Auth>
     );
 };
 
