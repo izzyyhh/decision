@@ -86,7 +86,6 @@ type Query {
   getDecisionsForPoll(data: GetDecisionForPollDto!): [Decision!]!
   canDecide(data: GetDecisionForUserAndPollDto!): Boolean!
   getActivity(data: ActivityInput!): [Activity!]!
-  getRestaurantsPreset: [Option!]!
 }
 
 enum SortDirection {
