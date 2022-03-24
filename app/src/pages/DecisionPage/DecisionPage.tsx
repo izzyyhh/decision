@@ -3,6 +3,7 @@ import { GQLOption, GQLQuery } from "@app/graphql.generated";
 import Auth from "@components/Auth/Auth";
 import Headline from "@components/Headline/Headline";
 import LinkButton from "@components/LinkButton/LinkButton";
+import { useSnack } from "@context/snackbar/useSnack";
 import { useUser } from "@context/user/useUser";
 import { FormControlLabel, Radio, RadioGroup, RadioProps } from "@material-ui/core";
 import { withStyles } from "@material-ui/core/styles";
@@ -48,10 +49,16 @@ const DecisionPage: FunctionComponent = () => {
         setShowNotification(true);
     };
 
+    const { snack, setSnack } = useSnack();
+
     const sendDecision = async () => {
-        const res = await data();
-        if (!res.errors) {
-            navigate(`/result/${pollId}`);
+        try {
+            const res = await data();
+            if (!res.errors) {
+                navigate(`/result/${pollId}`);
+            }
+        } catch (e) {
+            setSnack({ message: e.message, open: true, severity: "error" });
         }
     };
 
