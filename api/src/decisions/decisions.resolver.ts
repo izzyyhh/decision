@@ -3,6 +3,7 @@ import { EntityRepository } from "@mikro-orm/postgresql";
 import { UseGuards } from "@nestjs/common";
 import { Args, Mutation, Query, Resolver } from "@nestjs/graphql";
 import { AuthGuard } from "@src/common/guards/auth.guard";
+import { Poll, PollType } from "@src/polls/entities/poll.entity";
 import { ForbiddenError } from "apollo-server-core";
 
 import { DecisionsService } from "./decisions.service";
@@ -17,6 +18,7 @@ export class DecisionsResolver {
     constructor(
         private readonly optionsService: DecisionsService,
         @InjectRepository(Decision) private readonly repository: EntityRepository<Decision>,
+        @InjectRepository(Poll) private readonly pollRepository: EntityRepository<Poll>,
     ) {}
 
     @Query(() => [Decision])
@@ -27,9 +29,12 @@ export class DecisionsResolver {
     @UseGuards(AuthGuard)
     @Mutation(() => Decision)
     async addDecision(@Args("data", { type: () => DecisionInput }) data: DecisionInput): Promise<Decision | null> {
-        const currentDecision = await this.repository.findOne({ poll: data.poll, user: data.user }, { populate: true });
-        if (currentDecision) {
-            throw new ForbiddenError("You have already taken a decision");
+        const poll = await this.pollRepository.findOne({ id: data.poll });
+        if (poll && poll.type === PollType.BINARY) {
+            const currentDecision = await this.repository.findOne({ poll: data.poll, user: data.user }, { populate: true });
+            if (currentDecision) {
+                throw new ForbiddenError("You have already taken a decision");
+            }
         }
         const entity = this.repository.create(data);
         await this.repository.persistAndFlush(entity);
@@ -53,11 +58,15 @@ export class DecisionsResolver {
     @UseGuards(AuthGuard)
     @Query(() => Boolean)
     async canDecide(@Args("data", { type: () => GetDecisionForUserAndPollDto }) data: GetDecisionForUserAndPollDto): Promise<boolean> {
-        const decision = await this.repository.findOne({ user: data.user, poll: data.poll }, { populate: true });
-        if (decision) {
-            return false;
-        } else {
-            return true;
+        const poll = await this.pollRepository.findOne({ id: data.poll });
+        if (poll && poll.type === PollType.BINARY) {
+            const decision = await this.repository.findOne({ user: data.user, poll: data.poll }, { populate: true });
+            if (decision) {
+                return false;
+            } else {
+                return true;
+            }
         }
+        return true;
     }
 }
