@@ -1,4 +1,4 @@
-import { BaseEntity, Entity, Enum, Index, ManyToOne, PrimaryKey, Property } from "@mikro-orm/core";
+import { BaseEntity, BigIntType, Entity, Enum, Index, ManyToOne, PrimaryKey, Property } from "@mikro-orm/core";
 import { Field, ID, ObjectType, registerEnumType } from "@nestjs/graphql";
 import { User } from "@src/users/entities/user.entity";
 import { v4 } from "uuid";
@@ -41,6 +41,13 @@ export class Poll extends BaseEntity<Poll, "id"> {
         nullable: true,
     })
     hash?: string;
+
+    @Field({ nullable: true })
+    @Property({
+        type: BigIntType,
+        nullable: true,
+    })
+    createdAt: number = Date.now();
 }
 
 export enum PollType {

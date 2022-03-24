@@ -11,10 +11,10 @@ export class Activity {
     @Field()
     name: string;
 
-    @Field()
+    @Field({ nullable: true })
     date: number;
 
-    @Field((type) => ActivityType)
+    @Field(() => ActivityType)
     @IsEnum(ActivityType)
     type: ActivityType;
 
