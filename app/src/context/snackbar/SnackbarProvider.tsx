@@ -1,7 +1,8 @@
-import React, { FunctionComponent, useState } from "react";
+import MuiAlert, { AlertProps } from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
+import React, { FunctionComponent, useState } from "react";
+
 import { SnackContext } from "./SnackContext";
-import MuiAlert, { AlertColor, AlertProps } from "@mui/material/Alert";
 
 const Alert = React.forwardRef<HTMLDivElement, AlertProps>(function Alert(props, ref) {
     return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;

@@ -29,6 +29,7 @@ export class Poll extends BaseEntity<Poll, "id"> {
     owner: User;
 
     @Enum()
+    @Field(() => PollType)
     type: PollType;
 
     @Field()

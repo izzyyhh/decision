@@ -67,6 +67,11 @@ export type GQLGetPollDto = {
   pollId: Scalars['String'];
 };
 
+export type GQLLocationDto = {
+  latitude: Scalars['Float'];
+  longitude: Scalars['Float'];
+};
+
 export type GQLMutation = {
   __typename?: 'Mutation';
   addProduct: GQLProduct;
@@ -142,6 +147,7 @@ export type GQLPoll = {
   title: Scalars['String'];
   sharelink: Maybe<Scalars['String']>;
   owner: GQLUser;
+  type: GQLPollType;
   predefined: Scalars['Boolean'];
 };
 

@@ -35,7 +35,15 @@ type Poll {
   title: String!
   sharelink: String
   owner: User!
+  type: PollType!
   predefined: Boolean!
+}
+
+enum PollType {
+  BINARY
+  DATE
+  NUMERICAL
+  TINDER
 }
 
 type Option {
@@ -86,7 +94,7 @@ type Query {
   getDecisionsForPoll(data: GetDecisionForPollDto!): [Decision!]!
   canDecide(data: GetDecisionForUserAndPollDto!): Boolean!
   getActivity(data: ActivityInput!): [Activity!]!
-  getRestaurantsPreset: [Option!]!
+  getRestaurantsPreset(data: LocationDto!): [Option!]!
 }
 
 enum SortDirection {
@@ -119,6 +127,11 @@ input ActivityInput {
   id: String!
 }
 
+input LocationDto {
+  latitude: Float!
+  longitude: Float!
+}
+
 type Mutation {
   addProduct(data: ProductInput!): Product!
   updateProduct(data: ProductInput!, id: ID!): Product!
@@ -139,13 +152,6 @@ input PollInput {
   predefined: Boolean
   owner: String!
   type: PollType!
-}
-
-enum PollType {
-  BINARY
-  DATE
-  NUMERICAL
-  TINDER
 }
 
 input UserInput {

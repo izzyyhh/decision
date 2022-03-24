@@ -19,7 +19,6 @@ export enum AppRoutes {
 }
 
 const Router = () => {
-    console.log("router");
     return (
         <>
             <BrowserRouter>

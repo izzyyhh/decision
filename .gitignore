@@ -10,3 +10,4 @@ comet-lang
 
 # Local Netlify folder
 .netlify
+./env

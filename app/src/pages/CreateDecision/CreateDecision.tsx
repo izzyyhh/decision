@@ -46,8 +46,6 @@ const CreateDecision: FunctionComponent = () => {
         setOptions([]);
     }, [type]);
 
-    console.log(options);
-
     return (
         <Auth>
             <BackBtn />
