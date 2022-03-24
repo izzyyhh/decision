@@ -6,7 +6,6 @@ import Headline from "@components/Headline/Headline";
 import ImageTextSwiper from "@components/ImageTextSwiper/ImageTextSwiper";
 import LinkButton from "@components/LinkButton/LinkButton";
 import RecentActivity from "@components/RecentActivity/RecentActivity";
-import { useUser } from "@context/user/useUser";
 import React, { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -14,9 +13,6 @@ import { Column } from "./Welcome.sc";
 
 const Welcome: FunctionComponent = () => {
     const { t } = useTranslation();
-    const { user } = useUser();
-
-    console.log(user);
 
     return (
         <Auth>

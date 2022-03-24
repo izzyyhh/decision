@@ -35,7 +35,15 @@ type Poll {
   title: String!
   sharelink: String
   owner: User!
+  type: PollType!
   predefined: Boolean!
+}
+
+enum PollType {
+  BINARY
+  DATE
+  NUMERICAL
+  TINDER
 }
 
 type Option {
@@ -144,13 +152,6 @@ input PollInput {
   predefined: Boolean
   owner: String!
   type: PollType!
-}
-
-enum PollType {
-  BINARY
-  DATE
-  NUMERICAL
-  TINDER
 }
 
 input UserInput {

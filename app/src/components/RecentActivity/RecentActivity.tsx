@@ -5,9 +5,10 @@ import { Card } from "@material-ui/core";
 import HowToVoteOutlinedIcon from "@mui/icons-material/HowToVoteOutlined";
 import PollOutlinedIcon from "@mui/icons-material/PollOutlined";
 import React, { FunctionComponent } from "react";
-import getActivityQuery from "./getActivity.gql";
 import { format, register } from "timeago.js";
-import { Wrapper, ActivityContainer, ActivitTitle, TimeAgoContainer, IconContainer, ActivityInformation } from "./RecentActivity.sc";
+
+import getActivityQuery from "./getActivity.gql";
+import { ActivitTitle, ActivityContainer, ActivityInformation, IconContainer, TimeAgoContainer, Wrapper } from "./RecentActivity.sc";
 
 const deLocale = (number: number, index: number): [string, string] => {
     return [
@@ -31,7 +32,7 @@ const deLocale = (number: number, index: number): [string, string] => {
 register("de", deLocale);
 
 const RecentActivity: FunctionComponent = () => {
-    let { user } = useUser();
+    const { user } = useUser();
     const { data } = useQuery(getActivityQuery, { variables: { data: { id: user?.id } } });
     const iconSwitch: any = {
         POLL: <PollOutlinedIcon fontSize="inherit"></PollOutlinedIcon>,

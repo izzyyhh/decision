@@ -12,7 +12,7 @@ interface Props {
 
 const Auth: FunctionComponent<Props> = ({ children }) => {
     const [data] = useMutation(addUserMutation, { variables: { data: { name: "" } } });
-    const [setAuthToken] = useAuthToken();
+    const [cookie, setAuthToken] = useAuthToken();
     const { user, setUser } = useUser();
 
     useEffect(() => {
@@ -32,7 +32,7 @@ const Auth: FunctionComponent<Props> = ({ children }) => {
                 });
         };
 
-        if (!user) {
+        if (!user && !cookie) {
             addUser();
         }
     }, []);

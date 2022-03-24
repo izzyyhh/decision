@@ -14,7 +14,7 @@ export class Activity {
     @Field()
     date: number;
 
-    @Field((type) => ActivityType)
+    @Field(() => ActivityType)
     @IsEnum(ActivityType)
     type: ActivityType;
 

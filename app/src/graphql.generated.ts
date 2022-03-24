@@ -13,6 +13,22 @@ export type Scalars = {
   DateTime: any;
 };
 
+export type GQLActivity = {
+  __typename?: 'Activity';
+  name: Scalars['String'];
+  date: Scalars['Float'];
+  type: GQLActivityType;
+  id: Scalars['String'];
+};
+
+export type GQLActivityInput = {
+  id: Scalars['String'];
+};
+
+export type GQLActivityType =
+  | 'POLL'
+  | 'DECISION';
+
 
 export type GQLDecision = {
   __typename?: 'Decision';
@@ -38,12 +54,22 @@ export type GQLGetDecisionForPollDto = {
   pollId: Scalars['String'];
 };
 
+export type GQLGetDecisionForUserAndPollDto = {
+  user: Scalars['String'];
+  poll: Scalars['String'];
+};
+
 export type GQLGetOptionsForPollDto = {
   pollId: Scalars['String'];
 };
 
 export type GQLGetPollDto = {
   pollId: Scalars['String'];
+};
+
+export type GQLLocationDto = {
+  latitude: Scalars['Float'];
+  longitude: Scalars['Float'];
 };
 
 export type GQLMutation = {
@@ -121,6 +147,7 @@ export type GQLPoll = {
   title: Scalars['String'];
   sharelink: Maybe<Scalars['String']>;
   owner: GQLUser;
+  type: GQLPollType;
   predefined: Scalars['Boolean'];
 };
 
@@ -167,6 +194,9 @@ export type GQLQuery = {
   getOptionsForPoll: Array<GQLOption>;
   getDecision: GQLDecision;
   getDecisionsForPoll: Array<GQLDecision>;
+  canDecide: Scalars['Boolean'];
+  getActivity: Array<GQLActivity>;
+  getRestaurantsPreset: Array<GQLOption>;
 };
 
 
@@ -210,6 +240,21 @@ export type GQLQuerygetDecisionArgs = {
 
 export type GQLQuerygetDecisionsForPollArgs = {
   data: GQLGetDecisionForPollDto;
+};
+
+
+export type GQLQuerycanDecideArgs = {
+  data: GQLGetDecisionForUserAndPollDto;
+};
+
+
+export type GQLQuerygetActivityArgs = {
+  data: GQLActivityInput;
+};
+
+
+export type GQLQuerygetRestaurantsPresetArgs = {
+  data: GQLLocationDto;
 };
 
 export type GQLSortDirection =
