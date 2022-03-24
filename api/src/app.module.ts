@@ -22,6 +22,7 @@ import { OptionsController } from "./options/options.controller";
 import { OptionsModule } from "./options/options.module";
 import { PollsModule } from "./polls/polls.module";
 import { MoviesModule } from "./presets/movies/movies.module";
+import { PresetsModule } from "./presets/presets.module";
 import { RestaurantsModule } from "./presets/restaurants/restaurants.module";
 import { TasksModule } from "./tasks/tasks.module";
 import { ThumbnailsModule } from "./thumbnails/thumbnails.module";
@@ -64,6 +65,7 @@ export const firebaseStorage = getStorage(storageApp(storageConf));
         TasksModule,
         MoviesModule,
         GenresModule,
+        PresetsModule,
     ],
     controllers: [AppController, OptionsController],
     providers: [AppService],

@@ -91,6 +91,11 @@ type MoviesDto {
   thumbnailUrl: String!
 }
 
+type Preset {
+  title: String!
+  thumbnailUrl: String!
+}
+
 type Thumbnail {
   id: ID!
   link: String!
@@ -117,6 +122,7 @@ type Query {
   addGenres: Boolean!
   getMoviesPreset: [MoviesDto!]!
   addMovies: Boolean!
+  presetsAll: [Preset!]!
 }
 
 enum SortDirection {
