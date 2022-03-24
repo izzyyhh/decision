@@ -1,6 +1,8 @@
 import { useMutation } from "@apollo/client";
 import { ColumnFullWidth } from "@app/common/Column.sc";
 import { Eyebrow } from "@app/common/Eyebrow.sc";
+import config from "@app/config";
+import Auth from "@components/Auth/Auth";
 import BackBtn from "@components/BackBtn/BackBtn";
 import Card from "@components/Card/Card";
 import Headline from "@components/Headline/Headline";
@@ -9,16 +11,11 @@ import LinkButton from "@components/LinkButton/LinkButton";
 import Option from "@components/Option/Option";
 import TypeSwitch from "@components/TypeSwitch/TypeSwitch";
 import { useUser } from "@context/user/useUser";
+import { useAuthToken } from "@hooks/useAuthToken";
 import { addOptionsMutation, addPollMutation } from "@pages/PollWithType/PollWithType.gql";
-import { buildUrl } from "@utils/urlHelpers";
-import React, { FunctionComponent, useEffect, useRef, useState } from "react";
+import React, { FunctionComponent, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
-import config from "@app/config";
-import { AppRoutes } from "@app/Router";
-import { useAuthToken } from "@hooks/useAuthToken";
-import { StringMap } from "i18next";
-import { auth } from "@app/firebase/firebase";
 
 export enum Type {
     BINARY = "BINARY",
@@ -52,7 +49,7 @@ const CreateDecision: FunctionComponent = () => {
     console.log(options);
 
     return (
-        <>
+        <Auth>
             <BackBtn />
             <ColumnFullWidth>
                 <Headline type="h2">{t("decision.headline")}</Headline>
@@ -80,7 +77,7 @@ const CreateDecision: FunctionComponent = () => {
                     {t("decision.start")}
                 </LinkButton>
             </ColumnFullWidth>
-        </>
+        </Auth>
     );
 };
 

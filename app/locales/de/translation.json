@@ -39,5 +39,17 @@
             "join": "Entscheidung betretten",
             "about": "Über uns"
         }
+    },
+    "create": {
+        "question": {
+            "title": "Question",
+            "label": "Type your question"
+        },
+        "type": {
+            "title": "Select Type"
+        },
+        "options": {
+            "title": "Add your Options"
+        }
     }
 }
