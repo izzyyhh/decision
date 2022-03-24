@@ -64,8 +64,7 @@ enum ActivityType {
   POLL
   DECISION
 type Genre {
-  id: ID!
-  apiId: String!
+  apiId: ID!
   title: String!
   movies: [Movie!]!
 }
@@ -81,6 +80,11 @@ type Movie {
   adult: Boolean!
   mediaType: String!
   genres: [Genre!]!
+}
+
+type MoviesDto {
+  title: String!
+  thumbnailUrl: String!
 }
 
 type Thumbnail {
@@ -106,8 +110,9 @@ type Query {
   getActivity(data: ActivityInput!): [Activity!]!
   getRestaurantsPreset(data: LocationDto!): [Option!]!
   moviesAll: [Movie!]!
+  genresAll: [Genre!]!
   addGenres: Boolean!
-  getMoviesByGenre(data: MoviesGetByGenre!): [Movie!]!
+  getMoviesPreset: [MoviesDto!]!
   addMovies: Boolean!
 }
 

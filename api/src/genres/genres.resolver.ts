@@ -15,7 +15,7 @@ export class GenresResolver {
     ) {}
 
     @Query(() => [Genre])
-    async moviesAll(): Promise<Genre[]> {
+    async genresAll(): Promise<Genre[]> {
         return this.repository.findAll();
     }
 
@@ -49,11 +49,14 @@ export class GenresResolver {
                     const d = JSON.parse(buffer.toString("utf8"));
                     try {
                         for (const genre of d.genres) {
-                            const genreEntity = this.repository.create({
-                                title: genre.name,
-                                apiId: genre.id.toString(),
-                            });
-                            await this.repository.persistAndFlush(genreEntity);
+                            const entityExists = await this.repository.findOne({ apiId: genre.id.toString() });
+                            if (!entityExists) {
+                                const genreEntity = this.repository.create({
+                                    title: genre.name,
+                                    apiId: genre.id.toString(),
+                                });
+                                await this.repository.persistAndFlush(genreEntity);
+                            }
                         }
                     } catch (e) {
                         console.log("error");
