@@ -5,6 +5,7 @@ export const addPollMutation = gql`
         addPoll(data: $data) {
             id
             title
+            type
         }
     }
 `;

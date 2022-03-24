@@ -44,6 +44,7 @@
         "react-phone-input-2": "^2.14.0",
         "react-router": "^6.2.1",
         "react-router-dom": "^6.2.1",
+        "react-tinder-card": "^1.4.5",
         "styled-components": "^5.3.3",
         "swiper": "^8.0.7",
         "timeago.js": "^4.0.2",
