@@ -1,4 +1,5 @@
 import ThemeProvider from "@components/ThemeProvider/ThemeProvider";
+import { SnackbarProvider } from "@context/snackbar/SnackbarProvider";
 import { UserProvider } from "@context/user/UserProvider";
 import React, { Component, Suspense } from "react";
 import * as ReactDOM from "react-dom";
@@ -24,18 +25,20 @@ class App extends Component {
         return (
             <>
                 <ApolloProvider>
-                    <UserProvider>
-                        <ThemeProvider>
-                            <I18nextProvider i18n={i18n}>
-                                <GlobalStyle />
-                                <Suspense fallback="loading">
-                                    <Container>
-                                        <Router />
-                                    </Container>
-                                </Suspense>
-                            </I18nextProvider>
-                        </ThemeProvider>
-                    </UserProvider>
+                    <SnackbarProvider>
+                        <UserProvider>
+                            <ThemeProvider>
+                                <I18nextProvider i18n={i18n}>
+                                    <GlobalStyle />
+                                    <Suspense fallback="loading">
+                                        <Container>
+                                            <Router />
+                                        </Container>
+                                    </Suspense>
+                                </I18nextProvider>
+                            </ThemeProvider>
+                        </UserProvider>
+                    </SnackbarProvider>
                 </ApolloProvider>
             </>
         );
