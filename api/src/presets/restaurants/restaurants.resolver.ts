@@ -4,7 +4,7 @@ import { Option } from "@src/options/entities/option.entity";
 
 import { LocationDto } from "./dto/location.dto";
 import { OptionDto } from "./dto/restaurant.get";
-import sample from "./sample.js";
+import sample from "./sample";
 
 @Resolver(() => Option)
 export class RestaurantsResolver {

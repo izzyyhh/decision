@@ -21,7 +21,12 @@ export class ActivityResolver {
         const pollPromise: Promise<Activity[]> = new Promise((resolve) => {
             this.pollrepository.find({ owner: data.id }).then((data) => {
                 const activities = data.map((poll: Poll): Activity => {
-                    return { name: poll.title, date: Date.now(), type: ActivityType.POLL, id: poll.id };
+                    return {
+                        name: poll.title,
+                        date: poll.createdAt ?? Date.now(),
+                        type: ActivityType.POLL,
+                        id: poll.id,
+                    };
                 });
                 resolve(activities);
             });
@@ -30,7 +35,12 @@ export class ActivityResolver {
         const optionsPromise: Promise<Activity[]> = new Promise((resolve) => {
             this.decisionrepository.find({ user: data.id }, { populate: true }).then((data) => {
                 const decisiondata = data.map((decision: Decision): Activity => {
-                    return { date: Date.now(), name: decision.option.title, type: ActivityType.DECISION, id: decision.poll.id };
+                    return {
+                        date: decision.createdAt ?? Date.now(),
+                        name: decision.option.title,
+                        type: ActivityType.DECISION,
+                        id: decision.poll.id,
+                    };
                 });
                 resolve(decisiondata);
             });
