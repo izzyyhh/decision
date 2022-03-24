@@ -1,4 +1,4 @@
-import Menu from "@components/Menu/Menu";
+import BottomNav from "@components/Menu/Menu";
 import CreateDecision from "@pages/CreateDecision/CreateDecision";
 import DecisionPage from "@pages/DecisionPage/DecisionPage";
 import Join from "@pages/Join/Join";
@@ -29,7 +29,7 @@ const Router = () => {
                     <Route path={AppRoutes.DecisionByPoll} element={<DecisionPage />} />
                     <Route path={AppRoutes.Root} element={<Welcome />} />
                 </Routes>
-                <Menu />
+                <BottomNav />
             </BrowserRouter>
         </>
     );

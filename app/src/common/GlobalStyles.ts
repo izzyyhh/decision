@@ -6,6 +6,7 @@ const GlobalStyle = createGlobalStyle`
         padding: 0;
         background: ${({ theme }) => theme.palette.background.default};
         font-family: Open-Sans, Helvetica, Sans-Serif;
+        padding-bottom: 120px;
     }
 `;
 
