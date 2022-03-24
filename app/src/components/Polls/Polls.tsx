@@ -2,6 +2,7 @@ import { GQLPollType } from "@app/graphql.generated";
 import React, { FunctionComponent } from "react";
 
 import Binary from "./Binary/Binary";
+import Tinder from "./Tinder/Tinder";
 
 interface Props {
     poll: GQLPollType | undefined;
@@ -9,6 +10,7 @@ interface Props {
 
 const Poll: any = {
     BINARY: Binary,
+    TINDER: Tinder,
 };
 
 const Polls: FunctionComponent<Props> = ({ poll }) => {
