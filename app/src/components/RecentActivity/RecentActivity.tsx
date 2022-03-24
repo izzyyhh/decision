@@ -48,7 +48,7 @@ const RecentActivity: FunctionComponent = () => {
                             <IconContainer>{iconSwitch[activity.type]}</IconContainer>
                             <ActivityInformation>
                                 <ActivitTitle>{activity.name}</ActivitTitle>
-                                <TimeAgoContainer>{format(1544666010224, locale)}</TimeAgoContainer>
+                                <TimeAgoContainer>{format(activity.date, locale)}</TimeAgoContainer>
                             </ActivityInformation>
                         </ActivityContainer>
                     </LinkButton>
