@@ -252,11 +252,6 @@ export type GQLQuerygetActivityArgs = {
   data: GQLActivityInput;
 };
 
-
-export type GQLQuerygetRestaurantsPresetArgs = {
-  data: GQLLocationDto;
-};
-
 export type GQLSortDirection =
   | 'ASC'
   | 'DESC';

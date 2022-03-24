@@ -1,4 +1,4 @@
-import { BaseEntity, Entity, Index, ManyToOne, PrimaryKey, Property } from "@mikro-orm/core";
+import { BaseEntity, BigIntType, Entity, Index, ManyToOne, PrimaryKey, Property } from "@mikro-orm/core";
 import { Field, ID, ObjectType } from "@nestjs/graphql";
 import { Option } from "@src/options/entities/option.entity";
 import { Poll } from "@src/polls/entities/poll.entity";
@@ -32,4 +32,11 @@ export class Decision extends BaseEntity<Decision, "id"> {
         nullable: true,
     })
     answer?: number;
+
+    @Field({ nullable: true })
+    @Property({
+        type: BigIntType,
+        nullable: true,
+    })
+    createdAt: number = Date.now();
 }

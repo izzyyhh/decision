@@ -1,6 +1,7 @@
 import { Module } from "@nestjs/common";
 import { ConfigType } from "@nestjs/config";
 import { GraphQLModule } from "@nestjs/graphql";
+import { ScheduleModule } from "@nestjs/schedule";
 import { ConfigModule } from "@src/config/config.module";
 import { configNS } from "@src/config/config.namespace";
 import { DbModule } from "@src/db/db.module";
@@ -16,10 +17,13 @@ import { ActivityModule } from "./activity/activity.module";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
 import { DecisionsModule } from "./decisions/decisions.module";
+import { GenresModule } from "./genres/genres.module";
 import { OptionsController } from "./options/options.controller";
 import { OptionsModule } from "./options/options.module";
 import { PollsModule } from "./polls/polls.module";
+import { MoviesModule } from "./presets/movies/movies.module";
 import { RestaurantsModule } from "./presets/restaurants/restaurants.module";
+import { TasksModule } from "./tasks/tasks.module";
 import { ThumbnailsModule } from "./thumbnails/thumbnails.module";
 import { UsersModule } from "./users/users.module";
 export const firebaseApp = admin.initializeApp({
@@ -56,6 +60,10 @@ export const firebaseStorage = getStorage(storageApp(storageConf));
         DecisionsModule,
         ActivityModule,
         RestaurantsModule,
+        ScheduleModule.forRoot(),
+        TasksModule,
+        MoviesModule,
+        GenresModule,
     ],
     controllers: [AppController, OptionsController],
     providers: [AppService],

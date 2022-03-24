@@ -11,7 +11,7 @@ export class Activity {
     @Field()
     name: string;
 
-    @Field()
+    @Field({ nullable: true })
     date: number;
 
     @Field(() => ActivityType)
