@@ -1,19 +1,12 @@
 import { BaseEntity, Collection, Entity, ManyToMany, PrimaryKey, Property } from "@mikro-orm/core";
 import { Field, ID, ObjectType } from "@nestjs/graphql";
 import { Movie } from "@src/presets/movies/entities/movies.entity";
-import { v4 } from "uuid";
 
 @ObjectType()
 @Entity()
-export class Genre extends BaseEntity<Genre, "id"> {
+export class Genre extends BaseEntity<Genre, "apiId"> {
     @Field(() => ID)
-    @PrimaryKey({ type: "uuid" })
-    id: string = v4();
-
-    @Field()
-    @Property({
-        columnType: "text",
-    })
+    @PrimaryKey({ type: "string" })
     apiId: string;
 
     @Field()

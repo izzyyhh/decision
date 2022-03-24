@@ -1,12 +1,12 @@
 import { InjectRepository } from "@mikro-orm/nestjs";
 import { EntityRepository } from "@mikro-orm/postgresql";
 import { Inject } from "@nestjs/common";
-import { Args, Query, Resolver } from "@nestjs/graphql";
+import { Query, Resolver } from "@nestjs/graphql";
 import { Genre } from "@src/genres/entities/genre.entity";
 import { GenresResolver } from "@src/genres/genres.resolver";
 import * as https from "https";
 
-import { MoviesGetByGenre } from "./dto/movies.get.by.genre";
+import { MoviesDto } from "./dto/movies.get";
 import { Movie } from "./entities/movies.entity";
 import { MoviesService } from "./movies.service";
 
@@ -18,16 +18,28 @@ export class MoviesResolver {
         @Inject(GenresResolver) private readonly genreResolver: GenresResolver,
     ) {}
 
-    @Query(() => [Movie])
-    async moviesAll(): Promise<Movie[]> {
-        return this.repository.findAll();
+    // @Query(() => [Movie])
+    // async moviesAll(): Promise<Movie[]> {
+    //     return this.repository.findAll();
+    // }
+
+    @Query(() => [MoviesDto])
+    async getMoviesPreset(): Promise<MoviesDto[]> {
+        const movies = await this.repository.findAll();
+        const maped: MoviesDto[] = movies.map((m: Movie): MoviesDto => {
+            return {
+                title: m.title,
+                thumbnailUrl: m.posterPath,
+            };
+        });
+        return maped;
     }
 
-    @Query(() => [Movie])
-    async getMoviesByGenre(@Args("data", { type: () => MoviesGetByGenre }) data: MoviesGetByGenre): Promise<Movie[] | null> {
-        const movies = await this.repository.find({ genres: data.genre }, { populate: true });
-        return movies;
-    }
+    // @Query(() => [Movie])
+    // async getMoviesByGenre(@Args("data", { type: () => MoviesGetByGenre }) data: MoviesGetByGenre): Promise<Movie[] | null> {
+    //     const movies = await this.repository.find({ genres: data.genre }, { populate: true });
+    //     return movies;
+    // }
 
     @Query(() => Boolean)
     async addMovies(page: number) {
@@ -59,7 +71,7 @@ export class MoviesResolver {
                             });
                             const movieEntity = this.repository.create({
                                 title: movie.title,
-                                posterPath: movie.poster_path,
+                                posterPath: `https://image.tmdb.org/t/p/w500${movie.poster_path}`,
                                 backdropPath: movie.backdrop_path,
                                 rating: movie.vote_average,
                                 description: movie.overview,
@@ -69,6 +81,10 @@ export class MoviesResolver {
                                 genres: genreArray,
                             });
                             await this.repository.persistAndFlush(movieEntity);
+                            if (page < 5) {
+                                console.log("insert");
+                                this.addMovies(page + 1);
+                            }
                         }
                     } catch (e) {
                         console.log("error");

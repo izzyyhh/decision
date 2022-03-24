@@ -61,8 +61,7 @@ type Activity {
 }
 
 type Genre {
-  id: ID!
-  apiId: String!
+  apiId: ID!
   title: String!
   movies: [Movie!]!
 }
@@ -78,6 +77,11 @@ type Movie {
   adult: Boolean!
   mediaType: String!
   genres: [Genre!]!
+}
+
+type MoviesDto {
+  title: String!
+  thumbnailUrl: String!
 }
 
 type Thumbnail {
@@ -101,9 +105,9 @@ type Query {
   getDecisionsForPoll(data: GetDecisionForPollDto!): [Decision!]!
   canDecide(data: GetDecisionForUserAndPollDto!): Boolean!
   getActivity(data: ActivityInput!): [Activity!]!
-  moviesAll: [Movie!]!
+  genresAll: [Genre!]!
   addGenres: Boolean!
-  getMoviesByGenre(data: MoviesGetByGenre!): [Movie!]!
+  getMoviesPreset: [MoviesDto!]!
   addMovies: Boolean!
 }
 
@@ -135,10 +139,6 @@ input GetDecisionForUserAndPollDto {
 
 input ActivityInput {
   id: String!
-}
-
-input MoviesGetByGenre {
-  genre: String!
 }
 
 type Mutation {

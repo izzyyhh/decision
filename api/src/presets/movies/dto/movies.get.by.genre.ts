@@ -1,9 +1,8 @@
 import { Field, InputType } from "@nestjs/graphql";
-import { IsUUID } from "class-validator";
+import { Genre } from "@src/genres/entities/genre.entity";
 
 @InputType()
 export class MoviesGetByGenre {
     @Field()
-    @IsUUID()
-    genre: string;
+    genre: Genre["apiId"];
 }
