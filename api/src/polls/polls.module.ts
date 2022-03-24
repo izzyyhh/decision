@@ -9,6 +9,6 @@ import { PollsService } from "./polls.service";
 @Module({
     imports: [MikroOrmModule.forFeature([Poll, User])],
     providers: [PollsService, PollsResolver],
-    exports: [PollsService],
+    exports: [PollsService, MikroOrmModule.forFeature([Poll])],
 })
 export class PollsModule {}
