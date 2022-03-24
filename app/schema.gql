@@ -53,6 +53,18 @@ type Decision {
   answer: Float
 }
 
+type Activity {
+  name: String!
+  date: Float!
+  type: ActivityType!
+  id: String!
+}
+
+enum ActivityType {
+  POLL
+  DECISION
+}
+
 type Thumbnail {
   id: ID!
   link: String!
@@ -72,6 +84,9 @@ type Query {
   getOptionsForPoll(data: GetOptionsForPollDto!): [Option!]!
   getDecision(data: GetDecisionDto!): Decision!
   getDecisionsForPoll(data: GetDecisionForPollDto!): [Decision!]!
+  canDecide(data: GetDecisionForUserAndPollDto!): Boolean!
+  getActivity(data: ActivityInput!): [Activity!]!
+  getRestaurantsPreset: [Option!]!
 }
 
 enum SortDirection {
@@ -93,6 +108,15 @@ input GetDecisionDto {
 
 input GetDecisionForPollDto {
   pollId: String!
+}
+
+input GetDecisionForUserAndPollDto {
+  user: String!
+  poll: String!
+}
+
+input ActivityInput {
+  id: String!
 }
 
 type Mutation {
