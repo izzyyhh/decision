@@ -15,7 +15,7 @@ export const SnackbarProvider: FunctionComponent = ({ children }) => {
             return;
         }
 
-        setSnack({ message: "", open: false });
+        setSnack({ open: false, message: snack.message, severity: snack.severity });
     };
 
     return (
