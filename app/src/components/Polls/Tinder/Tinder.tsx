@@ -42,6 +42,7 @@ const Tinder: FunctionComponent = () => {
             setActive(id);
             sendDecision();
         } else {
+            setActive(id);
             setActiveCard(activeCard + 1);
         }
 
