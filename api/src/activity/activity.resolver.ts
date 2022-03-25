@@ -51,7 +51,7 @@ export class ActivityResolver {
                 v.forEach((a: Activity) => group.push(a));
             });
             return group.sort((a: Activity, b: Activity): number => {
-                return a.date - b.date;
+                return b.date - a.date;
             });
         });
     }
