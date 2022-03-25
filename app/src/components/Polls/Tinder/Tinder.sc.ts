@@ -27,7 +27,17 @@ export const Card = styled.div<Props>`
 
 export const VoteWrapper = styled.div`
     margin-top: 75px;
-    margin-bottom: 75px;
+    margin-bottom: 125px;
+    position: relative;
+    height: 350px;
+
+    .swipe {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 350px;
+    }
 `;
 
 export const Image = styled.img`
@@ -48,7 +58,7 @@ export const Title = styled.p`
 `;
 
 export const VoteButtons = styled.div`
-    margin-top: 50px;
+    margin-top: 300px;
     display: grid;
     grid-template-columns: repeat(24, 1fr);
 `;

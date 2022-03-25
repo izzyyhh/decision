@@ -44,8 +44,8 @@ const RecentActivity: FunctionComponent = () => {
     if (user && data && data.getActivity.length != 0) {
         return (
             <Wrapper>
-                {data.getActivity.slice(0, 5).map((activity: { name: string; date: number; type: string; id: string }) => (
-                    <LinkButton primary={false} active={true} arrow={true} link={`/join/${activity.id}`}>
+                {data.getActivity.slice(0, 5).map((activity: { name: string; date: number; type: string; id: string }, idx: number) => (
+                    <LinkButton key={idx} primary={false} active={true} arrow={true} link={`/join/${activity.id}`}>
                         <ActivityContainer>
                             <IconContainer>{iconSwitch[activity.type]}</IconContainer>
                             <ActivityInformation>
