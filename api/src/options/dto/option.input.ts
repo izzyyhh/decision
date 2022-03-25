@@ -11,7 +11,8 @@ export class OptionInput {
     @IsUUID()
     poll: string;
 
-    @Field()
-    @IsString()
-    thumbnailUrl: string;
+    @Field({
+        nullable: true,
+    })
+    thumbnailUrl?: string;
 }
