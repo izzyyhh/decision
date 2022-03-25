@@ -3,8 +3,8 @@ import { Eyebrow } from "@app/common/Eyebrow.sc";
 import { AppRoutes } from "@app/Router";
 import Auth from "@components/Auth/Auth";
 import Headline from "@components/Headline/Headline";
-import ImageTextSwiper from "@components/ImageTextSwiper/ImageTextSwiper";
 import LinkButton from "@components/LinkButton/LinkButton";
+import PresetSlider from "@components/PresetSlider/PresetSlider";
 import RecentActivity from "@components/RecentActivity/RecentActivity";
 import React, { FunctionComponent } from "react";
 import { useTranslation } from "react-i18next";
@@ -42,7 +42,7 @@ const Welcome: FunctionComponent = () => {
                     <Eyebrow>Pick a decision with predefined options</Eyebrow>
                 </ColumnFullWidth>
                 <ColumnFullWidth>
-                    <ImageTextSwiper />
+                    <PresetSlider />
                 </ColumnFullWidth>
             </Column>
             <Column>

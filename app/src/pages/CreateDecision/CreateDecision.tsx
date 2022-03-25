@@ -111,11 +111,7 @@ const createPoll = async (
             console.log(type);
             const pollData = await addPollMutation();
             const pollId = pollData.data.addPoll.id;
-            const optionPromises: Promise<any>[] = [];
             const imagePromises: Promise<any>[] = [];
-
-            console.log(optionPromises);
-            console.log(imagePromises);
 
             options.forEach(async (o) => {
                 console.log("option");
