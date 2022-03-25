@@ -97,7 +97,7 @@ const createPoll = async (
 
             if (pollId) {
                 options.forEach((o) => {
-                    promises.push(addOptionMutation({ variables: { data: { poll: pollId, title: o.value } } }));
+                    promises.push(addOptionMutation({ variables: { data: { poll: pollId, title: o.value, thumbnailUrl: "" } } }));
                 });
 
                 Promise.all(promises).then(() => {
