@@ -45,6 +45,7 @@ export const LinkButtonContainer = styled.div<ILinkButtonContainer>`
 export const Text = styled.span<ILinkButtonContainer>`
     text-transform: uppercase;
     letter-spacing: 0.05em;
+    line-height: 25px;
     color: ${({ primary, theme }) => (primary ? theme.palette.primary.dark : theme.palette.primary.light)};
 `;
 

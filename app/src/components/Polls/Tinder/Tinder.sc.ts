@@ -58,9 +58,12 @@ export const Title = styled.p`
 `;
 
 export const VoteButtons = styled.div`
-    margin-top: 300px;
+    margin-top: 375px;
     display: grid;
     grid-template-columns: repeat(24, 1fr);
+    position: absolute;
+    top: 0;
+    z-index: 100;
 `;
 
 export const DownVote = styled.div`
@@ -68,5 +71,5 @@ export const DownVote = styled.div`
 `;
 
 export const UpVote = styled.div`
-    grid-column: 20 / span 5;
+    grid-column: 21 / span 5;
 `;
