@@ -6,25 +6,25 @@ import React, { FunctionComponent } from "react";
 import { useNavigate } from "react-router";
 
 import { DetailWrapper, Image, ImageWrapper, SlideInner, Title } from "./ImageTextSlide.sc";
-import { moviesQuery, restaurantsQuery } from "./PresetQueries.gql"
+import { moviesQuery, restaurantsQuery } from "./PresetQueries.gql";
 import { SingleImageProps } from "./Props";
 
 const ImageTextSlide: FunctionComponent<SingleImageProps> = ({ image }) => {
     const [addOption] = useMutation(addOptionsMutation);
     const { user } = useUser();
-    const [addPoll] = useMutation(addPollMutation, { variables: { data: { title: image.title, predefined: true, owner: user?.id, type: Type.TINDER } } });
+    const [addPoll] = useMutation(addPollMutation, {
+        variables: { data: { title: image.title, predefined: true, owner: user?.id, type: Type.TINDER } },
+    });
     const navigate = useNavigate();
 
     const q = image.title === "Movies" ? moviesQuery : restaurantsQuery;
     const { data } = useQuery(q);
 
-
-
     const getOptionsList = (response: any) => {
-        if(image.title === "Movies") {
-            return response.getMoviesPreset
+        if (image.title === "Movies") {
+            return response.getMoviesPreset;
         }
-        return response.getRestaurantsPreset 
+        return response.getRestaurantsPreset;
     };
 
     const create = async () => {
@@ -46,7 +46,6 @@ const ImageTextSlide: FunctionComponent<SingleImageProps> = ({ image }) => {
     );
 };
 
-
 const createPoll = async (options: Array<any>, question: string | undefined, addPollMutation: any, addOptionMutation: any, navigate: any) => {
     if (question != undefined && question != "" && options.length > 1) {
         const pollData = await addPollMutation();
@@ -54,9 +53,8 @@ const createPoll = async (options: Array<any>, question: string | undefined, add
 
         await options.forEach(async (o) => {
             await addOptionMutation({ variables: { data: { poll: pollId, title: o.title, thumbnailUrl: o.thumbnailUrl } } });
-
         });
-        
+
         navigate(`/decision/${pollId}`);
     }
 };

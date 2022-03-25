@@ -9,7 +9,7 @@ import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { Option } from "./Binary.sc";
-import { addDecision, getOptions } from "./pollData.gql";
+import { ADD_DECISION, getOptions } from "./pollData.gql";
 
 const Binary: FunctionComponent = () => {
     const { user } = useUser();
@@ -22,7 +22,7 @@ const Binary: FunctionComponent = () => {
     const options = useQuery<GQLQuery>(getOptions, { variables: { data: { pollId } } });
     const optionsData = options.data ? options.data.getOptionsForPoll : [];
 
-    const [data] = useMutation(addDecision, { variables: { data: { user: userId, poll: pollId, option: active, answer: 0.6 } } });
+    const [data] = useMutation(ADD_DECISION, { variables: { data: { user: userId, poll: pollId, option: active, answer: 0.6 } } });
 
     const sendDecision = async () => {
         const res = await data();

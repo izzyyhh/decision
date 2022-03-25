@@ -3,11 +3,11 @@ import { ColumnFullWidth } from "@app/common/Column.sc";
 import { GQLQuery } from "@app/graphql.generated";
 import LinkButton from "@components/LinkButton/LinkButton";
 import { useUser } from "@context/user/useUser";
-import React, { FunctionComponent, useState } from "react";
+import React, { FunctionComponent, useMemo, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import TinderCard from "react-tinder-card";
 
-import { addDecision, getOptions } from "../Binary/pollData.gql";
+import { ADD_DECISION, getOptions } from "../Binary/pollData.gql";
 import { Card, DownVote, Image, Title, UpVote, VoteButtons, VoteWrapper } from "./Tinder.sc";
 
 enum SwipeDirection {
@@ -16,60 +16,96 @@ enum SwipeDirection {
 }
 
 const Tinder: FunctionComponent = () => {
-    const [activeCard, setActiveCard] = useState<number>(0);
-    const [active, setActive] = useState<string>("");
     const { user } = useUser();
     const navigate = useNavigate();
     const { pollId } = useParams();
     const userId = user?.id;
 
-    console.log(userId);
-
     const options = useQuery<GQLQuery>(getOptions, { variables: { data: { pollId } } });
     const optionsData = options.data ? options.data.getOptionsForPoll : [];
 
-    const [data] = useMutation(addDecision, { variables: { data: { user: userId, poll: pollId, option: active, answer: 0.6 } } });
+    const [currentIndex, setCurrentIndex] = useState(optionsData.length - 1);
 
-    const sendDecision = async () => {
-        const res = await data();
-        if (!res.errors) {
-            setActiveCard(activeCard + 1);
+    const currentIndexRef = useRef(currentIndex);
+
+    const childRefs: any = useMemo(
+        () =>
+            Array(optionsData.length)
+                .fill(0)
+                .map((i) => React.createRef()),
+        [],
+    );
+
+    const updateCurrentIndex = (val: any) => {
+        setCurrentIndex(val);
+        currentIndexRef.current = val;
+    };
+
+    const canSwipe = currentIndex >= 0;
+
+    const swiped = (direction: SwipeDirection, id: any, index: any) => {
+        updateCurrentIndex(index - 1);
+
+        if (direction === SwipeDirection.RIGHT) {
+            sendDecision(id, userId, pollId);
+        }
+
+        if (currentIndexRef.current < 0) {
+            navigate(`/result/${pollId}`);
         }
     };
 
-    const onSwipe = (direction: SwipeDirection, id: string) => {
-        if (direction === SwipeDirection.RIGHT) {
-            setActive(id);
-            sendDecision();
-        } else {
-            setActive(id);
-            setActiveCard(activeCard + 1);
+    const swipe = async (dir: SwipeDirection) => {
+        if (canSwipe && currentIndex < optionsData.length) {
+            await childRefs[currentIndexRef.current].current.swipe(dir); // Swipe the card!
         }
+    };
 
-        if (activeCard + 1 === optionsData.length) {
-            navigate(`/result/${pollId}`);
-        }
+    const outOfFrame = (name: any, idx: any) => {
+        console.log(`${name} (${idx}) left the screen!`, currentIndexRef.current);
+        // handle the case in which go back is pressed before card goes outOfFrame
+        currentIndexRef.current >= idx && childRefs[idx].current.restoreCard();
+        // TODO: when quickly swipe and restore multiple times the same card,
+        // it happens multiple outOfFrame events are queued and the card disappear
+        // during latest swipes. Only the last outOfFrame event should be considered valid
+    };
+
+    const [addDecision] = useMutation(ADD_DECISION);
+
+    const sendDecision = async (option: string, user: any, poll: any) => {
+        await addDecision({ variables: { data: { user, poll, option, answer: 0.6 } } });
     };
 
     return (
         <ColumnFullWidth>
             <VoteWrapper>
                 {optionsData.map((option, idx) => (
-                    <TinderCard key={option.id} onSwipe={(direction: SwipeDirection) => onSwipe(direction, option.id)}>
-                        <Card active={activeCard === idx}>
-                            <Image src={option.thumbnailUrl ?? "https://picsum.photos/200/300"} />
-                            <Title>{option.title}</Title>
-                        </Card>
-                    </TinderCard>
+                    <>
+                        <p>
+                            {idx} | {currentIndex}
+                        </p>
+                        <TinderCard
+                            className={`swipe ${currentIndex === idx - 1 ? "active" : ""}`}
+                            ref={childRefs[idx]}
+                            key={option.title}
+                            onSwipe={(dir: SwipeDirection) => swiped(dir, option.id, idx)}
+                            onCardLeftScreen={() => outOfFrame(option.title, idx)}
+                        >
+                            <Card active={true}>
+                                <Image src={option.thumbnailUrl ?? "https://picsum.photos/200/300"} />
+                                <Title>{option.title}</Title>
+                            </Card>
+                        </TinderCard>
+                    </>
                 ))}
                 <VoteButtons>
                     <DownVote>
-                        <LinkButton active={true} onClick={() => onSwipe(SwipeDirection.LEFT, optionsData[activeCard].id)}>
+                        <LinkButton active={true} onClick={() => swipe(SwipeDirection.LEFT)}>
                             No
                         </LinkButton>
                     </DownVote>
                     <UpVote>
-                        <LinkButton active={true} onClick={() => onSwipe(SwipeDirection.RIGHT, optionsData[activeCard].id)}>
+                        <LinkButton active={true} onClick={() => swipe(SwipeDirection.RIGHT)}>
                             Yes
                         </LinkButton>
                     </UpVote>

@@ -11,7 +11,7 @@ export const moviesQuery = gql`
 
 export const restaurantsQuery = gql`
     query getRestaurants {
-        getRestaurantsPreset (data: { latitude: 0, longitude: 0}) {
+        getRestaurantsPreset(data: { latitude: 0, longitude: 0 }) {
             title
             thumbnailUrl
         }

@@ -8,7 +8,7 @@ import getPresetQuery from "./getPresets.gql";
 const PresetSlider: FunctionComponent = () => {
     const { data } = useQuery<GQLQuery>(getPresetQuery);
 
-    let images = [];
+    let images: Array<any> = [];
     if (data) {
         images = data.presetsAll ?? [];
     }

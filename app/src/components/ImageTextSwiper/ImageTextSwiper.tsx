@@ -7,16 +7,11 @@ import ImageTextSlide from "./ImageTextSlide";
 import { Wrapper } from "./ImageTextSwiper.sc";
 import { ImagesProps } from "./Props";
 
-const ImageTextSwiper: FunctionComponent<ImagesProps> = ({images}) => {
-    console.log(images, "2")
+const ImageTextSwiper: FunctionComponent<ImagesProps> = ({ images }) => {
+    console.log(images, "2");
     return (
         <Wrapper>
-            <Swiper
-            spaceBetween={30}
-            slidesPerView={1}
-            onSlideChange={() => console.log("slide change")}
-            onSwiper={(swiper) => console.log(swiper)}
-            >
+            <Swiper spaceBetween={30} slidesPerView={1}>
                 {images.map((image, idx) => (
                     <SwiperSlide key={image.title}>
                         <ImageTextSlide image={image} />

@@ -12,10 +12,6 @@ const BottomNav: FunctionComponent = () => {
     const exceptions = ["auth"];
     const curr = window.location.href.replace(window.location.origin, "").split("/")[1];
 
-    // const handleClick = () => {
-    //     navigate("/");
-    // };
-
     if (exceptions.includes(curr)) {
         return <></>;
     }
@@ -41,6 +37,7 @@ const BottomNav: FunctionComponent = () => {
                     marginLeft: "auto",
                     marginRight: "auto",
                     maxWidth: "900px",
+                    zIndex: "100",
                 }}
                 showLabels
             >
