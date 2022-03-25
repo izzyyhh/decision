@@ -158,6 +158,7 @@ export type GQLOption = {
 export type GQLOptionInput = {
   title: Scalars['String'];
   poll: Scalars['String'];
+  thumbnailUrl: Scalars['String'];
 };
 
 export type GQLPaginatedProducts = {

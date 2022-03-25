@@ -1,5 +1,5 @@
 import { Field, InputType } from "@nestjs/graphql";
-import { IsString, IsUUID } from "class-validator";
+import { IsOptional, IsString, IsUUID } from "class-validator";
 
 @InputType()
 export class OptionInput {
@@ -11,8 +11,7 @@ export class OptionInput {
     @IsUUID()
     poll: string;
 
-    @Field({
-        nullable: true,
-    })
-    thumbnailUrl?: string;
+    @Field()
+    @IsOptional()
+    thumbnailUrl: string;
 }

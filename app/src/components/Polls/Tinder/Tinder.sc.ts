@@ -64,6 +64,7 @@ export const VoteButtons = styled.div`
     position: absolute;
     top: 0;
     z-index: 100;
+    width: 100%;
 `;
 
 export const DownVote = styled.div`
