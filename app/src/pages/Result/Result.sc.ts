@@ -57,6 +57,7 @@ export const OptionPercentage = styled.div`
     height: 100%;
     align-items: center;
     padding-left: 1rem;
+    color: white;
 `;
 
 export const ButtonContainer = styled.div`

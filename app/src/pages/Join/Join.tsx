@@ -11,6 +11,8 @@ import React, { FunctionComponent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
 
+import { LinkWrapper } from "./Join.sc";
+
 const Join: FunctionComponent = () => {
     const { pollId } = useParams();
     const { t } = useTranslation();
@@ -29,16 +31,14 @@ const Join: FunctionComponent = () => {
         <Auth>
             <ColumnFullWidth>{pollData?.title && <Headline type="h2">{pollData.title}</Headline>}</ColumnFullWidth>
             <ColumnFullWidth>
-                <LinkButton active={true} arrow={true} link={url} primary={true}>
-                    {t("decision.vote")}
-                </LinkButton>
-            </ColumnFullWidth>
-            <ColumnFullWidth>
+                <LinkWrapper>
+                    <LinkButton active={true} arrow={true} link={url} primary={true}>
+                        {t("decision.vote")}
+                    </LinkButton>
+                </LinkWrapper>
                 <LinkButton active={true} arrow={true} link={urlResult} primary={true}>
                     Result
                 </LinkButton>
-            </ColumnFullWidth>
-            <ColumnFullWidth>
                 <LinkButton onClick={copyToClipBoard} arrow={true} active={true}>
                     {t("decision.copyLink")}
                 </LinkButton>

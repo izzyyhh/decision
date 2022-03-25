@@ -80,23 +80,18 @@ const Tinder: FunctionComponent = () => {
         <ColumnFullWidth>
             <VoteWrapper>
                 {optionsData.map((option, idx) => (
-                    <>
-                        <p>
-                            {idx} | {currentIndex}
-                        </p>
-                        <TinderCard
-                            className={`swipe ${currentIndex === idx - 1 ? "active" : ""}`}
-                            ref={childRefs[idx]}
-                            key={option.title}
-                            onSwipe={(dir: SwipeDirection) => swiped(dir, option.id, idx)}
-                            onCardLeftScreen={() => outOfFrame(option.title, idx)}
-                        >
-                            <Card active={true}>
-                                <Image src={option.thumbnailUrl ?? "https://picsum.photos/200/300"} />
-                                <Title>{option.title}</Title>
-                            </Card>
-                        </TinderCard>
-                    </>
+                    <TinderCard
+                        className={`swipe ${currentIndex === idx - 1 ? "active" : ""}`}
+                        ref={childRefs[idx]}
+                        key={option.title}
+                        onSwipe={(dir: SwipeDirection) => swiped(dir, option.id, idx)}
+                        onCardLeftScreen={() => outOfFrame(option.title, idx)}
+                    >
+                        <Card active={true}>
+                            <Image src={option.thumbnailUrl ?? "https://picsum.photos/200/300"} />
+                            <Title>{option.title}</Title>
+                        </Card>
+                    </TinderCard>
                 ))}
                 <VoteButtons>
                     <DownVote>
