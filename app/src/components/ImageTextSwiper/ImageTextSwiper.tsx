@@ -8,7 +8,6 @@ import { Wrapper } from "./ImageTextSwiper.sc";
 import { ImagesProps } from "./Props";
 
 const ImageTextSwiper: FunctionComponent<ImagesProps> = ({ images }) => {
-    console.log(images, "2");
     return (
         <Wrapper>
             <Swiper spaceBetween={30} slidesPerView={1}>
