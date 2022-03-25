@@ -16,7 +16,7 @@ export type Scalars = {
 export type GQLActivity = {
   __typename?: 'Activity';
   name: Scalars['String'];
-  date: Scalars['Float'];
+  date: Maybe<Scalars['Float']>;
   type: GQLActivityType;
   id: Scalars['String'];
 };
@@ -37,6 +37,7 @@ export type GQLDecision = {
   option: GQLOption;
   poll: GQLPoll;
   answer: Maybe<Scalars['Float']>;
+  createdAt: Maybe<Scalars['Float']>;
 };
 
 export type GQLDecisionInput = {
@@ -44,6 +45,13 @@ export type GQLDecisionInput = {
   poll: Scalars['String'];
   option: Scalars['String'];
   answer?: Maybe<Scalars['Float']>;
+};
+
+export type GQLGenre = {
+  __typename?: 'Genre';
+  apiId: Scalars['ID'];
+  title: Scalars['String'];
+  movies: Array<GQLMovie>;
 };
 
 export type GQLGetDecisionDto = {
@@ -70,6 +78,26 @@ export type GQLGetPollDto = {
 export type GQLLocationDto = {
   latitude: Scalars['Float'];
   longitude: Scalars['Float'];
+};
+
+export type GQLMovie = {
+  __typename?: 'Movie';
+  id: Scalars['ID'];
+  title: Scalars['String'];
+  posterPath: Scalars['String'];
+  backdropPath: Scalars['String'];
+  rating: Scalars['String'];
+  description: Scalars['String'];
+  releaseDate: Scalars['String'];
+  adult: Scalars['Boolean'];
+  mediaType: Scalars['String'];
+  genres: Array<GQLGenre>;
+};
+
+export type GQLMoviesDto = {
+  __typename?: 'MoviesDto';
+  title: Scalars['String'];
+  thumbnailUrl: Scalars['String'];
 };
 
 export type GQLMutation = {
@@ -149,6 +177,7 @@ export type GQLPoll = {
   owner: GQLUser;
   type: GQLPollType;
   predefined: Scalars['Boolean'];
+  createdAt: Maybe<Scalars['Float']>;
 };
 
 export type GQLPollInput = {
@@ -163,6 +192,12 @@ export type GQLPollType =
   | 'DATE'
   | 'NUMERICAL'
   | 'TINDER';
+
+export type GQLPreset = {
+  __typename?: 'Preset';
+  title: Scalars['String'];
+  thumbnailUrl: Scalars['String'];
+};
 
 export type GQLProduct = {
   __typename?: 'Product';
@@ -197,6 +232,11 @@ export type GQLQuery = {
   canDecide: Scalars['Boolean'];
   getActivity: Array<GQLActivity>;
   getRestaurantsPreset: Array<GQLOption>;
+  genresAll: Array<GQLGenre>;
+  addGenres: Scalars['Boolean'];
+  getMoviesPreset: Array<GQLMoviesDto>;
+  addMovies: Scalars['Boolean'];
+  presetsAll: Array<GQLPreset>;
 };
 
 

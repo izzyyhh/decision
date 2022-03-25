@@ -26,6 +26,7 @@ export class MoviesResolver {
     @Query(() => [MoviesDto])
     async getMoviesPreset(): Promise<MoviesDto[]> {
         const movies = await this.repository.findAll();
+        console.log(movies);
         const maped: MoviesDto[] = movies.map((m: Movie): MoviesDto => {
             return {
                 title: m.title,

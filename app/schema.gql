@@ -37,6 +37,7 @@ type Poll {
   owner: User!
   type: PollType!
   predefined: Boolean!
+  createdAt: Float
 }
 
 enum PollType {
@@ -59,11 +60,12 @@ type Decision {
   option: Option!
   poll: Poll!
   answer: Float
+  createdAt: Float
 }
 
 type Activity {
   name: String!
-  date: Float!
+  date: Float
   type: ActivityType!
   id: String!
 }
@@ -71,6 +73,35 @@ type Activity {
 enum ActivityType {
   POLL
   DECISION
+}
+
+type Genre {
+  apiId: ID!
+  title: String!
+  movies: [Movie!]!
+}
+
+type Movie {
+  id: ID!
+  title: String!
+  posterPath: String!
+  backdropPath: String!
+  rating: String!
+  description: String!
+  releaseDate: String!
+  adult: Boolean!
+  mediaType: String!
+  genres: [Genre!]!
+}
+
+type MoviesDto {
+  title: String!
+  thumbnailUrl: String!
+}
+
+type Preset {
+  title: String!
+  thumbnailUrl: String!
 }
 
 type Thumbnail {
@@ -95,6 +126,11 @@ type Query {
   canDecide(data: GetDecisionForUserAndPollDto!): Boolean!
   getActivity(data: ActivityInput!): [Activity!]!
   getRestaurantsPreset(data: LocationDto!): [Option!]!
+  genresAll: [Genre!]!
+  addGenres: Boolean!
+  getMoviesPreset: [MoviesDto!]!
+  addMovies: Boolean!
+  presetsAll: [Preset!]!
 }
 
 enum SortDirection {

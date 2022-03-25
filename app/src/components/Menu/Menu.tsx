@@ -1,7 +1,7 @@
 import { BottomNavigation, BottomNavigationAction } from "@material-ui/core";
-import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
-import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
+import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import React, { FunctionComponent, useState } from "react";
 import { useNavigate } from "react-router";
 
@@ -12,9 +12,9 @@ const BottomNav: FunctionComponent = () => {
     const exceptions = ["auth"];
     const curr = window.location.href.replace(window.location.origin, "").split("/")[1];
 
-    const handleClick = () => {
-        navigate("/");
-    };
+    // const handleClick = () => {
+    //     navigate("/");
+    // };
 
     if (exceptions.includes(curr)) {
         return <></>;

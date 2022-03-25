@@ -68,7 +68,7 @@ const Result: FunctionComponent = () => {
                                     : (resultObject[option.title] * 100) / decisionAmount;
 
                                 return (
-                                    <OptionContainer>
+                                    <OptionContainer key={option.id}>
                                         <OptionTitle>{option.title}</OptionTitle>
                                         <StatBar>
                                             <StatBarFiller id={option.title} style={{ width: `${percentage}%` }}>

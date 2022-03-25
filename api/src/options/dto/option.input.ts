@@ -10,4 +10,8 @@ export class OptionInput {
     @Field()
     @IsUUID()
     poll: string;
+
+    @Field()
+    @IsString()
+    thumbnailUrl: string;
 }
