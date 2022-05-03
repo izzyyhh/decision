@@ -9,6 +9,7 @@ import AlertTitle from "@mui/material/AlertTitle";
 import { getPoll } from "@pages/DecisionPage/pollData.gql";
 import React, { FunctionComponent, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { QrReader } from "react-qr-reader";
 import { useParams } from "react-router";
 
 import { LinkWrapper } from "./Join.sc";
@@ -21,6 +22,7 @@ const Join: FunctionComponent = () => {
     const poll = useQuery<GQLQuery>(getPoll, { variables: { data: { pollId } } });
     const pollData = poll.data ? poll.data.getPoll : null;
     const [showNotification, setShowNotification] = useState<boolean>(false);
+    const [showScanner, setShowScanner] = useState<boolean>(false);
 
     const copyToClipBoard = () => {
         navigator.clipboard.writeText(`${window.location.origin}/join/${pollId}`);
@@ -47,6 +49,26 @@ const Join: FunctionComponent = () => {
                         <AlertTitle>Info</AlertTitle>
                         {t("decision.linkCopied")}
                     </Alert>
+                )}
+                <LinkButton active={true} arrow={false} primary={true} onClick={() => setShowScanner(true)}>
+                    {t("join.decision.with.qrcode")}
+                </LinkButton>
+                {showScanner && (
+                    <QrReader
+                        onResult={(result, error) => {
+                            // eslint-disable-next-line no-extra-boolean-cast
+                            if (!!result) {
+                                if (result?.text.includes(window.location.origin)) {
+                                    window.location.href = result?.text;
+                                }
+                            }
+
+                            if (error) {
+                                console.info(error);
+                            }
+                        }}
+                        style={{ width: "100%" }}
+                    />
                 )}
             </ColumnFullWidth>
         </Auth>
