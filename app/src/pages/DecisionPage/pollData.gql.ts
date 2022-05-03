@@ -11,6 +11,14 @@ const getPoll = gql`
     }
 `;
 
+const getQRCode = gql`
+    query getQRCode($data: QrCodeDto!) {
+        getQRCode(data: $data) {
+            id
+        }
+    }
+`;
+
 const getOptions = gql`
     query getOptionsForPoll($data: GetOptionsForPollDto!) {
         getOptionsForPoll(data: $data) {
@@ -35,4 +43,4 @@ const addDecision = gql`
     }
 `;
 
-export { getPoll as getPoll, getOptions as getOptions, addDecision as addDecision };
+export { getPoll as getPoll, getOptions as getOptions, addDecision as addDecision, getQRCode as getQRCode };
