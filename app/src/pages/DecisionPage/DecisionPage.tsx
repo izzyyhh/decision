@@ -6,7 +6,6 @@ import Auth from "@components/Auth/Auth";
 import Headline from "@components/Headline/Headline";
 import LinkButton from "@components/LinkButton/LinkButton";
 import Polls from "@components/Polls/Polls";
-import SocialShare from "@components/Share/SocialShare";
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import React, { FunctionComponent, useState } from "react";
@@ -59,6 +58,7 @@ const DecisionPage: FunctionComponent = () => {
                             {t("decision.linkCopied")}
                         </Alert>
                     )}
+                    {imageReady && <img src={qrCodeBase64}></img>}
                 </ColumnFullWidth>
             </Auth>
         </>

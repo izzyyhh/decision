@@ -1,20 +1,20 @@
-import React, { useState, FunctionComponent } from "react";
+import QrCode2OutlinedIcon from "@mui/icons-material/QrCode2Outlined";
+import React, { FunctionComponent, useState } from "react";
+import { CircleMenuItem } from "react-circular-menu";
 import {
-    FacebookShareButton,
-    FacebookIcon,
-    WhatsappShareButton,
-    WhatsappIcon,
-    TwitterShareButton,
-    TwitterIcon,
-    TelegramShareButton,
-    TelegramIcon,
-    EmailShareButton,
     EmailIcon,
+    EmailShareButton,
+    FacebookIcon,
+    FacebookShareButton,
+    TelegramIcon,
+    TelegramShareButton,
+    TwitterIcon,
+    TwitterShareButton,
+    WhatsappIcon,
+    WhatsappShareButton,
 } from "react-share";
 
 import { CircleMenu, ShareIcon, ShareOutlineIcon, SocialShareWrapper } from "./SocialShare.sc";
-import QrCode2OutlinedIcon from "@mui/icons-material/QrCode2Outlined";
-import { CircleMenuItem } from "react-circular-menu";
 
 interface Props {
     url: string;

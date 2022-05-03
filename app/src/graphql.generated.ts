@@ -215,6 +215,10 @@ export type GQLProductInput = {
   description: Scalars['String'];
 };
 
+export type GQLQrCodeDto = {
+  shareLink: Scalars['String'];
+};
+
 export type GQLQuery = {
   __typename?: 'Query';
   product: GQLProduct;
@@ -222,6 +226,7 @@ export type GQLQuery = {
   products: GQLPaginatedProducts;
   productsOffsetBased: Array<GQLProduct>;
   pollsAll: Array<GQLPoll>;
+  getQRCode: GQLPoll;
   getPoll: GQLPoll;
   usersAll: Array<GQLUser>;
   checkToken: Scalars['Boolean'];
@@ -261,6 +266,11 @@ export type GQLQueryproductsOffsetBasedArgs = {
   sortColumnName?: Maybe<Scalars['String']>;
   sortDirection?: Maybe<GQLSortDirection>;
   query?: Maybe<Scalars['String']>;
+};
+
+
+export type GQLQuerygetQRCodeArgs = {
+  data: GQLQrCodeDto;
 };
 
 

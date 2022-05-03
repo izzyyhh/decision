@@ -1,7 +1,7 @@
+import Share from "@material-ui/icons/Share";
+import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
 import { CircleMenu as CircleShareMenu } from "react-circular-menu";
 import styled from "styled-components";
-import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
-import Share from "@material-ui/icons/Share";
 
 export const CircleMenu = styled(CircleShareMenu)`
     && {
