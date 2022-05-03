@@ -20,6 +20,7 @@ type User {
   id: ID!
   name: String!
   token: String!
+  refreshToken: String
 }
 
 type PaginatedProducts {
@@ -117,6 +118,7 @@ type Query {
   pollsAll: [Poll!]!
   getPoll(data: GetPollDto!): Poll!
   usersAll: [User!]!
+  refreshToken(data: RefreshTokenInput!): String!
   checkToken: Boolean!
   thumbnailsAll: [Thumbnail!]!
   optionsAll: [Decision!]!
@@ -140,6 +142,10 @@ enum SortDirection {
 
 input GetPollDto {
   pollId: String!
+}
+
+input RefreshTokenInput {
+  refreshToken: String!
 }
 
 input GetOptionsForPollDto {

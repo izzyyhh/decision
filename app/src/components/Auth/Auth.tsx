@@ -1,7 +1,6 @@
 import { useMutation } from "@apollo/client";
-import { auth, signInWithCustomToken } from "@app/firebase/firebase";
 import { useUser } from "@context/user/useUser";
-import { useAuthToken } from "@hooks/useAuthToken";
+import { useAuthToken, useRefreshToken } from "@hooks/useAuthToken";
 import React, { FunctionComponent, ReactNode, useEffect } from "react";
 
 import addUserMutation from "./addUserMutation.gql";
@@ -13,26 +12,23 @@ interface Props {
 const Auth: FunctionComponent<Props> = ({ children }) => {
     const [data] = useMutation(addUserMutation, { variables: { data: { name: "" } } });
     const [cookie, setAuthToken] = useAuthToken();
+    const [setRefreshToken] = useRefreshToken();
     const { user, setUser } = useUser();
 
     useEffect(() => {
         const addUser = async () => {
+            console.log("addUser");
             const result = await data();
-            const { token } = result.data.addUser;
+            const { token, refreshToken } = result.data.addUser;
 
-            signInWithCustomToken(auth, token)
-                .then((userCredential: any) => {
-                    setAuthToken(token);
-                    setUser(result.data.addUser);
-                })
-                .catch((error: any) => {
-                    const errorCode = error.code;
-                    const errorMessage = error.message;
-                    console.log({ errorCode, errorMessage }, "error");
-                });
+            setAuthToken(token);
+            setRefreshToken(refreshToken);
+            setUser(result.data.addUser);
         };
 
+        console.log(user);
         if (!user && !cookie) {
+            console.log("addUser");
             addUser();
         }
     }, []);

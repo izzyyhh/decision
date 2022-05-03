@@ -224,6 +224,7 @@ export type GQLQuery = {
   pollsAll: Array<GQLPoll>;
   getPoll: GQLPoll;
   usersAll: Array<GQLUser>;
+  refreshToken: Scalars['String'];
   checkToken: Scalars['Boolean'];
   thumbnailsAll: Array<GQLThumbnail>;
   optionsAll: Array<GQLDecision>;
@@ -269,6 +270,11 @@ export type GQLQuerygetPollArgs = {
 };
 
 
+export type GQLQueryrefreshTokenArgs = {
+  data: GQLRefreshTokenInput;
+};
+
+
 export type GQLQuerygetOptionsForPollArgs = {
   data: GQLGetOptionsForPollDto;
 };
@@ -298,6 +304,10 @@ export type GQLQuerygetRestaurantsPresetArgs = {
   data: GQLLocationDto;
 };
 
+export type GQLRefreshTokenInput = {
+  refreshToken: Scalars['String'];
+};
+
 export type GQLSortDirection =
   | 'ASC'
   | 'DESC';
@@ -313,6 +323,7 @@ export type GQLUser = {
   id: Scalars['ID'];
   name: Scalars['String'];
   token: Scalars['String'];
+  refreshToken: Maybe<Scalars['String']>;
 };
 
 export type GQLUserInput = {
