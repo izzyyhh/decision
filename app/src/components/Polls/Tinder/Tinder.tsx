@@ -1,14 +1,12 @@
 import { useMutation } from "@apollo/client";
 import { ColumnFullWidth } from "@app/common/Column.sc";
 import { GQLOption } from "@app/graphql.generated";
-import LinkButton from "@components/LinkButton/LinkButton";
 import { useUser } from "@context/user/useUser";
 import React, { FunctionComponent, useMemo, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import TinderCard from "react-tinder-card";
 
 import { ADD_DECISION } from "../Binary/pollData.gql";
-import { Card, DownVote, Image, Title, UpVote, VoteButtons, VoteWrapper } from "./Tinder.sc";
+import { Card, DownVote, IconClose, IconHeart, Image, TinderCard, Title, UpVote, VoteButtons, VoteWrapper } from "./Tinder.sc";
 
 enum SwipeDirection {
     RIGHT = "right",
@@ -83,21 +81,19 @@ const Tinder: FunctionComponent<Props> = ({ data }) => {
                         onCardLeftScreen={() => outOfFrame(option.title, idx)}
                     >
                         <Card active={true}>
-                            <Image src={option.thumbnailUrl ?? "https://picsum.photos/200/300"} />
+                            <Image
+                                src={option.thumbnailUrl && option.thumbnailUrl.length > 0 ? option.thumbnailUrl : "https://picsum.photos/200/300"}
+                            />
                             <Title>{option.title}</Title>
                         </Card>
                     </TinderCard>
                 ))}
                 <VoteButtons>
-                    <DownVote>
-                        <LinkButton active={true} onClick={() => swipe(SwipeDirection.LEFT)}>
-                            No
-                        </LinkButton>
+                    <DownVote onClick={() => swipe(SwipeDirection.LEFT)}>
+                        <IconClose />
                     </DownVote>
-                    <UpVote>
-                        <LinkButton active={true} onClick={() => swipe(SwipeDirection.RIGHT)}>
-                            Yes
-                        </LinkButton>
+                    <UpVote onClick={() => swipe(SwipeDirection.RIGHT)}>
+                        <IconHeart />
                     </UpVote>
                 </VoteButtons>
             </VoteWrapper>

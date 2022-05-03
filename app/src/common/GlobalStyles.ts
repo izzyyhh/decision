@@ -15,7 +15,7 @@ export default GlobalStyle;
 export const Container = styled.div`
     margin-left: auto;
     margin-right: auto;
-    margin-top: 75px;
+    margin-top: 30px;
     display: grid;
     grid-template-columns: repeat(24, 1fr);
     grid-template-rows: auto;
