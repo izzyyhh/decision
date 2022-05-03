@@ -20,6 +20,7 @@ type User {
   id: ID!
   name: String!
   token: String!
+  refreshToken: String
 }
 
 type PaginatedProducts {
@@ -118,6 +119,7 @@ type Query {
   getQRCode(data: QrCodeDto!): Poll!
   getPoll(data: GetPollDto!): Poll!
   usersAll: [User!]!
+  refreshToken(data: RefreshTokenInput!): String!
   checkToken: Boolean!
   thumbnailsAll: [Thumbnail!]!
   optionsAll: [Decision!]!
@@ -145,6 +147,10 @@ input QrCodeDto {
 
 input GetPollDto {
   pollId: String!
+}
+
+input RefreshTokenInput {
+  refreshToken: String!
 }
 
 input GetOptionsForPollDto {
