@@ -6,6 +6,7 @@ import Auth from "@components/Auth/Auth";
 import Headline from "@components/Headline/Headline";
 import LinkButton from "@components/LinkButton/LinkButton";
 import Polls from "@components/Polls/Polls";
+import SocialShare from "@components/Share/SocialShare";
 import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import React, { FunctionComponent, useState } from "react";
@@ -22,9 +23,10 @@ const DecisionPage: FunctionComponent = () => {
 
     const poll = useQuery<GQLQuery>(getPoll, { variables: { data: { pollId } } });
     const pollData = poll.data ? poll.data.getPoll : null;
+    const url = `${window.location.origin}/join/${pollId}`;
 
     const copyToClipBoard = () => {
-        navigator.clipboard.writeText(`${window.location.origin}/join/${pollId}`);
+        navigator.clipboard.writeText(url);
         setShowNotification(true);
     };
 
