@@ -4,6 +4,7 @@ import { GQLOption } from "@app/graphql.generated";
 import LinkButton from "@components/LinkButton/LinkButton";
 import { useUser } from "@context/user/useUser";
 import React, { FunctionComponent, useMemo, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 import TinderCard from "react-tinder-card";
 
@@ -23,6 +24,7 @@ const Tinder: FunctionComponent<Props> = ({ data }) => {
     const { user } = useUser();
     const navigate = useNavigate();
     const { pollId } = useParams();
+    const { t } = useTranslation();
     const userId = user?.id;
 
     const [currentIndex, setCurrentIndex] = useState(data.length - 1);
@@ -71,6 +73,7 @@ const Tinder: FunctionComponent<Props> = ({ data }) => {
         await addDecision({ variables: { data: { user, poll, option, answer: 0.6 } } });
     };
 
+    console.log(optionsData);
     return (
         <ColumnFullWidth>
             <VoteWrapper>
@@ -82,9 +85,21 @@ const Tinder: FunctionComponent<Props> = ({ data }) => {
                         onSwipe={(dir: SwipeDirection) => swiped(dir, option.id, idx)}
                         onCardLeftScreen={() => outOfFrame(option.title, idx)}
                     >
-                        <Card active={true}>
+                        <Card first={idx + 1 === optionsData.length}>
                             <Image src={option.thumbnailUrl ?? "https://picsum.photos/200/300"} />
-                            <Title>{option.title}</Title>
+                            <Title first={idx + 1 === optionsData.length}>{option.title}</Title>
+                            {idx + 1 === optionsData.length && (
+                                <OnBoard>
+                                    <InfoBox>
+                                        <TouchIcon />
+                                        <HelpText>{t("tinder.downVote")}</HelpText>
+                                    </InfoBox>
+                                    <InfoBox>
+                                        <TouchIcon />
+                                        <HelpText>{t("tinder.vote")}</HelpText>
+                                    </InfoBox>
+                                </OnBoard>
+                            )}
                         </Card>
                     </TinderCard>
                 ))}
