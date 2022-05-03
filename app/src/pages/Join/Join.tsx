@@ -10,6 +10,7 @@ import AlertTitle from "@mui/material/AlertTitle";
 import { getPoll } from "@pages/DecisionPage/pollData.gql";
 import React, { FunctionComponent, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { QrReader } from "react-qr-reader";
 import { useParams } from "react-router";
 
 import { LinkWrapper } from "./Join.sc";
@@ -22,6 +23,7 @@ const Join: FunctionComponent = () => {
     const poll = useQuery<GQLQuery>(getPoll, { variables: { data: { pollId } } });
     const pollData = poll.data ? poll.data.getPoll : null;
     const [showNotification, setShowNotification] = useState<boolean>(false);
+    const [showScanner, setShowScanner] = useState<boolean>(false);
 
     const copyToClipBoard = () => {
         navigator.clipboard.writeText(`${window.location.origin}/join/${pollId}`);
@@ -42,6 +44,9 @@ const Join: FunctionComponent = () => {
                     <LinkButton active={true} arrow={true} link={urlResult} primary={true}>
                         Result
                     </LinkButton>
+                    <LinkButton active={true} arrow={true} link={urlResult} primary={true}>
+                        Result
+                    </LinkButton>
                     <LinkButton onClick={copyToClipBoard} arrow={true} active={true}>
                         {t("decision.copyLink")}
                     </LinkButton>
@@ -50,6 +55,25 @@ const Join: FunctionComponent = () => {
                             <AlertTitle>Info</AlertTitle>
                             {t("decision.linkCopied")}
                         </Alert>
+                    )}
+                    <LinkButton active={true} arrow={false} primary={true} onClick={() => setShowScanner(true)}>
+                        {t("join.decision.with.qrcode")}
+                    </LinkButton>
+                    {showScanner && (
+                        <QrReader
+                            constraints={{ facingMode: "user" }}
+                            onResult={(result, error) => {
+                                if (result) {
+                                    if (result.getText().includes(window.location.origin)) {
+                                        window.location.href = result.getText();
+                                    }
+                                }
+
+                                if (error) {
+                                    console.info(error);
+                                }
+                            }}
+                        />
                     )}
                 </ColumnFullWidth>
             </Auth>

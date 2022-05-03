@@ -1,10 +1,11 @@
 import CloseIcon from "@material-ui/icons/Close";
 import FavoriteIcon from "@material-ui/icons/Favorite";
+import TouchAppIcon from "@material-ui/icons/TouchApp";
 import * as RTCTinderCard from "react-tinder-card";
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 
 interface Props {
-    active: boolean;
+    first: boolean;
 }
 
 export const TinderCard = styled(RTCTinderCard)`
@@ -15,13 +16,47 @@ export const TinderCard = styled(RTCTinderCard)`
 
 export const Card = styled.div<Props>`
     width: 100%;
-    display: ${({ active }) => (active ? "block" : "none")};
+    display: block;
     border-radius: 7.5px;
+    height: 350px;
+    background: yellow;
+    display: block;
+    border-radius: 22px;
     overflow: hidden;
     position: relative;
     height: calc(85vh - 150px);
     @media (min-width: ${({ theme }) => theme.breakpoints.values.sm}px) {
         height: 350px;
+    }
+
+    ${({ first }) =>
+        first &&
+        css`
+            animation: onBoard 4s 1 linear;
+        `}
+
+    @keyframes onBoard {
+        0% {
+            transform: translateX(0px) translateY(0px) rotate(0deg);
+        }
+        25% {
+            transform: translateX(25px) translateY(-25px) rotate(15deg);
+        }
+        35% {
+            transform: translateX(25px) translateY(-25px) rotate(15deg);
+        }
+        45 % {
+            transform: translateX(-25px) translateY(25px) rotate(-15deg);
+        }
+        55 % {
+            transform: translateX(0px) translateY(0px) rotate(0deg);
+        }
+        75% {
+            transform: translateX(-25px) translateY(-25px) rotate(-15deg);
+        }
+        100% {
+            transform: translateX(0px) translateY(0px) rotate(0deg);
+        }
     }
 
     &:before {
@@ -55,6 +90,61 @@ export const VoteWrapper = styled.div`
     }
 `;
 
+export const OnBoard = styled.div`
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #b9b9b9;
+    opacity: 0;
+    display: flex;
+
+    animation: onBoardWrapper 5s 1 linear;
+
+    @keyframes onBoardWrapper {
+        0% {
+            opacity: 0.8;
+        }
+        85% {
+            opacity: 0.8;
+        }
+        90% {
+            opacity: 0;
+        }
+    }
+
+    &:after {
+        content: "";
+        height: 100%;
+        border-right: 1px dashed white;
+        position: absolute;
+        left: 50%;
+    }
+`;
+
+export const InfoBox = styled.div`
+    width: 50%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+`;
+
+export const HelpText = styled.p`
+    text-align: center;
+    color: white;
+    word-break: break-word;
+`;
+
+export const TouchIcon = styled(TouchAppIcon)`
+    && {
+        color: white;
+        margin-left: auto;
+        margin-right: auto;
+    }
+`;
+
 export const Image = styled.img`
     width: 100%;
     height: 100%;
@@ -62,7 +152,7 @@ export const Image = styled.img`
     postion: relative;
 `;
 
-export const Title = styled.p`
+export const Title = styled.p<Props>`
     position: absolute;
     left: 0;
     right: 0;
@@ -72,9 +162,28 @@ export const Title = styled.p`
     margin-left: 25px;
     margin-right: 25px;
     margin-bottom: 75px;
+    display: block;
 
     @media (min-width: ${({ theme }) => theme.breakpoints.values.sm}px) {
         font-size: 24px;
+    }
+
+    ${({ first }) =>
+        first &&
+        css`
+            animation: onBoardTitle 5s 1 linear;
+        `}
+
+    @keyframes onBoardTitle {
+        0% {
+            opacity: 0;
+        }
+        85% {
+            opacity: 0;
+        }
+        90% {
+            opacity: 1;
+        }
     }
 `;
 
@@ -92,6 +201,20 @@ export const VoteButtons = styled.div`
     height: max-content;
     display: flex;
     justify-content: space-between;
+
+    animation: onBoardBTN 5s 1 linear;
+
+    @keyframes onBoardBTN {
+        0% {
+            opacity: 0;
+        }
+        85% {
+            opacity: 0;
+        }
+        90% {
+            opacity: 1;
+        }
+    }
 `;
 
 export const DownVote = styled.div`
