@@ -1,6 +1,7 @@
 import { useLazyQuery, useQuery } from "@apollo/client";
 import { GQLQuery } from "@app/graphql.generated";
 import { AppRoutes } from "@app/Router";
+import Seo from "@app/seo/Seo";
 import Auth from "@components/Auth/Auth";
 import Card from "@components/Card/Card";
 import Headline from "@components/Headline/Headline";
@@ -56,41 +57,44 @@ const Result: FunctionComponent = () => {
     }, [data]);
 
     return (
-        <Auth>
-            <ColumnFullWidth>
-                <Headline type="h2">{poll.data?.getPoll.title}</Headline>
-                <Card title="Result">
-                    {options.data && (
-                        <>
-                            {options.data.getOptionsForPoll.map((option) => {
-                                const percentage = isNaN((resultObject[option.title] * 100) / decisionAmount)
-                                    ? 0
-                                    : (resultObject[option.title] * 100) / decisionAmount;
+        <>
+            <Seo title={poll.data?.getPoll.title} />
+            <Auth>
+                <ColumnFullWidth>
+                    <Headline type="h2">{poll.data?.getPoll.title}</Headline>
+                    <Card title="Result">
+                        {options.data && (
+                            <>
+                                {options.data.getOptionsForPoll.map((option) => {
+                                    const percentage = isNaN((resultObject[option.title] * 100) / decisionAmount)
+                                        ? 0
+                                        : (resultObject[option.title] * 100) / decisionAmount;
 
-                                return (
-                                    <OptionContainer key={option.id}>
-                                        <OptionTitle>{option.title}</OptionTitle>
-                                        <StatBar>
-                                            <StatBarFiller id={option.title} style={{ width: `${percentage}%` }}>
-                                                <OptionPercentage>{Math.round(percentage)}%</OptionPercentage>
-                                            </StatBarFiller>
-                                        </StatBar>
-                                    </OptionContainer>
-                                );
-                            })}
-                        </>
-                    )}
-                </Card>
-                <ButtonContainer>
-                    <LinkButton active={true} link={AppRoutes.Poll}>
-                        {t("result.vote")}
-                    </LinkButton>
-                    <LinkButton active={true} link={AppRoutes.Poll}>
-                        {t("result.share")}
-                    </LinkButton>
-                </ButtonContainer>
-            </ColumnFullWidth>
-        </Auth>
+                                    return (
+                                        <OptionContainer key={option.id}>
+                                            <OptionTitle>{option.title}</OptionTitle>
+                                            <StatBar>
+                                                <StatBarFiller id={option.title} style={{ width: `${percentage}%` }}>
+                                                    <OptionPercentage>{Math.round(percentage)}%</OptionPercentage>
+                                                </StatBarFiller>
+                                            </StatBar>
+                                        </OptionContainer>
+                                    );
+                                })}
+                            </>
+                        )}
+                    </Card>
+                    <ButtonContainer>
+                        <LinkButton active={true} link={AppRoutes.Poll}>
+                            {t("result.vote")}
+                        </LinkButton>
+                        <LinkButton active={true} link={AppRoutes.Poll}>
+                            {t("result.share")}
+                        </LinkButton>
+                    </ButtonContainer>
+                </ColumnFullWidth>
+            </Auth>
+        </>
     );
 };
 

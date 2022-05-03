@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { ColumnFullWidth } from "@app/common/Column.sc";
 import { GQLQuery } from "@app/graphql.generated";
+import Seo from "@app/seo/Seo";
 import Auth from "@components/Auth/Auth";
 import Headline from "@components/Headline/Headline";
 import LinkButton from "@components/LinkButton/LinkButton";
@@ -12,7 +13,7 @@ import React, { FunctionComponent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
 
-import { getPoll } from "./pollData.gql";
+import { getPoll, getQRCode } from "./pollData.gql";
 
 const DecisionPage: FunctionComponent = () => {
     const { t } = useTranslation();
@@ -29,27 +30,38 @@ const DecisionPage: FunctionComponent = () => {
         setShowNotification(true);
     };
 
+    const shareLink = `${window.location.origin}/decision/${pollId}`;
+    const qrCodeData = useQuery<GQLQuery>(getQRCode, { variables: { data: { shareLink } } });
+    const qrCodeBase64 = qrCodeData.data?.getQRCode.id;
+
+    let imageReady = false;
+    if (typeof qrCodeBase64 === "string") {
+        imageReady = true;
+    }
+
     const pollType = poll.data?.getPoll.type;
 
     return (
-        <Auth>
-            <ColumnFullWidth>
-                <>{pollData?.title && <Headline type="h2">{pollData.title}</Headline>}</>
-            </ColumnFullWidth>
-            <Polls poll={pollType} />
-            <ColumnFullWidth>
-                <LinkButton onClick={copyToClipBoard} arrow={false} active={true} title={""}>
-                    {t("decision.copyLink")}
-                </LinkButton>
-                <SocialShare url={url}></SocialShare>
-                {showNotification && (
-                    <Alert severity="info">
-                        <AlertTitle>Info</AlertTitle>
-                        {t("decision.linkCopied")}
-                    </Alert>
-                )}
-            </ColumnFullWidth>
-        </Auth>
+        <>
+            <Seo title={pollData?.title} />
+            <Auth>
+                <ColumnFullWidth>
+                    <>{pollData?.title && <Headline type="h2">{pollData.title}</Headline>}</>
+                </ColumnFullWidth>
+                <Polls poll={pollType} />
+                <ColumnFullWidth>
+                    <LinkButton onClick={copyToClipBoard} arrow={false} active={true} title={""}>
+                        {t("decision.copyLink")}
+                    </LinkButton>
+                    {showNotification && (
+                        <Alert severity="info">
+                            <AlertTitle>Info</AlertTitle>
+                            {t("decision.linkCopied")}
+                        </Alert>
+                    )}
+                </ColumnFullWidth>
+            </Auth>
+        </>
     );
 };
 
