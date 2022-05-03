@@ -22,15 +22,15 @@ interface Props {
 
 const SocialShare: FunctionComponent<Props> = ({ url }) => {
     const [open, setOpen] = useState(false);
-    let icon = <ShareIcon fontSize="medium"></ShareIcon>;
+    let Icon = <ShareIcon fontSize="medium"></ShareIcon>;
 
     if (open) {
-        icon = <ShareOutlineIcon fontSize="medium"></ShareOutlineIcon>;
+        Icon = <ShareOutlineIcon fontSize="medium"></ShareOutlineIcon>;
     }
 
     return (
         <SocialShareWrapper>
-            {icon}
+            {Icon}
             <CircleMenu className="sharebutton" startAngle={-90} rotationAngle={300} itemSize={1.5} radius={3} onMenuToggle={() => setOpen(!open)}>
                 <CircleMenuItem tooltip={"Facebook"}>
                     <FacebookShareButton quote="Join the decision." hashtag="#decidefast" url={url}>
