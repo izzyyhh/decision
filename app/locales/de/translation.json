@@ -51,5 +51,9 @@
         "options": {
             "title": "Add your Options"
         }
+    },
+    "tinder": {
+                "downVote": "Magst du nicht links swipen",
+                "vote": "Magst du rechts swipen"
     }
 }
