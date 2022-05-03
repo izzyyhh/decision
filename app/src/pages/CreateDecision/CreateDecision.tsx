@@ -116,7 +116,7 @@ const createPoll = async (
             options.forEach(async (o) => {
                 console.log("option");
                 console.log(o);
-                const optionId = await addOptionMutation({ variables: { data: { poll: pollId, title: o.value, thumbnailUrl: '' } } });
+                const optionId = await addOptionMutation({ variables: { data: { poll: pollId, title: o.value, thumbnailUrl: "" } } });
 
                 if (optionId.data.addOption.id) {
                     imagePromises.push(uploadImage(o.image, optionId.data.addOption.id, authToken));
