@@ -1,4 +1,5 @@
 import { useMutation } from "@apollo/client";
+import Seo from "@app/seo/Seo";
 import IOption from "@app/types/IOption";
 import BreadCrumb from "@components/Breadcrumb/BreadCrumb";
 import Headline from "@components/Headline/Headline";
@@ -74,37 +75,40 @@ const PollWithType: FunctionComponent = () => {
     };
 
     return (
-        <CreatePollWithTypeWrapper>
-            <HeadlineWrapper>
-                <Headline type="h2">{t("decision.headline")}</Headline>
-            </HeadlineWrapper>
-            <BreadCrumbWrapper>
-                <BreadCrumb>Selected Type: {type}</BreadCrumb>
-            </BreadCrumbWrapper>
-            <HelpText>{t("decision.help")}</HelpText>
-            <QuestionInput name="question" type="text" placeholder={question} onChange={(e) => setQuestion(e.target.value)} />
-            {options.length < 2 && (
-                <OptionWrapper>
-                    <AddCircleOutlineIcon onClick={setOptionFromIcon}></AddCircleOutlineIcon>
-                    <Input
-                        onKeyUp={addOption}
-                        name="option"
-                        type="text"
-                        placeholder={optionPlaceholder}
-                        value={option}
-                        onChange={(e) => setOption(e.target.value)}
-                    />
-                </OptionWrapper>
-            )}
-            <OptionListWrapper>
-                <OptionList options={options} setOptions={setOptions}></OptionList>
-            </OptionListWrapper>
-            <ButtonWrapper>
-                <LinkButton onClick={addPollHandler} arrow={true} active={options.length == 2 && question != ""} title={""}>
-                    {t("decision.start")}
-                </LinkButton>
-            </ButtonWrapper>
-        </CreatePollWithTypeWrapper>
+        <>
+            <Seo title={t("decision.headline")} />
+            <CreatePollWithTypeWrapper>
+                <HeadlineWrapper>
+                    <Headline type="h2">{t("decision.headline")}</Headline>
+                </HeadlineWrapper>
+                <BreadCrumbWrapper>
+                    <BreadCrumb>Selected Type: {type}</BreadCrumb>
+                </BreadCrumbWrapper>
+                <HelpText>{t("decision.help")}</HelpText>
+                <QuestionInput name="question" type="text" placeholder={question} onChange={(e) => setQuestion(e.target.value)} />
+                {options.length < 2 && (
+                    <OptionWrapper>
+                        <AddCircleOutlineIcon onClick={setOptionFromIcon}></AddCircleOutlineIcon>
+                        <Input
+                            onKeyUp={addOption}
+                            name="option"
+                            type="text"
+                            placeholder={optionPlaceholder}
+                            value={option}
+                            onChange={(e) => setOption(e.target.value)}
+                        />
+                    </OptionWrapper>
+                )}
+                <OptionListWrapper>
+                    <OptionList options={options} setOptions={setOptions}></OptionList>
+                </OptionListWrapper>
+                <ButtonWrapper>
+                    <LinkButton onClick={addPollHandler} arrow={true} active={options.length == 2 && question != ""} title={""}>
+                        {t("decision.start")}
+                    </LinkButton>
+                </ButtonWrapper>
+            </CreatePollWithTypeWrapper>
+        </>
     );
 };
 
