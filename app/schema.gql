@@ -116,6 +116,7 @@ type Query {
   products(page: Int = 1, size: Int = 20, sortColumnName: String, sortDirection: SortDirection, query: String): PaginatedProducts!
   productsOffsetBased(offset: Int = 0, limit: Int = 20, sortColumnName: String, sortDirection: SortDirection, query: String): [Product!]!
   pollsAll: [Poll!]!
+  getQRCode(data: QrCodeDto!): Poll!
   getPoll(data: GetPollDto!): Poll!
   usersAll: [User!]!
   refreshToken(data: RefreshTokenInput!): String!
@@ -138,6 +139,10 @@ type Query {
 enum SortDirection {
   ASC
   DESC
+}
+
+input QrCodeDto {
+  shareLink: String!
 }
 
 input GetPollDto {
