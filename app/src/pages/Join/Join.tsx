@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { ColumnFullWidth } from "@app/common/Column.sc";
 import { GQLQuery } from "@app/graphql.generated";
+import Seo from "@app/seo/Seo";
 import Auth from "@components/Auth/Auth";
 import Headline from "@components/Headline/Headline";
 import LinkButton from "@components/LinkButton/LinkButton";
@@ -30,12 +31,18 @@ const Join: FunctionComponent = () => {
     };
 
     return (
-        <Auth>
-            <ColumnFullWidth>{pollData?.title && <Headline type="h2">{pollData.title}</Headline>}</ColumnFullWidth>
-            <ColumnFullWidth>
-                <LinkWrapper>
-                    <LinkButton active={true} arrow={true} link={url} primary={true}>
-                        {t("decision.vote")}
+        <>
+            <Seo title={pollData?.title} />
+            <Auth>
+                <ColumnFullWidth>{pollData?.title && <Headline type="h2">{pollData.title}</Headline>}</ColumnFullWidth>
+                <ColumnFullWidth>
+                    <LinkWrapper>
+                        <LinkButton active={true} arrow={true} link={url} primary={true}>
+                            {t("decision.vote")}
+                        </LinkButton>
+                    </LinkWrapper>
+                    <LinkButton active={true} arrow={true} link={urlResult} primary={true}>
+                        Result
                     </LinkButton>
                 </LinkWrapper>
                 <LinkButton active={true} arrow={true} link={urlResult} primary={true}>
