@@ -8,6 +8,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import TinderCard from "react-tinder-card";
 
 import { ADD_DECISION, getOptions } from "../Binary/pollData.gql";
+import { DecisionsPollQuery } from "./Tinder.gql";
 import { Card, DownVote, Image, Title, UpVote, VoteButtons, VoteWrapper } from "./Tinder.sc";
 
 enum SwipeDirection {
@@ -20,6 +21,9 @@ const Tinder: FunctionComponent = () => {
     const navigate = useNavigate();
     const { pollId } = useParams();
     const userId = user?.id;
+
+    const [matches, setMatches] = useState<number>(0);
+    const decisions = useQuery<GQLQuery>(DecisionsPollQuery, { variables: { data: { pollId } } });
 
     const options = useQuery<GQLQuery>(getOptions, { variables: { data: { pollId } } });
     const optionsData = options.data ? options.data.getOptionsForPoll : [];
@@ -41,10 +45,17 @@ const Tinder: FunctionComponent = () => {
         currentIndexRef.current = val;
     };
 
+    const getDecisions = () => {
+        
+        console.log(decisions);
+    }
+
     const canSwipe = currentIndex >= 0;
 
     const swiped = (direction: SwipeDirection, id: any, index: any) => {
         updateCurrentIndex(index - 1);
+
+        getDecisions()
 
         if (direction === SwipeDirection.RIGHT) {
             sendDecision(id, userId, pollId);
@@ -105,6 +116,9 @@ const Tinder: FunctionComponent = () => {
                         </LinkButton>
                     </UpVote>
                 </VoteButtons>
+                <h1>
+                    {matches}
+                </h1>
             </VoteWrapper>
         </ColumnFullWidth>
     );
