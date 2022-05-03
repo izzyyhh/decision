@@ -23,6 +23,8 @@ const Binary: FunctionComponent<Props> = ({ optionsData }) => {
     const { t } = useTranslation();
     const userId = user?.id;
 
+    console.log(optionsData);
+
     const [data] = useMutation(ADD_DECISION, { variables: { data: { user: userId, poll: pollId, option: active, answer: 0.6 } } });
 
     const sendDecision = async () => {

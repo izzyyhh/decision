@@ -44,41 +44,41 @@ const Join: FunctionComponent = () => {
                     <LinkButton active={true} arrow={true} link={urlResult} primary={true}>
                         Result
                     </LinkButton>
-                </LinkWrapper>
-                <LinkButton active={true} arrow={true} link={urlResult} primary={true}>
-                    Result
-                </LinkButton>
-                <LinkButton onClick={copyToClipBoard} arrow={true} active={true}>
-                    {t("decision.copyLink")}
-                </LinkButton>
-                {showNotification && (
-                    <Alert severity="info">
-                        <AlertTitle>Info</AlertTitle>
-                        {t("decision.linkCopied")}
-                    </Alert>
-                )}
-                <LinkButton active={true} arrow={false} primary={true} onClick={() => setShowScanner(true)}>
-                    {t("join.decision.with.qrcode")}
-                </LinkButton>
-                {showScanner && (
-                    <QrReader
-                        onResult={(result, error) => {
-                            // eslint-disable-next-line no-extra-boolean-cast
-                            if (!!result) {
-                                if (result?.text.includes(window.location.origin)) {
-                                    window.location.href = result?.text;
+                    <LinkButton active={true} arrow={true} link={urlResult} primary={true}>
+                        Result
+                    </LinkButton>
+                    <LinkButton onClick={copyToClipBoard} arrow={true} active={true}>
+                        {t("decision.copyLink")}
+                    </LinkButton>
+                    {showNotification && (
+                        <Alert severity="info">
+                            <AlertTitle>Info</AlertTitle>
+                            {t("decision.linkCopied")}
+                        </Alert>
+                    )}
+                    <LinkButton active={true} arrow={false} primary={true} onClick={() => setShowScanner(true)}>
+                        {t("join.decision.with.qrcode")}
+                    </LinkButton>
+                    {showScanner && (
+                        <QrReader
+                            onResult={(result, error) => {
+                                // eslint-disable-next-line no-extra-boolean-cast
+                                if (!!result) {
+                                    if (result?.getText().includes(window.location.origin)) {
+                                        window.location.href = result?.getText();
+                                    }
                                 }
-                            }
 
-                            if (error) {
-                                console.info(error);
-                            }
-                        }}
-                        style={{ width: "100%" }}
-                    />
-                )}
-            </ColumnFullWidth>
-        </Auth>
+                                if (error) {
+                                    console.info(error);
+                                }
+                            }}
+                            constraints={{ facingMode: "user" }}
+                        />
+                    )}
+                </ColumnFullWidth>
+            </Auth>
+        </>
     );
 };
 

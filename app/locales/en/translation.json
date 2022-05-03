@@ -53,7 +53,7 @@
         }
     },
     "tinder": {
-                "downVote": "Dislike swipe left",
-                "vote": "Like swipe right"
-            }
+        "downVote": "Dislike swipe left",
+        "vote": "Like swipe right"
+    }
 }

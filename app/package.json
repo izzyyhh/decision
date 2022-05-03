@@ -127,7 +127,7 @@
         "lint": "npm run lint:eslint && npm run lint:tsc",
         "lint:eslint": "eslint --ext .ts,.tsx,.js,.jsx,.json,.md src/",
         "lint:tsc": "tsc --project .",
-        "format": "tsc --project . && eslint --fix && prettier --write '**/*.@(ts|tsx|js|jsx|json|md)'",
+        "format": "tsc --project . && npm run lint:eslint -- --fix && prettier --write '**/*.@(ts|tsx|js|jsx|json|md)'",
         "postinstall": "npm run gql:types",
         "gql:types": "graphql-codegen",
         "gql:watch": "graphql-codegen --watch",

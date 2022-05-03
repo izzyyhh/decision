@@ -53,7 +53,7 @@
         }
     },
     "tinder": {
-                "downVote": "Magst du nicht links swipen",
-                "vote": "Magst du rechts swipen"
+        "downVote": "Magst du nicht links swipen",
+        "vote": "Magst du rechts swipen"
     }
 }

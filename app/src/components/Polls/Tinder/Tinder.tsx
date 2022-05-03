@@ -9,7 +9,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import TinderCard from "react-tinder-card";
 
 import { ADD_DECISION } from "../Binary/pollData.gql";
-import { Card, DownVote, Image, Title, UpVote, VoteButtons, VoteWrapper } from "./Tinder.sc";
+import { Card, DownVote, HelpText, Image, InfoBox, OnBoard, Title, TouchIcon, UpVote, VoteButtons, VoteWrapper } from "./Tinder.sc";
 
 enum SwipeDirection {
     RIGHT = "right",
@@ -17,24 +17,24 @@ enum SwipeDirection {
 }
 
 interface Props {
-    data: GQLOption[];
+    optionsData: GQLOption[];
 }
 
-const Tinder: FunctionComponent<Props> = ({ data }) => {
+const Tinder: FunctionComponent<Props> = ({ optionsData }) => {
     const { user } = useUser();
     const navigate = useNavigate();
     const { pollId } = useParams();
     const { t } = useTranslation();
     const userId = user?.id;
 
-    const [currentIndex, setCurrentIndex] = useState(data.length - 1);
+    const [currentIndex, setCurrentIndex] = useState(optionsData.length - 1);
     const canSwipe = currentIndex >= 0;
 
     const currentIndexRef = useRef(currentIndex);
 
     const childRefs: any = useMemo(
         () =>
-            Array(data.length)
+            Array(optionsData.length)
                 .fill(0)
                 .map((i) => React.createRef()),
         [],
@@ -58,7 +58,7 @@ const Tinder: FunctionComponent<Props> = ({ data }) => {
     };
 
     const swipe = async (dir: SwipeDirection) => {
-        if (canSwipe && currentIndex < data.length) {
+        if (canSwipe && currentIndex < optionsData.length) {
             await childRefs[currentIndexRef.current].current.swipe(dir); // Swipe the card!
         }
     };
@@ -77,7 +77,7 @@ const Tinder: FunctionComponent<Props> = ({ data }) => {
     return (
         <ColumnFullWidth>
             <VoteWrapper>
-                {data.map((option, idx) => (
+                {optionsData.map((option, idx) => (
                     <TinderCard
                         className={`swipe ${currentIndex === idx - 1 ? "active" : ""}`}
                         ref={childRefs[idx]}
