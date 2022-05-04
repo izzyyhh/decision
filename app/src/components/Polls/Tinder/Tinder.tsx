@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@apollo/client";
+import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import { ColumnFullWidth } from "@app/common/Column.sc";
 import { GQLQuery } from "@app/graphql.generated";
 import LinkButton from "@components/LinkButton/LinkButton";
@@ -15,6 +15,19 @@ enum SwipeDirection {
     RIGHT = "right",
     LEFT = "left",
 }
+interface IOptions {
+    [id: string]: number;
+}
+interface IDecision {
+    user: {
+        id: string;
+        name: string;
+    };
+    option: {
+        id: string;
+        title: string;
+    };
+}
 
 const Tinder: FunctionComponent = () => {
     const { user } = useUser();
@@ -23,7 +36,9 @@ const Tinder: FunctionComponent = () => {
     const userId = user?.id;
 
     const [matches, setMatches] = useState<number>(0);
-    const decisions = useQuery<GQLQuery>(DecisionsPollQuery, { variables: { data: { pollId } } });
+    const userOptions: IOptions = {};
+    const uniqueUsers: Array<string> = [];
+    const [data] = useLazyQuery(DecisionsPollQuery, { variables: { data: { pollId } } });
 
     const options = useQuery<GQLQuery>(getOptions, { variables: { data: { pollId } } });
     const optionsData = options.data ? options.data.getOptionsForPoll : [];
@@ -45,17 +60,47 @@ const Tinder: FunctionComponent = () => {
         currentIndexRef.current = val;
     };
 
-    const getDecisions = () => {
-        
-        console.log(decisions);
-    }
+    const addUser = (userId: string) => {
+        if (!uniqueUsers.includes(userId)) {
+            uniqueUsers.push(userId);
+        }
+    };
+
+    const initilizeOptions = (optionId: string) => {
+        userOptions[optionId] = 0;
+    };
+
+    const addOption = (optionId: string) => {
+        console.log(optionId);
+        userOptions[optionId] = userOptions[optionId] + 1;
+    };
+
+    const getMatches = async () => {
+        const results = await data();
+        const decisions = results.data?.getDecisionsForPoll;
+        decisions.forEach((element: IDecision) => {
+            addUser(element.user.id);
+            initilizeOptions(element.option.title);
+        });
+        decisions.forEach((element: IDecision) => {
+            addOption(element.option.title);
+        });
+
+        if (uniqueUsers.length > 1) {
+            let totalMatches = 0;
+            for (const key in userOptions) {
+                if (userOptions[key] == uniqueUsers.length) {
+                    totalMatches += 1;
+                }
+            }
+            setMatches(totalMatches);
+        }
+    };
 
     const canSwipe = currentIndex >= 0;
 
     const swiped = (direction: SwipeDirection, id: any, index: any) => {
         updateCurrentIndex(index - 1);
-
-        getDecisions()
 
         if (direction === SwipeDirection.RIGHT) {
             sendDecision(id, userId, pollId);
@@ -85,6 +130,7 @@ const Tinder: FunctionComponent = () => {
 
     const sendDecision = async (option: string, user: any, poll: any) => {
         await addDecision({ variables: { data: { user, poll, option, answer: 0.6 } } });
+        getMatches();
     };
 
     return (
@@ -116,10 +162,18 @@ const Tinder: FunctionComponent = () => {
                         </LinkButton>
                     </UpVote>
                 </VoteButtons>
-                <h1>
-                    {matches}
-                </h1>
             </VoteWrapper>
+            {matches > 0 && (
+                <LinkButton
+                    onClick={() => {
+                        navigate(`/result/${pollId}`);
+                    }}
+                    arrow={true}
+                    active={true}
+                >
+                    Du hast {matches} Matches!
+                </LinkButton>
+            )}
         </ColumnFullWidth>
     );
 };
