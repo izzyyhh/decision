@@ -14,3 +14,9 @@ export const DecisionsPollQuery = gql`
         }
     }
 `;
+
+export const CanDecideQuery = gql`
+    query canDecide($data: GetDecisionForUserAndPollDto!) {
+        canDecide(data: $data)
+    }
+`;

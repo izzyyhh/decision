@@ -2,13 +2,14 @@ import { useLazyQuery, useMutation } from "@apollo/client";
 import { ColumnFullWidth } from "@app/common/Column.sc";
 import { GQLOption } from "@app/graphql.generated";
 import LinkButton from "@components/LinkButton/LinkButton";
+import { useSnack } from "@context/snackbar/useSnack";
 import { useUser } from "@context/user/useUser";
-import React, { FunctionComponent, useMemo, useRef, useState } from "react";
+import React, { FunctionComponent, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { ADD_DECISION } from "../Binary/pollData.gql";
-import { DecisionsPollQuery } from "./Tinder.gql";
+import { CanDecideQuery, DecisionsPollQuery } from "./Tinder.gql";
 import {
     Card,
     DownVote,
@@ -44,6 +45,12 @@ interface IDecision {
     };
 }
 
+type Snack = {
+    message: string;
+    open: boolean;
+    severity?: "info" | "success" | "warning" | "error";
+};
+
 interface Props {
     optionsData: GQLOption[];
 }
@@ -59,6 +66,8 @@ const Tinder: FunctionComponent<Props> = ({ optionsData }) => {
     const userOptions: IOptions = {};
     const uniqueUsers: Array<string> = [];
     const [data] = useLazyQuery(DecisionsPollQuery, { variables: { data: { pollId } } });
+    const { setSnack } = useSnack();
+    const [hasMadeDecision] = useLazyQuery(CanDecideQuery, { variables: { data: { user: userId, poll: pollId } } });
 
     const [currentIndex, setCurrentIndex] = useState(optionsData.length - 1);
     const canSwipe = currentIndex >= 0;
@@ -89,7 +98,6 @@ const Tinder: FunctionComponent<Props> = ({ optionsData }) => {
     };
 
     const addOption = (optionId: string) => {
-        console.log(optionId);
         userOptions[optionId] = userOptions[optionId] + 1;
     };
 
@@ -114,6 +122,20 @@ const Tinder: FunctionComponent<Props> = ({ optionsData }) => {
             setMatches(totalMatches);
         }
     };
+
+    const canDecide = async (setSnack: (snack: Snack) => void) => {
+        const response = await hasMadeDecision();
+        if (!response?.data.canDecide) {
+            console.log("error");
+
+            setSnack({ message: "already.made.decision.error", open: true, severity: "error" });
+            navigate(`/result/${pollId}`);
+        }
+    };
+
+    useEffect(() => {
+        canDecide(setSnack);
+    }, []);
 
     const swiped = (direction: SwipeDirection, id: any, index: any) => {
         updateCurrentIndex(index - 1);
