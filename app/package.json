@@ -1,6 +1,9 @@
 {
     "name": "mmp3",
     "version": "1.0.0",
+    "engines": {
+        "node": "16.10"
+    },
     "private": true,
     "dependencies": {
         "@apollo/client": "^3.5.8",
