@@ -21,4 +21,11 @@ export class User extends BaseEntity<User, "id"> {
         nullable: true,
     })
     token?: string;
+
+    @Field({ nullable: true })
+    @Property({
+        columnType: "text",
+        nullable: true,
+    })
+    refreshToken: string;
 }

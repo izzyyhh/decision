@@ -1,15 +1,30 @@
-import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
+import { useLazyQuery, useMutation } from "@apollo/client";
 import { ColumnFullWidth } from "@app/common/Column.sc";
-import { GQLQuery } from "@app/graphql.generated";
+import { GQLOption } from "@app/graphql.generated";
 import LinkButton from "@components/LinkButton/LinkButton";
 import { useUser } from "@context/user/useUser";
 import React, { FunctionComponent, useMemo, useRef, useState } from "react";
+import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
-import TinderCard from "react-tinder-card";
 
-import { ADD_DECISION, getOptions } from "../Binary/pollData.gql";
+import { ADD_DECISION } from "../Binary/pollData.gql";
 import { DecisionsPollQuery } from "./Tinder.gql";
-import { Card, DownVote, Image, Title, UpVote, VoteButtons, VoteWrapper } from "./Tinder.sc";
+import {
+    Card,
+    DownVote,
+    HelpText,
+    IconClose,
+    IconHeart,
+    Image,
+    InfoBox,
+    OnBoard,
+    TinderCard,
+    Title,
+    TouchIcon,
+    UpVote,
+    VoteButtons,
+    VoteWrapper,
+} from "./Tinder.sc";
 
 enum SwipeDirection {
     RIGHT = "right",
@@ -29,10 +44,15 @@ interface IDecision {
     };
 }
 
-const Tinder: FunctionComponent = () => {
+interface Props {
+    optionsData: GQLOption[];
+}
+
+const Tinder: FunctionComponent<Props> = ({ optionsData }) => {
     const { user } = useUser();
     const navigate = useNavigate();
     const { pollId } = useParams();
+    const { t } = useTranslation();
     const userId = user?.id;
 
     const [matches, setMatches] = useState<number>(0);
@@ -40,10 +60,8 @@ const Tinder: FunctionComponent = () => {
     const uniqueUsers: Array<string> = [];
     const [data] = useLazyQuery(DecisionsPollQuery, { variables: { data: { pollId } } });
 
-    const options = useQuery<GQLQuery>(getOptions, { variables: { data: { pollId } } });
-    const optionsData = options.data ? options.data.getOptionsForPoll : [];
-
     const [currentIndex, setCurrentIndex] = useState(optionsData.length - 1);
+    const canSwipe = currentIndex >= 0;
 
     const currentIndexRef = useRef(currentIndex);
 
@@ -97,8 +115,6 @@ const Tinder: FunctionComponent = () => {
         }
     };
 
-    const canSwipe = currentIndex >= 0;
-
     const swiped = (direction: SwipeDirection, id: any, index: any) => {
         updateCurrentIndex(index - 1);
 
@@ -118,12 +134,7 @@ const Tinder: FunctionComponent = () => {
     };
 
     const outOfFrame = (name: any, idx: any) => {
-        console.log(`${name} (${idx}) left the screen!`, currentIndexRef.current);
-        // handle the case in which go back is pressed before card goes outOfFrame
         currentIndexRef.current >= idx && childRefs[idx].current.restoreCard();
-        // TODO: when quickly swipe and restore multiple times the same card,
-        // it happens multiple outOfFrame events are queued and the card disappear
-        // during latest swipes. Only the last outOfFrame event should be considered valid
     };
 
     const [addDecision] = useMutation(ADD_DECISION);
@@ -144,22 +155,34 @@ const Tinder: FunctionComponent = () => {
                         onSwipe={(dir: SwipeDirection) => swiped(dir, option.id, idx)}
                         onCardLeftScreen={() => outOfFrame(option.title, idx)}
                     >
-                        <Card active={true}>
-                            <Image src={option.thumbnailUrl ?? "https://picsum.photos/200/300"} />
-                            <Title>{option.title}</Title>
+                        <Card first={idx + 1 === optionsData.length}>
+                            <Image
+                                src={option.thumbnailUrl && option.thumbnailUrl.length > 0 ? option.thumbnailUrl : "https://picsum.photos/200/300"}
+                            />
+                            <Title first={true}>
+                                {option.title} {idx}
+                            </Title>
+                            {idx + 1 === optionsData.length && (
+                                <OnBoard>
+                                    <InfoBox>
+                                        <TouchIcon />
+                                        <HelpText>{t("tinder.downVote")}</HelpText>
+                                    </InfoBox>
+                                    <InfoBox>
+                                        <TouchIcon />
+                                        <HelpText>{t("tinder.vote")}</HelpText>
+                                    </InfoBox>
+                                </OnBoard>
+                            )}
                         </Card>
                     </TinderCard>
                 ))}
                 <VoteButtons>
-                    <DownVote>
-                        <LinkButton active={true} onClick={() => swipe(SwipeDirection.LEFT)}>
-                            No
-                        </LinkButton>
+                    <DownVote onClick={() => swipe(SwipeDirection.LEFT)}>
+                        <IconClose />
                     </DownVote>
-                    <UpVote>
-                        <LinkButton active={true} onClick={() => swipe(SwipeDirection.RIGHT)}>
-                            Yes
-                        </LinkButton>
+                    <UpVote onClick={() => swipe(SwipeDirection.RIGHT)}>
+                        <IconHeart />
                     </UpVote>
                 </VoteButtons>
             </VoteWrapper>

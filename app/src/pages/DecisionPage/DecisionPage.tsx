@@ -12,7 +12,7 @@ import React, { FunctionComponent, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
 
-import { getPoll } from "./pollData.gql";
+import { getPoll, getQRCode } from "./pollData.gql";
 
 const DecisionPage: FunctionComponent = () => {
     const { t } = useTranslation();
@@ -22,11 +22,22 @@ const DecisionPage: FunctionComponent = () => {
 
     const poll = useQuery<GQLQuery>(getPoll, { variables: { data: { pollId } } });
     const pollData = poll.data ? poll.data.getPoll : null;
+    const url = `${window.location.origin}/join/${pollId}`;
 
     const copyToClipBoard = () => {
-        navigator.clipboard.writeText(`${window.location.origin}/join/${pollId}`);
+        navigator.clipboard.writeText(url);
         setShowNotification(true);
     };
+
+    const shareLink = `${window.location.origin}/decision/${pollId}`;
+    const qrCodeData = useQuery<GQLQuery>(getQRCode, { variables: { data: { shareLink } } });
+    const qrCodeBase64 = qrCodeData.data?.getQRCode.id;
+
+    let imageReady = false;
+    if (typeof qrCodeBase64 === "string") {
+        imageReady = true;
+        console.log(imageReady);
+    }
 
     const pollType = poll.data?.getPoll.type;
 
@@ -48,6 +59,7 @@ const DecisionPage: FunctionComponent = () => {
                             {t("decision.linkCopied")}
                         </Alert>
                     )}
+                    {imageReady && <img src={qrCodeBase64}></img>}
                 </ColumnFullWidth>
             </Auth>
         </>

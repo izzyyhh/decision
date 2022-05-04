@@ -10,8 +10,15 @@ const Headline = css`
 
 export const HeadlineH2 = styled.h2`
     ${Headline}
-    font-size: 36px;
-    font-weight: 600;
+    font-size: 30px;
+    font-weight: 500;
+    line-height: 35px;
+
+    @media (min-width: ${({ theme }) => theme.breakpoints.values.sm}px) {
+        font-size: 30px;
+        font-weight: 600;
+        line-height: 48px;
+    }
 `;
 
 export const HeadlineH3 = styled.h3`

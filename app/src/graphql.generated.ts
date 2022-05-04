@@ -215,6 +215,10 @@ export type GQLProductInput = {
   description: Scalars['String'];
 };
 
+export type GQLQrCodeDto = {
+  shareLink: Scalars['String'];
+};
+
 export type GQLQuery = {
   __typename?: 'Query';
   product: GQLProduct;
@@ -222,8 +226,10 @@ export type GQLQuery = {
   products: GQLPaginatedProducts;
   productsOffsetBased: Array<GQLProduct>;
   pollsAll: Array<GQLPoll>;
+  getQRCode: GQLPoll;
   getPoll: GQLPoll;
   usersAll: Array<GQLUser>;
+  refreshToken: Scalars['String'];
   checkToken: Scalars['Boolean'];
   thumbnailsAll: Array<GQLThumbnail>;
   optionsAll: Array<GQLDecision>;
@@ -264,8 +270,18 @@ export type GQLQueryproductsOffsetBasedArgs = {
 };
 
 
+export type GQLQuerygetQRCodeArgs = {
+  data: GQLQrCodeDto;
+};
+
+
 export type GQLQuerygetPollArgs = {
   data: GQLGetPollDto;
+};
+
+
+export type GQLQueryrefreshTokenArgs = {
+  data: GQLRefreshTokenInput;
 };
 
 
@@ -298,6 +314,10 @@ export type GQLQuerygetRestaurantsPresetArgs = {
   data: GQLLocationDto;
 };
 
+export type GQLRefreshTokenInput = {
+  refreshToken: Scalars['String'];
+};
+
 export type GQLSortDirection =
   | 'ASC'
   | 'DESC';
@@ -313,6 +333,7 @@ export type GQLUser = {
   id: Scalars['ID'];
   name: Scalars['String'];
   token: Scalars['String'];
+  refreshToken: Maybe<Scalars['String']>;
 };
 
 export type GQLUserInput = {

@@ -1,6 +1,6 @@
-import { useMutation, useQuery } from "@apollo/client";
+import { useMutation } from "@apollo/client";
 import { ColumnFullWidth } from "@app/common/Column.sc";
-import { GQLQuery } from "@app/graphql.generated";
+import { GQLOption } from "@app/graphql.generated";
 import Card from "@components/Card/Card";
 import LinkButton from "@components/LinkButton/LinkButton";
 import { useUser } from "@context/user/useUser";
@@ -9,9 +9,13 @@ import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { Option } from "./Binary.sc";
-import { ADD_DECISION, getOptions } from "./pollData.gql";
+import { ADD_DECISION } from "./pollData.gql";
 
-const Binary: FunctionComponent = () => {
+interface Props {
+    optionsData: GQLOption[];
+}
+
+const Binary: FunctionComponent<Props> = ({ optionsData }) => {
     const { user } = useUser();
     const navigate = useNavigate();
     const [active, setActive] = useState<string>("");
@@ -19,8 +23,7 @@ const Binary: FunctionComponent = () => {
     const { t } = useTranslation();
     const userId = user?.id;
 
-    const options = useQuery<GQLQuery>(getOptions, { variables: { data: { pollId } } });
-    const optionsData = options.data ? options.data.getOptionsForPoll : [];
+    console.log(optionsData);
 
     const [data] = useMutation(ADD_DECISION, { variables: { data: { user: userId, poll: pollId, option: active, answer: 0.6 } } });
 
