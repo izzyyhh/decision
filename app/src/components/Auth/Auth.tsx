@@ -12,7 +12,7 @@ interface Props {
 const Auth: FunctionComponent<Props> = ({ children }) => {
     const [data] = useMutation(addUserMutation, { variables: { data: { name: "" } } });
     const [cookie, setAuthToken] = useAuthToken();
-    const [setRefreshToken] = useRefreshToken();
+    const [, setRefreshToken] = useRefreshToken();
     const { user, setUser } = useUser();
 
     useEffect(() => {
