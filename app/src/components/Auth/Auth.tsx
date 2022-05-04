@@ -17,7 +17,6 @@ const Auth: FunctionComponent<Props> = ({ children }) => {
 
     useEffect(() => {
         const addUser = async () => {
-            console.log("addUser");
             const result = await data();
             const { token, refreshToken } = result.data.addUser;
 
@@ -26,9 +25,7 @@ const Auth: FunctionComponent<Props> = ({ children }) => {
             setUser(result.data.addUser);
         };
 
-        console.log(user);
         if (!user && !cookie) {
-            console.log("addUser");
             addUser();
         }
     }, []);

@@ -6,7 +6,6 @@ import React, { FunctionComponent } from "react";
 import { useNavigate } from "react-router";
 
 import { DetailWrapper, Image, ImageWrapper, SlideInner, Title } from "./ImageTextSlide.sc";
-import { moviesQuery, restaurantsQuery } from "./PresetQueries.gql";
 import { SingleImageProps } from "./Props";
 
 const ImageTextSlide: FunctionComponent<SingleImageProps> = ({ image }) => {
@@ -15,27 +14,25 @@ const ImageTextSlide: FunctionComponent<SingleImageProps> = ({ image }) => {
     const [addPoll] = useMutation(addPollMutation, {
         variables: { data: { title: image.title, predefined: true, owner: user?.id, type: Type.TINDER } },
     });
+
     const navigate = useNavigate();
 
-    const q = image.title === "Movies" ? moviesQuery : restaurantsQuery;
+    const q = image.handler.query;
     const { data } = useQuery(q);
 
-    const getOptionsList = (response: any) => {
-        if (image.title === "Movies") {
-            return response.getMoviesPreset;
-        }
-        return response.getRestaurantsPreset;
-    };
+    // const create = async () => {
+    //     console.log(data);
+    //     const options = image.handler.getOptionsList(data).slice(0, 7);
 
-    const create = async () => {
-        console.log(data);
-        const options = getOptionsList(data).slice(0, 7);
-
-        createPoll(options, image.title, addPoll, addOption, navigate);
-    };
+    //     createPoll(options, image.title, addPoll, addOption, navigate);
+    // };
 
     return (
-        <SlideInner onClick={create}>
+        <SlideInner
+            onClick={() => {
+                image.handler.setOpen(true);
+            }}
+        >
             <ImageWrapper>
                 <Image src={image.thumbnailUrl} />
             </ImageWrapper>

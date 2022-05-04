@@ -1,6 +1,9 @@
+import { ModalProps } from "@components/Modals/ModalProps";
+
 export interface ImageTextPair {
     thumbnailUrl: string;
     title: string;
+    handler: ModalProps;
 }
 
 export interface ImagesProps {

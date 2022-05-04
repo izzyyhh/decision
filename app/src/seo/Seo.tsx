@@ -7,7 +7,6 @@ interface Props {
 }
 
 const Seo: FunctionComponent<Props> = ({ title }) => {
-    console.log(window.location.href);
     return (
         <Helmet
             link={[{ rel: "canonical", href: window.location.href }]}

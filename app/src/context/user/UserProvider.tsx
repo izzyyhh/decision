@@ -11,7 +11,6 @@ export const UserProvider: FunctionComponent = ({ children }) => {
 
     const startUser =
         token == null && isExpired(token) ? null : { id: (decodeToken(token) as { user_id: string }).user_id, token: token, name: "", refreshToken };
-    console.log(startUser);
     const [user, setUser] = useState<GQLUser | null>(startUser);
     return <UserContext.Provider value={{ user, setUser }}>{children}</UserContext.Provider>;
 };
