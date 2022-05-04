@@ -36,7 +36,6 @@ const DecisionPage: FunctionComponent = () => {
     let imageReady = false;
     if (typeof qrCodeBase64 === "string") {
         imageReady = true;
-        console.log(imageReady);
     }
 
     const pollType = poll.data?.getPoll.type;

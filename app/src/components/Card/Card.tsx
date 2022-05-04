@@ -1,6 +1,6 @@
 import React, { FunctionComponent, ReactNode } from "react";
 
-import { Title, Wrapper } from "./Card.sc";
+import { CardWrapper, Title, Wrapper } from "./Card.sc";
 
 interface Props {
     title: string;
@@ -11,7 +11,7 @@ const Card: FunctionComponent<Props> = ({ title, children }) => {
     return (
         <Wrapper>
             <Title>{title}</Title>
-            {children}
+            <CardWrapper>{children}</CardWrapper>
         </Wrapper>
     );
 };

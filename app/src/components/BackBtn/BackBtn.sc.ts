@@ -9,5 +9,10 @@ export const Back = styled(ArrowBackIcon)`
         width: 1.2em;
         height: 1.2em;
         cursor: pointer;
+        display: none;
+
+        @media (min-width: ${({ theme }) => theme.breakpoints.values.sm}px) {
+            display: block;
+        }
     }
 `;

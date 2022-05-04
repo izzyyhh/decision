@@ -42,14 +42,14 @@
     },
     "create": {
         "question": {
-            "title": "Question",
+            "title": "Frage",
             "label": "Type your question"
         },
         "type": {
-            "title": "Select Type"
+            "title": "Wähle Type aus"
         },
         "options": {
-            "title": "Add your Options"
+            "title": "Füge deine Antworten hinzu"
         }
     },
     "tinder": {
