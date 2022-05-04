@@ -9,8 +9,30 @@ export const Modal = styled(MuiModal)`
     left: 0;
     right: 0;
     margin: auto;
-    padding: 10px;
-    background: red;
+    padding: 15px;
+    background: #ffffff;
     height: max-content;
     border-radius: 7.5px;
+`;
+
+export const Title = styled.p`
+    margin: 0;
+    text-align: center;
+    font-size: 22px;
+`;
+
+export const ShareBar = styled.div`
+    display: flex;
+    margin-top: 15px;
+    justify-content: space-around;
+`;
+
+export const Links = styled.div`
+    margin-top: 30px;
+`;
+
+export const Body = styled.div`
+    &:focus-visible {
+        outline: none;
+    }
 `;

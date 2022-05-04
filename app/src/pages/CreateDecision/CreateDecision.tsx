@@ -40,7 +40,8 @@ const CreateDecision: FunctionComponent = () => {
     const [addPoll] = useMutation(addPollMutation, { variables: { data: { title: question, predefined: false, owner: user?.id, type: type } } });
     const [addOption] = useMutation(addOptionsMutation);
     const [active, setActive] = useState<boolean>(false);
-    const [openModal, setOpenModal] = useState<boolean>(true);
+    const [openModal, setOpenModal] = useState<boolean>(false);
+    const [pollId, setPollId] = useState<string>("");
     const [authToken] = useAuthToken();
 
     useEffect(() => {
@@ -50,17 +51,13 @@ const CreateDecision: FunctionComponent = () => {
     }, [question, options]);
 
     useEffect(() => {
-        console.log(openModal);
-    }, [openModal]);
-
-    useEffect(() => {
         setOptions([]);
     }, [type]);
 
     return (
         <>
             <Seo title={t("decision.headline")} />
-            {openModal && <ShareModal />}
+            {openModal && <ShareModal pollId={pollId} />}
             <Auth>
                 <BackBtn />
                 <ColumnFullWidth>
@@ -85,7 +82,10 @@ const CreateDecision: FunctionComponent = () => {
                     </Card>
                 </ColumnFullWidth>
                 <ColumnFullWidth>
-                    <LinkButton active={active} onClick={() => createPoll(type, options, question, addPoll, addOption, setOpenModal, authToken)}>
+                    <LinkButton
+                        active={active}
+                        onClick={() => createPoll(type, options, question, addPoll, addOption, setOpenModal, setPollId, authToken)}
+                    >
                         {t("decision.start")}
                     </LinkButton>
                 </ColumnFullWidth>
@@ -101,10 +101,13 @@ const createPoll = async (
     addPollMutation: any,
     addOptionMutation: any,
     setOpenModal: (value: boolean) => void,
+    setPollId: (value: string) => void,
     authToken: string,
 ) => {
     const pollData = await addPollMutation();
     const pollId = pollData.data.addPoll.id;
+
+    setPollId(pollId);
 
     if (type === Type.BINARY) {
         if (question != undefined && question != "" && options.length == 2) {
