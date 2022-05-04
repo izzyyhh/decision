@@ -53,7 +53,9 @@ export const SocialShareWrapper = styled.div`
     position: relative;
     width: max-content;
     background: white;
-    border-radius: 50%;
+    border-radius: 100%;
+    width: 2.2rem;
+    height: 2.2rem;
     ul {
         li {
             background: white;
@@ -64,6 +66,9 @@ export const SocialShareWrapper = styled.div`
             background: white;
         }
         button:active {
+            color: black;
+        }
+        button:focus {
             color: black;
         }
     }
