@@ -14,7 +14,7 @@ interface Props {
 const Poll: any = {
     BINARY: Binary,
     TINDER: Tinder,
-    DATE: Date,
+    DATE: Binary,
 };
 
 const Polls: FunctionComponent<Props> = ({ poll }) => {
