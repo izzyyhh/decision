@@ -1,4 +1,4 @@
-import { Color, createMuiTheme, StyleRules, Theme } from "@material-ui/core";
+import { Color, createTheme, StyleRules, Theme } from "@material-ui/core";
 
 interface MuiDropzoneNameToClassKey {
     MuiDropzoneArea: "root" | "text" | "active" | "invalid" | "textContainer" | "icon";
@@ -33,7 +33,7 @@ const fontFamily = {
     asap: "Asap, Roboto, sans-serif",
 };
 
-export default createMuiTheme({
+export default createTheme({
     spacing: 5,
     typography: {
         fontFamily: fontFamily.asap,
@@ -159,6 +159,16 @@ export default createMuiTheme({
         MuiAvatar: {
             colorDefault: {
                 backgroundColor: "#a8a7a7",
+            },
+        },
+        MuiInput: {
+            root: {
+                marginTop: "-10px",
+            },
+        },
+        MuiFormControl: {
+            root: {
+                marginTop: "-10px",
             },
         },
     },
