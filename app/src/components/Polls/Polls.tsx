@@ -29,7 +29,7 @@ const Polls: FunctionComponent<Props> = ({ poll }) => {
                 const optionsData = data?.getOptionsForPoll ? data.getOptionsForPoll : [];
                 const Component = Poll[poll];
 
-                return <Component data={optionsData} />;
+                return <Component optionsData={optionsData} />;
             }
         }
     }

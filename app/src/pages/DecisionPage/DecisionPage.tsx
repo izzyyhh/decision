@@ -22,9 +22,10 @@ const DecisionPage: FunctionComponent = () => {
 
     const poll = useQuery<GQLQuery>(getPoll, { variables: { data: { pollId } } });
     const pollData = poll.data ? poll.data.getPoll : null;
+    const url = `${window.location.origin}/join/${pollId}`;
 
     const copyToClipBoard = () => {
-        navigator.clipboard.writeText(`${window.location.origin}/join/${pollId}`);
+        navigator.clipboard.writeText(url);
         setShowNotification(true);
     };
 
@@ -58,6 +59,7 @@ const DecisionPage: FunctionComponent = () => {
                             {t("decision.linkCopied")}
                         </Alert>
                     )}
+                    {imageReady && <img src={qrCodeBase64}></img>}
                 </ColumnFullWidth>
             </Auth>
         </>

@@ -30,24 +30,24 @@ enum SwipeDirection {
 }
 
 interface Props {
-    data: GQLOption[];
+    optionsData: GQLOption[];
 }
 
-const Tinder: FunctionComponent<Props> = ({ data }) => {
+const Tinder: FunctionComponent<Props> = ({ optionsData }) => {
     const { user } = useUser();
     const navigate = useNavigate();
     const { pollId } = useParams();
     const { t } = useTranslation();
     const userId = user?.id;
 
-    const [currentIndex, setCurrentIndex] = useState(data.length - 1);
+    const [currentIndex, setCurrentIndex] = useState(optionsData.length - 1);
     const canSwipe = currentIndex >= 0;
 
     const currentIndexRef = useRef(currentIndex);
 
     const childRefs: any = useMemo(
         () =>
-            Array(data.length)
+            Array(optionsData.length)
                 .fill(0)
                 .map((i) => React.createRef()),
         [],
@@ -71,7 +71,7 @@ const Tinder: FunctionComponent<Props> = ({ data }) => {
     };
 
     const swipe = async (dir: SwipeDirection) => {
-        if (canSwipe && currentIndex < data.length) {
+        if (canSwipe && currentIndex < optionsData.length) {
             await childRefs[currentIndexRef.current].current.swipe(dir); // Swipe the card!
         }
     };
@@ -89,7 +89,7 @@ const Tinder: FunctionComponent<Props> = ({ data }) => {
     return (
         <ColumnFullWidth>
             <VoteWrapper>
-                {data.map((option, idx) => (
+                {optionsData.map((option, idx) => (
                     <TinderCard
                         className={`swipe ${currentIndex === idx - 1 ? "active" : ""}`}
                         ref={childRefs[idx]}
@@ -97,14 +97,14 @@ const Tinder: FunctionComponent<Props> = ({ data }) => {
                         onSwipe={(dir: SwipeDirection) => swiped(dir, option.id, idx)}
                         onCardLeftScreen={() => outOfFrame(option.title, idx)}
                     >
-                        <Card first={idx + 1 === data.length}>
+                        <Card first={idx + 1 === optionsData.length}>
                             <Image
                                 src={option.thumbnailUrl && option.thumbnailUrl.length > 0 ? option.thumbnailUrl : "https://picsum.photos/200/300"}
                             />
                             <Title first={true}>
                                 {option.title} {idx}
                             </Title>
-                            {idx + 1 === data.length && (
+                            {idx + 1 === optionsData.length && (
                                 <OnBoard>
                                     <InfoBox>
                                         <TouchIcon />
