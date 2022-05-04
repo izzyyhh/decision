@@ -67,6 +67,14 @@ export class DecisionsResolver {
                 return true;
             }
         }
+        if (poll && poll.type === PollType.TINDER) {
+            const decision = await this.repository.findOne({ user: data.user, poll: data.poll }, { populate: true });
+            if (decision) {
+                return false;
+            } else {
+                return true;
+            }
+        }
         return true;
     }
 }
