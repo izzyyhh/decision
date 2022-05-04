@@ -27,13 +27,10 @@ export class AuthGuard implements CanActivate {
             const token: string = authHeader.split(" ")[1];
 
             try {
-                const verifiedEntity: JwtPayload = jwt.verify(
-                    token,
-                    Buffer.from(process.env.FIREBASE_PRIVATE_KEY as string, "base64").toString("utf-8"),
-                    { algorithms: ["RS256"] } as VerifyOptions,
-                ) as JwtPayload;
+                jwt.verify(token, Buffer.from(process.env.FIREBASE_PRIVATE_KEY as string, "base64").toString("utf-8"), {
+                    algorithms: ["RS256"],
+                } as VerifyOptions) as JwtPayload;
 
-                await this.usersRepository.findOneOrFail(verifiedEntity.uid);
                 return true;
             } catch (error) {
                 return false;
