@@ -61,11 +61,11 @@ const Join: FunctionComponent = () => {
                     </LinkButton>
                     {showScanner && (
                         <QrReader
+                            constraints={{ facingMode: "user" }}
                             onResult={(result, error) => {
-                                // eslint-disable-next-line no-extra-boolean-cast
-                                if (!!result) {
-                                    if (result?.getText().includes(window.location.origin)) {
-                                        window.location.href = result?.getText();
+                                if (result) {
+                                    if (result.getText().includes(window.location.origin)) {
+                                        window.location.href = result.getText();
                                     }
                                 }
 
@@ -73,7 +73,6 @@ const Join: FunctionComponent = () => {
                                     console.info(error);
                                 }
                             }}
-                            constraints={{ facingMode: "user" }}
                         />
                     )}
                 </ColumnFullWidth>
