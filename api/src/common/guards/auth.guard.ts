@@ -2,9 +2,9 @@ import { EntityRepository } from "@mikro-orm/core";
 import { InjectRepository } from "@mikro-orm/nestjs";
 import { CanActivate, ExecutionContext, Injectable } from "@nestjs/common";
 import { GqlExecutionContext } from "@nestjs/graphql";
+import { firebaseApp } from "@src/app.module";
 import { User } from "@src/users/entities/user.entity";
 import { Request } from "express";
-import jwt, { JwtPayload, VerifyOptions } from "jsonwebtoken";
 import { Observable } from "rxjs";
 
 @Injectable()
@@ -27,12 +27,10 @@ export class AuthGuard implements CanActivate {
             const token: string = authHeader.split(" ")[1];
 
             try {
-                jwt.verify(token, Buffer.from(process.env.FIREBASE_PRIVATE_KEY as string, "base64").toString("utf-8"), {
-                    algorithms: ["RS256"],
-                } as VerifyOptions) as JwtPayload;
-
+                await firebaseApp.auth().verifyIdToken(token);
                 return true;
             } catch (error) {
+                console.log(error);
                 return false;
             }
         }
