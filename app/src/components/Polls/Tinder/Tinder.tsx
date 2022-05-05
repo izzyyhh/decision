@@ -5,6 +5,7 @@ import LinkButton from "@components/LinkButton/LinkButton";
 import { useSnack } from "@context/snackbar/useSnack";
 import { useUser } from "@context/user/useUser";
 import React, { FunctionComponent, useEffect, useMemo, useRef, useState } from "react";
+import { useCookies } from "react-cookie";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 
@@ -55,12 +56,24 @@ interface Props {
     optionsData: GQLOption[];
 }
 
+const getOnBoard = () => {
+    const [cookies, setCookie] = useCookies(["tinder_onBoard"]);
+
+    if (!cookies["tinder_onBoard"]) {
+        setCookie("tinder_onBoard", true);
+        return true;
+    }
+
+    return false;
+};
+
 const Tinder: FunctionComponent<Props> = ({ optionsData }) => {
     const { user } = useUser();
     const navigate = useNavigate();
     const { pollId } = useParams();
     const { t } = useTranslation();
     const userId = user?.id;
+    const [onBoard] = useState<boolean>(getOnBoard());
 
     const [matches, setMatches] = useState<number>(0);
     const userOptions: IOptions = {};
@@ -177,14 +190,14 @@ const Tinder: FunctionComponent<Props> = ({ optionsData }) => {
                         onSwipe={(dir: SwipeDirection) => swiped(dir, option.id, idx)}
                         onCardLeftScreen={() => outOfFrame(option.title, idx)}
                     >
-                        <Card first={idx + 1 === optionsData.length}>
+                        <Card first={idx + 1 === optionsData.length && onBoard}>
                             <Image
                                 src={option.thumbnailUrl && option.thumbnailUrl.length > 0 ? option.thumbnailUrl : "https://picsum.photos/200/300"}
                             />
-                            <Title first={true}>
+                            <Title first={idx + 1 === optionsData.length && onBoard}>
                                 {option.title} {idx}
                             </Title>
-                            {idx + 1 === optionsData.length && (
+                            {idx + 1 === optionsData.length && onBoard && (
                                 <OnBoard>
                                     <InfoBox>
                                         <TouchIcon />
@@ -199,7 +212,7 @@ const Tinder: FunctionComponent<Props> = ({ optionsData }) => {
                         </Card>
                     </TinderCard>
                 ))}
-                <VoteButtons>
+                <VoteButtons first={onBoard}>
                     <DownVote onClick={() => swipe(SwipeDirection.LEFT)}>
                         <IconClose />
                     </DownVote>
