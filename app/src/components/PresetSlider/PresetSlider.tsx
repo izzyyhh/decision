@@ -47,9 +47,7 @@ const PresetSlider: FunctionComponent = () => {
         handleClose: async (data) => {
             try {
                 const r = await getRestaurants({ variables: { data: { name: data.name, amount: data.amount } } });
-                if (r.error) {
-                    console.log("error");
-                } else {
+                if (!r.error) {
                     const options = r.data.getRestaurantsPreset;
                     setOpenRestaurant(false);
                     createPoll(options, data.title);

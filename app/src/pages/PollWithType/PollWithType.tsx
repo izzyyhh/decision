@@ -48,8 +48,6 @@ const PollWithType: FunctionComponent = () => {
             const pollId: string = pollData.data.addPoll.id;
             setPollId(pollId ? pollId : "");
 
-            console.log(test1, test2);
-
             for (const option of options) {
                 setCurrentOption(`${option.name}`);
                 await optionData();
