@@ -20,7 +20,7 @@ export class GenresResolver {
     }
 
     async getGenre(id: string): Promise<Genre> {
-        const entitie = this.repository.findOneOrFail({ apiId: id });
+        const entitie = await this.repository.findOneOrFail({ apiId: id });
         return entitie;
         /*const entities = genres.map((g: string) => this.repository.create({ title: g }));
         await this.repository.persistAndFlush(entities);
@@ -37,8 +37,6 @@ export class GenresResolver {
         };
 
         const req = https.request(options, async (res) => {
-            console.log(`statusCode: ${res.statusCode}`);
-
             const data: Buffer[] = [];
             await res
                 .on("data", (d: Buffer) => {
@@ -59,7 +57,7 @@ export class GenresResolver {
                             }
                         }
                     } catch (e) {
-                        console.log("error");
+                        console.log(e);
                     }
                 });
         });

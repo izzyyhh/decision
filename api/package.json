@@ -65,7 +65,6 @@
         "minio": "^7.0.26",
         "nestjs-console": "^7.0.1",
         "node-cache": "^5.1.2",
-        "node-fetch": "^3.2.3",
         "passport": "^0.5.2",
         "passport-http-bearer": "^1.0.1",
         "passport-jwt": "^4.0.0",

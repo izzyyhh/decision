@@ -1,6 +1,5 @@
-import { BaseEntity, Collection, Entity, ManyToMany, PrimaryKey, Property } from "@mikro-orm/core";
+import { BaseEntity, Entity, PrimaryKey, Property } from "@mikro-orm/core";
 import { Field, ID, ObjectType } from "@nestjs/graphql";
-import { Genre } from "@src/genres/entities/genre.entity";
 import { v4 } from "uuid";
 
 @ObjectType()
@@ -33,8 +32,7 @@ export class Movie extends BaseEntity<Movie, "id"> {
     @Property({
         columnType: "text",
     })
-    rating: string;
-
+    rating: number;
     @Field()
     @Property({
         columnType: "text",
@@ -60,7 +58,13 @@ export class Movie extends BaseEntity<Movie, "id"> {
     })
     mediaType: string;
 
-    @Field(() => [Genre])
-    @ManyToMany(() => Genre, (genre) => genre.movies)
-    genres = new Collection<Genre>(this);
+    // @Field(() => [Genre])
+    // @ManyToMany(() => Genre)
+    // genres = new Collection<Genre>(this);
+
+    @Field()
+    @Property({
+        columnType: "text",
+    })
+    genres: string;
 }
