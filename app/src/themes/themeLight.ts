@@ -7,8 +7,8 @@ interface MuiDropzoneNameToClassKey {
 }
 
 const colors = {
-    primary: "#FFFFFF",
-    primaryLight: "#5CACFF",
+    primary: "#929293",
+    primaryLight: "#FFFFFF",
     primaryDark: "#002350",
     secondary: "#2C2B2D",
     secondaryLight: "#FF6F5B",

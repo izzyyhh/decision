@@ -15,9 +15,9 @@ export const HeadlineH2 = styled.h2`
     line-height: 30px;
 
     @media (min-width: ${({ theme }) => theme.breakpoints.values.sm}px) {
-        font-size: 34px;
-        font-weight: 600;
-        line-height: 48px;
+        font-size: 32px;
+        font-weight: 500;
+        line-height: 40px;
     }
 `;
 
@@ -29,6 +29,7 @@ export const HeadlineH3 = styled.h3`
     line-height: 25px;
 
     @media (min-width: ${({ theme }) => theme.breakpoints.values.sm}px) {
-        font-size: 36px;
+        font-size: 28px;
+        line-height: 35px;
     }
 `;

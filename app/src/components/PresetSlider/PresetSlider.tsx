@@ -53,15 +53,10 @@ const PresetSlider: FunctionComponent = () => {
                     const options = r.data.getRestaurantsPreset;
                     setOpenRestaurant(false);
                     createPoll(options, data.title);
-                    console.log(r);
                 }
             } catch (e) {
                 setSnack({ message: "Error", open: true, severity: "error" });
             }
-
-            //getoptions
-            //createDecision
-            //navigate
         },
         getOptionsList: (data) => data.getRestaurantsPreset,
         query: restaurantsQuery,
@@ -71,10 +66,6 @@ const PresetSlider: FunctionComponent = () => {
         setOpen: setOpenMovies,
         handleClose: (data) => {
             moviesQuery;
-            console.log(data);
-            //getoptions
-            //createDecision
-            //navigate
             setOpenMovies(false);
         },
         getOptionsList: (data) => data.getMoviesPreset,
@@ -100,7 +91,7 @@ const PresetSlider: FunctionComponent = () => {
 
     return (
         <>
-            <ImageTextSwiper images={images} />;
+            <ImageTextSwiper images={images} />
             <RestaurantModal {...RestaurantHandler} />
             <MoviesModal {...MoviesHandler} />
         </>

@@ -10,7 +10,6 @@
         "headline": "Create your Decision",
         "binary": "Binary",
         "tinder": "Tinder",
-        "date": "Date",
         "numerical": "Numerisch Skalieren",
         "type": "Select Type",
         "start": "Create decision",
@@ -18,7 +17,11 @@
         "options": "Options",
         "vote": "Vote",
         "copyLink": "Copy Link",
-        "linkCopied": "Link copied to Clipboard"
+        "linkCopied": "Link copied to Clipboard",
+        "date": {
+            "title": "Date",
+            "option": "Date and hour"
+        }
     },
     "link": {
         "next": "Next Step",
@@ -43,7 +46,8 @@
         },
         "recentActivity": {
             "headline": "Recent Activity",
-            "eyebrow": "Don’t waste time. Make fast decisions."
+            "eyebrow": "Don’t waste time. Make fast decisions.",
+            "noActivity": "You have no activity."
         },
         "links": {
             "create": "Create Decision",

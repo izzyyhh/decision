@@ -25,7 +25,7 @@ const TypeSwitch: FunctionComponent<Props> = ({ update }) => {
                 {t("decision.tinder")}
             </Item>
             <Item active={option === Type.DATE} onClick={() => setOption(Type.DATE)}>
-                {t("decision.date")}
+                {t("decision.date.title")}
             </Item>
         </Wrapper>
     );

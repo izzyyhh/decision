@@ -1,10 +1,10 @@
 import { useQuery } from "@apollo/client";
 import LinkButton from "@components/LinkButton/LinkButton";
 import { useUser } from "@context/user/useUser";
-import { Card } from "@material-ui/core";
 import HowToVoteOutlinedIcon from "@mui/icons-material/HowToVoteOutlined";
 import PollOutlinedIcon from "@mui/icons-material/PollOutlined";
 import React, { FunctionComponent } from "react";
+import { useTranslation } from "react-i18next";
 import { format, register } from "timeago.js";
 
 import getActivityQuery from "./getActivity.gql";
@@ -34,6 +34,7 @@ register("de", deLocale);
 const RecentActivity: FunctionComponent = () => {
     const { user } = useUser();
     const { data } = useQuery(getActivityQuery, { variables: { data: { id: user?.id } } });
+    const { t } = useTranslation();
     const iconSwitch: any = {
         POLL: <PollOutlinedIcon fontSize="inherit"></PollOutlinedIcon>,
         DECISION: <HowToVoteOutlinedIcon fontSize="inherit"></HowToVoteOutlinedIcon>,
@@ -59,11 +60,11 @@ const RecentActivity: FunctionComponent = () => {
         );
     } else {
         return (
-            <Card>
+            <Wrapper>
                 <LinkButton active={false} primary={false} arrow={false}>
-                    You have no activity.
+                    {t("welcome.recentActivity.noActivity")}
                 </LinkButton>
-            </Card>
+            </Wrapper>
         );
     }
 };

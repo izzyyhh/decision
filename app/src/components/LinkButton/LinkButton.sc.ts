@@ -23,7 +23,7 @@ export const LinkButtonContainer = styled.div<ILinkButtonContainer>`
     display: flex;
     margin-bottom: 15px;
     position: relative;
-    background-color: ${({ primary, theme }) => (primary ? theme.palette.primary.main : theme.palette.secondary.main)};
+    background-color: ${({ primary, theme }) => (primary ? theme.palette.primary.light : theme.palette.secondary.main)};
     transition: background-color 0.5s ease-in;
     opacity: ${({ active }) => (active ? 1 : 0.3)};
     padding-left: 15px;
