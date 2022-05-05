@@ -11,6 +11,7 @@ import LinkButton from "@components/LinkButton/LinkButton";
 import Option from "@components/Option/Option";
 import ShareModal from "@components/ShareModal/ShareModal";
 import TypeSwitch from "@components/TypeSwitch/TypeSwitch";
+import { useSnack } from "@context/snackbar/useSnack";
 import { useUser } from "@context/user/useUser";
 import { useAuthToken } from "@hooks/useAuthToken";
 import { addOptionsMutation, addPollMutation } from "@pages/PollWithType/PollWithType.gql";
@@ -43,6 +44,7 @@ const CreateDecision: FunctionComponent = () => {
     const [openModal, setOpenModal] = useState<boolean>(false);
     const [pollId, setPollId] = useState<string>("");
     const [authToken] = useAuthToken();
+    const { setSnack } = useSnack();
 
     useEffect(() => {
         if (question.length > 0 && options.length >= 1) {
@@ -84,7 +86,7 @@ const CreateDecision: FunctionComponent = () => {
                 <ColumnFullWidth>
                     <LinkButton
                         active={active}
-                        onClick={() => createPoll(type, options, question, addPoll, addOption, setOpenModal, setPollId, authToken)}
+                        onClick={() => createPoll(type, options, question, addPoll, addOption, setOpenModal, setPollId, setSnack, authToken)}
                     >
                         {t("decision.start")}
                     </LinkButton>
@@ -102,14 +104,28 @@ const createPoll = async (
     addOptionMutation: any,
     setOpenModal: (value: boolean) => void,
     setPollId: (value: string) => void,
+    setSnack: any,
     authToken: string,
 ) => {
+    if (question == undefined || question == "") {
+        setSnack({ message: "Question is missing", open: true, severity: "warning" });
+    }
+
     const pollData = await addPollMutation();
     const pollId = pollData.data.addPoll.id;
 
     setPollId(pollId);
 
     if (type === Type.BINARY) {
+        if (options.length !== 2) {
+            if (options.length == 1) {
+                setSnack({ message: "Please add 1 more option", open: true, severity: "warning" });
+            }
+            if (options.length == 0) {
+                setSnack({ message: "Please add 2 options", open: true, severity: "warning" });
+            }
+        }
+
         if (question != undefined && question != "" && options.length == 2) {
             const promises: Promise<any>[] = [];
 
@@ -118,12 +134,20 @@ const createPoll = async (
                     promises.push(addOptionMutation({ variables: { data: { poll: pollId, title: o.value, thumbnailUrl: "" } } }));
                 });
 
-                Promise.all(promises).then(() => {
-                    setOpenModal(true);
-                });
+                Promise.all(promises)
+                    .then(() => {
+                        setOpenModal(true);
+                    })
+                    .catch(() => {
+                        setSnack({ message: "An error occurd. Please try again", open: true, severity: "warning" });
+                    });
             }
         }
     } else if (type === Type.TINDER) {
+        if (options.length <= 1) {
+            setSnack({ message: "Please add at least one more option", open: true, severity: "warning" });
+        }
+
         if (question != undefined && question != "" && options.length > 1) {
             const imagePromises: Promise<any>[] = [];
 
@@ -140,7 +164,10 @@ const createPoll = async (
             });
         }
     } else if (type === Type.DATE) {
-        if (question != undefined && question != "" && options.length > 2) {
+        if (options.length < 2) {
+            setSnack({ message: "Please add at least one more option", open: true, severity: "warning" });
+        }
+        if (question != undefined && question != "" && options.length >= 2) {
             const promises: Promise<any>[] = [];
 
             if (pollId) {
