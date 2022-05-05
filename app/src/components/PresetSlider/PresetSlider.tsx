@@ -47,21 +47,14 @@ const PresetSlider: FunctionComponent = () => {
         handleClose: async (data) => {
             try {
                 const r = await getRestaurants({ variables: { data: { name: data.name, amount: data.amount } } });
-                if (r.error) {
-                    console.log("error");
-                } else {
+                if (!r.error) {
                     const options = r.data.getRestaurantsPreset;
                     setOpenRestaurant(false);
                     createPoll(options, data.title);
-                    console.log(r);
                 }
             } catch (e) {
                 setSnack({ message: "Error", open: true, severity: "error" });
             }
-
-            //getoptions
-            //createDecision
-            //navigate
         },
         getOptionsList: (data) => data.getRestaurantsPreset,
         query: restaurantsQuery,
@@ -71,10 +64,6 @@ const PresetSlider: FunctionComponent = () => {
         setOpen: setOpenMovies,
         handleClose: (data) => {
             moviesQuery;
-            console.log(data);
-            //getoptions
-            //createDecision
-            //navigate
             setOpenMovies(false);
         },
         getOptionsList: (data) => data.getMoviesPreset,
@@ -100,7 +89,7 @@ const PresetSlider: FunctionComponent = () => {
 
     return (
         <>
-            <ImageTextSwiper images={images} />;
+            <ImageTextSwiper images={images} />
             <RestaurantModal {...RestaurantHandler} />
             <MoviesModal {...MoviesHandler} />
         </>

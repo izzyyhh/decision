@@ -5,11 +5,7 @@ import { SingleImageProps } from "./Props";
 
 const ImageTextSlide: FunctionComponent<SingleImageProps> = ({ image }) => {
     return (
-        <SlideInner
-            onClick={() => {
-                image.handler.setOpen(true);
-            }}
-        >
+        <SlideInner onClick={() => image.handler.setOpen(true)}>
             <ImageWrapper>
                 <Image src={image.thumbnailUrl} />
             </ImageWrapper>

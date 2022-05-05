@@ -29,6 +29,11 @@ export type GQLActivityType =
   | 'POLL'
   | 'DECISION';
 
+export type GQLCityDto = {
+  name: Scalars['String'];
+  amount: Scalars['Float'];
+};
+
 
 export type GQLDecision = {
   __typename?: 'Decision';
@@ -51,7 +56,6 @@ export type GQLGenre = {
   __typename?: 'Genre';
   apiId: Scalars['ID'];
   title: Scalars['String'];
-  movies: Array<GQLMovie>;
 };
 
 export type GQLGetDecisionDto = {
@@ -67,6 +71,11 @@ export type GQLGetDecisionForUserAndPollDto = {
   poll: Scalars['String'];
 };
 
+export type GQLGetMoviePresetDto = {
+  categories: Scalars['String'];
+  size: Scalars['Float'];
+};
+
 export type GQLGetOptionsForPollDto = {
   pollId: Scalars['String'];
 };
@@ -75,23 +84,18 @@ export type GQLGetPollDto = {
   pollId: Scalars['String'];
 };
 
-export type GQLLocationDto = {
-  latitude: Scalars['Float'];
-  longitude: Scalars['Float'];
-};
-
 export type GQLMovie = {
   __typename?: 'Movie';
   id: Scalars['ID'];
   title: Scalars['String'];
   posterPath: Scalars['String'];
   backdropPath: Scalars['String'];
-  rating: Scalars['String'];
+  rating: Scalars['Float'];
   description: Scalars['String'];
   releaseDate: Scalars['String'];
   adult: Scalars['Boolean'];
   mediaType: Scalars['String'];
-  genres: Array<GQLGenre>;
+  genres: Scalars['String'];
 };
 
 export type GQLMoviesDto = {
@@ -241,7 +245,7 @@ export type GQLQuery = {
   genresAll: Array<GQLGenre>;
   addGenres: Scalars['Boolean'];
   getMoviesPreset: Array<GQLMoviesDto>;
-  addMovies: Scalars['Boolean'];
+  fetchMoviePreset: Array<GQLMovie>;
   presetsAll: Array<GQLPreset>;
 };
 
@@ -305,7 +309,12 @@ export type GQLQuerygetActivityArgs = {
 
 
 export type GQLQuerygetRestaurantsPresetArgs = {
-  data: GQLLocationDto;
+  data: GQLCityDto;
+};
+
+
+export type GQLQueryfetchMoviePresetArgs = {
+  data: GQLGetMoviePresetDto;
 };
 
 export type GQLSortDirection =

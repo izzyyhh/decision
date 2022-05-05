@@ -10,7 +10,6 @@
         "headline": "Entscheidung erstellen",
         "binary": "Binär",
         "tinder": "Tinder",
-        "date": "Datum",
         "numerical": "Numerisch Skalieren",
         "type": "Art der Entscheidung wählen",
         "start": "Entscheidung erstellen",
@@ -18,7 +17,11 @@
         "options": "Optionen",
         "vote": "Abstimmen",
         "copyLink": "Link kopieren",
-        "linkCopied": "Link zur Abstimmung wurde kopiert"
+        "linkCopied": "Link zur Abstimmung wurde kopiert",
+        "date": {
+            "title": "Datum",
+            "option": "Datum und Uhrzeit"
+        }
     },
     "link": {
         "next": "Nächster Schritt",
@@ -37,6 +40,15 @@
     "welcome": {
         "headline": "Willkommen",
         "helpText": "Verschwende keine Zeit. Treffe eine schnelle Entscheidung",
+        "presets": {
+            "headline": "Voreingestellte Umfragen",
+            "eyebrow": "Wähle deine Umfrage aus den voreingestellten Umfragen"
+        },
+        "recentActivity": {
+            "headline": "Letzten Umfragen",
+            "eyebrow": "Verschwende keine Zeit. Mache schnelle Entscheidigungen.",
+            "noActivity": "Keine Akitivtäten"
+        },
         "links": {
             "create": "Entscheidung erstellen",
             "predefined": "Vordefinierte Entscheidungen",

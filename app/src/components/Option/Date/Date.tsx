@@ -2,9 +2,12 @@ import "date-fns";
 
 import { Add, AddButton } from "@components/Option/Tinder/Tinder.sc";
 import DateFnsAdapter from "@date-io/date-fns";
-import { DateTimePicker, MuiPickersUtilsProvider } from "@material-ui/pickers";
+import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import { Option } from "@pages/CreateDecision/CreateDecision";
 import React, { FunctionComponent, useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+
+import { DateTimePicker } from "./Date.sc";
 
 interface Props {
     update: (values: Array<Option>) => void;
@@ -13,6 +16,7 @@ interface Props {
 const DateOption: FunctionComponent<Props> = ({ update }) => {
     const [options, setOptions] = useState<Array<Option>>([{ value: new Date(), key: 0 }]);
     const [amountOptions, setAmountOptions] = useState<number>(1);
+    const { t } = useTranslation();
 
     const handleUpdate = (value: any, key: number) => {
         if (options.length > 0) {
@@ -52,7 +56,7 @@ const DateOption: FunctionComponent<Props> = ({ update }) => {
                         {options.length > idx && (
                             <DateTimePicker
                                 key={idx}
-                                label="Date&Time picker"
+                                label={t("decision.date.option")}
                                 value={options[idx].value}
                                 fullWidth
                                 onChange={(date) => handleUpdate(date, idx)}
