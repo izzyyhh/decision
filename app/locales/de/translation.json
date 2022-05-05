@@ -13,7 +13,7 @@
         "date": "Datum",
         "numerical": "Numerisch Skalieren",
         "type": "Art der Entscheidung wählen",
-        "start": "Entscheidung starten",
+        "start": "Entscheidung erstellen",
         "help": "Hier kannst du deine Entscheidung hinzufügen",
         "options": "Optionen",
         "vote": "Abstimmen",
@@ -21,7 +21,11 @@
         "linkCopied": "Link zur Abstimmung wurde kopiert"
     },
     "link": {
-        "next": "Nächster Schritt"
+        "next": "Nächster Schritt",
+        "social": {
+            "join": "Der Entscheidung betreten!",
+            "share": "Teilen"
+        }
     },
     "result": {
         "headline": "Ergebnis",
@@ -42,14 +46,18 @@
     },
     "create": {
         "question": {
-            "title": "Question",
+            "title": "Frage",
             "label": "Type your question"
         },
         "type": {
-            "title": "Select Type"
+            "title": "Wähle Type aus"
         },
         "options": {
-            "title": "Add your Options"
+            "title": "Füge deine Antworten hinzu"
+        },
+        "links": {
+            "start": "Beginne die Entscheidung",
+            "result": "Ergebnis"
         }
     },
     "tinder": {

@@ -1,3 +1,4 @@
+import DateOption from "@components/Option/Date/Date";
 import { Option as OptionInterface, Type } from "@pages/CreateDecision/CreateDecision";
 import React, { FunctionComponent, useEffect, useState } from "react";
 
@@ -12,6 +13,7 @@ interface Props {
 const Options: any = {
     BINARY: Binare,
     TINDER: Tinder,
+    DATE: DateOption,
 };
 
 const Option: FunctionComponent<Props> = ({ typeDecision, update }) => {

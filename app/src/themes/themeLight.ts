@@ -163,6 +163,13 @@ export default createTheme({
                 backgroundColor: "#676767",
             },
         },
+        MuiInput: {
+            root: {
+                marginTop: "-10px",
+                marginBottom: "10px",
+                fontSize: "14px",
+            },
+        },
     },
 });
 
