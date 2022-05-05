@@ -68,4 +68,5 @@ export const Image = styled.img`
     width: 50%;
     margin-left: auto;
     margin-right: auto;
+    margin-top: -39px;
 `;
