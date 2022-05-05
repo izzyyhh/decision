@@ -11,6 +11,7 @@ import Input from "@components/Input/Input";
 import LinkButton from "@components/LinkButton/LinkButton";
 import Option from "@components/Option/Option";
 import TypeSwitch from "@components/TypeSwitch/TypeSwitch";
+import { useSnack } from "@context/snackbar/useSnack";
 import { useUser } from "@context/user/useUser";
 import { useAuthToken } from "@hooks/useAuthToken";
 import { addOptionsMutation, addPollMutation } from "@pages/PollWithType/PollWithType.gql";
@@ -42,6 +43,7 @@ const CreateDecision: FunctionComponent = () => {
     const [active, setActive] = useState(true);
     const navigate = useNavigate();
     const [authToken] = useAuthToken();
+    const { setSnack } = useSnack();
 
     useEffect(() => {
         setOptions([]);
@@ -76,7 +78,7 @@ const CreateDecision: FunctionComponent = () => {
                 <ColumnFullWidth>
                     <LinkButton
                         active={active}
-                        onClick={() => createPoll(type, options, question, addPoll, addOption, setActive, navigate, authToken)}
+                        onClick={() => createPoll(type, options, question, addPoll, addOption, setActive, navigate, setSnack, authToken)}
                     >
                         {t("decision.start")}
                     </LinkButton>
@@ -94,9 +96,22 @@ const createPoll = async (
     addOptionMutation: any,
     setActive: any,
     navigate: any,
+    setSnack: any,
     authToken: string,
 ) => {
+    if (question == undefined || question == "") {
+        setSnack({ message: "Question is missing", open: true, severity: "warning" });
+    }
     if (type === Type.BINARY) {
+        if (options.length !== 2) {
+            if (options.length == 1) {
+                setSnack({ message: "Please add 1 more option", open: true, severity: "warning" });
+            }
+            if (options.length == 0) {
+                setSnack({ message: "Please add 2 options", open: true, severity: "warning" });
+            }
+        }
+
         if (question != undefined && question != "" && options.length == 2) {
             const pollData = await addPollMutation();
             const pollId = pollData.data.addPoll.id;
@@ -107,13 +122,21 @@ const createPoll = async (
                     promises.push(addOptionMutation({ variables: { data: { poll: pollId, title: o.value, thumbnailUrl: "" } } }));
                 });
 
-                Promise.all(promises).then(() => {
-                    setActive(false);
-                    navigate(`/decision/${pollId}`);
-                });
+                Promise.all(promises)
+                    .then(() => {
+                        setActive(false);
+                        navigate(`/decision/${pollId}`);
+                    })
+                    .catch(() => {
+                        setSnack({ message: "Please choose an option", open: true, severity: "warning" });
+                    });
             }
         }
     } else if (type === Type.TINDER) {
+        if (options.length <= 1) {
+            setSnack({ message: "Please add at least one more option", open: true, severity: "warning" });
+        }
+
         if (question != undefined && question != "" && options.length > 1) {
             console.log(type);
             const pollData = await addPollMutation();
@@ -121,8 +144,6 @@ const createPoll = async (
             const imagePromises: Promise<any>[] = [];
 
             options.forEach(async (o) => {
-                console.log("option");
-                console.log(o);
                 const optionId = await addOptionMutation({ variables: { data: { poll: pollId, title: o.value, thumbnailUrl: "" } } });
 
                 if (optionId.data.addOption.id) {
