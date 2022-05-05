@@ -29,6 +29,9 @@ const config = ({ production }: IEnvironment): Configuration => {
             patterns: [
                 { from: path.resolve(__dirname, "./locales"), to: path.resolve(__dirname, "./build/locales") },
                 { from: path.resolve(__dirname, "./public/manifest.json"), to: path.resolve(__dirname, "./build/manifest.json") },
+                { from: path.resolve(__dirname, "./public/serviceworker.js"), to: path.resolve(__dirname, "./build/serviceworker.js") },
+                { from: path.resolve(__dirname, "./public/decision_logo.png"), to: path.resolve(__dirname, "./build/decision_logo.png") },
+                { from: path.resolve(__dirname, "./public/decision_logo512.png"), to: path.resolve(__dirname, "./build/decision_logo512.png") },
                 // { from: path.resolve(__dirname, "./public/icons"), to: path.resolve(__dirname, "./build/icons") },
             ],
         }),
