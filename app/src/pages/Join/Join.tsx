@@ -61,7 +61,7 @@ const Join: FunctionComponent = () => {
                     </LinkButton>
                     {showScanner && (
                         <QrReader
-                            constraints={{ facingMode: "user" }}
+                            constraints={{ facingMode: "back" }}
                             onResult={(result, error) => {
                                 if (result) {
                                     if (result.getText().includes(window.location.origin)) {

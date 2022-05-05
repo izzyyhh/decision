@@ -15,12 +15,10 @@ interface ILinkButtonContainer {
 export const LinkButtonContainer = styled.div<ILinkButtonContainer>`
     cursor: ${({ active }) => (active ? "pointer" : "default")};
     color: black;
-    font-size: 1em;
-    border-radius: 22px;
+    border-radius: 7.5px;
     text-decoration: none;
-    padding-top: 15px;
-    padding-bottom: 15px;
-    font-weight: bold;
+    padding-top: 7.5px;
+    padding-bottom: 7.5px;
     border: 0;
     display: flex;
     margin-bottom: 15px;
@@ -43,7 +41,7 @@ export const LinkButtonContainer = styled.div<ILinkButtonContainer>`
 `;
 
 export const Text = styled.span<ILinkButtonContainer>`
-    text-transform: uppercase;
+    font-size: 16px;
     letter-spacing: 0.05em;
     line-height: 25px;
     color: ${({ primary, theme }) => (primary ? theme.palette.primary.dark : theme.palette.primary.light)};

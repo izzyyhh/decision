@@ -5,6 +5,7 @@ import React, { FunctionComponent, useEffect, useState } from "react";
 interface Props {
     update: (values: Array<Option>) => void;
 }
+
 const Binare: FunctionComponent<Props> = ({ update }) => {
     const [options, setOptions] = useState<Array<Option>>([]);
 

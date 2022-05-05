@@ -22,7 +22,8 @@ export const Input = styled.input`
 
 export const Label = styled.p`
     margin: 0;
-    line-height: 25px;
+    line-height: 24px;
+    font-size: 14px;
     margin-left: 20px;
 `;
 

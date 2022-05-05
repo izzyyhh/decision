@@ -13,7 +13,7 @@
         "date": "Date",
         "numerical": "Numerisch Skalieren",
         "type": "Select Type",
-        "start": "Start decision",
+        "start": "Create decision",
         "help": "Add your decision here",
         "options": "Options",
         "vote": "Vote",
@@ -21,7 +21,11 @@
         "linkCopied": "Link copied to Clipboard"
     },
     "link": {
-        "next": "Next Step"
+        "next": "Next Step",
+        "social": {
+            "join": "Join the decision!",
+            "share": "Share"
+        }
     },
     "result": {
         "headline": "Result",
@@ -50,6 +54,10 @@
         },
         "options": {
             "title": "Add your Options"
+        },
+        "links": {
+            "start": "Vote",
+            "result": "Result"
         }
     },
     "tinder": {

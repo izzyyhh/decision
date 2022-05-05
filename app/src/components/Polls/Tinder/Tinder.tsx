@@ -1,12 +1,16 @@
-import { useMutation } from "@apollo/client";
+import { useLazyQuery, useMutation } from "@apollo/client";
 import { ColumnFullWidth } from "@app/common/Column.sc";
 import { GQLOption } from "@app/graphql.generated";
+import LinkButton from "@components/LinkButton/LinkButton";
+import { useSnack } from "@context/snackbar/useSnack";
 import { useUser } from "@context/user/useUser";
-import React, { FunctionComponent, useMemo, useRef, useState } from "react";
+import React, { FunctionComponent, useEffect, useMemo, useRef, useState } from "react";
+import { useCookies } from "react-cookie";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 
 import { ADD_DECISION } from "../Binary/pollData.gql";
+import { CanDecideQuery, DecisionsPollQuery } from "./Tinder.gql";
 import {
     Card,
     DownVote,
@@ -28,10 +32,40 @@ enum SwipeDirection {
     RIGHT = "right",
     LEFT = "left",
 }
+interface IOptions {
+    [id: string]: number;
+}
+interface IDecision {
+    user: {
+        id: string;
+        name: string;
+    };
+    option: {
+        id: string;
+        title: string;
+    };
+}
+
+type Snack = {
+    message: string;
+    open: boolean;
+    severity?: "info" | "success" | "warning" | "error";
+};
 
 interface Props {
     optionsData: GQLOption[];
 }
+
+const getOnBoard = () => {
+    const [cookies, setCookie] = useCookies(["tinder_onBoard"]);
+
+    if (!cookies["tinder_onBoard"]) {
+        setCookie("tinder_onBoard", true);
+        return true;
+    }
+
+    return false;
+};
 
 const Tinder: FunctionComponent<Props> = ({ optionsData }) => {
     const { user } = useUser();
@@ -39,6 +73,14 @@ const Tinder: FunctionComponent<Props> = ({ optionsData }) => {
     const { pollId } = useParams();
     const { t } = useTranslation();
     const userId = user?.id;
+    const [onBoard] = useState<boolean>(getOnBoard());
+
+    const [matches, setMatches] = useState<number>(0);
+    const userOptions: IOptions = {};
+    const uniqueUsers: Array<string> = [];
+    const [data] = useLazyQuery(DecisionsPollQuery, { variables: { data: { pollId } } });
+    const { setSnack } = useSnack();
+    const [hasMadeDecision] = useLazyQuery(CanDecideQuery, { variables: { data: { user: userId, poll: pollId } } });
 
     const [currentIndex, setCurrentIndex] = useState(optionsData.length - 1);
     const canSwipe = currentIndex >= 0;
@@ -57,6 +99,56 @@ const Tinder: FunctionComponent<Props> = ({ optionsData }) => {
         setCurrentIndex(val);
         currentIndexRef.current = val;
     };
+
+    const addUser = (userId: string) => {
+        if (!uniqueUsers.includes(userId)) {
+            uniqueUsers.push(userId);
+        }
+    };
+
+    const initilizeOptions = (optionId: string) => {
+        userOptions[optionId] = 0;
+    };
+
+    const addOption = (optionId: string) => {
+        userOptions[optionId] = userOptions[optionId] + 1;
+    };
+
+    const getMatches = async () => {
+        const results = await data();
+        const decisions = results.data?.getDecisionsForPoll;
+        decisions.forEach((element: IDecision) => {
+            addUser(element.user.id);
+            initilizeOptions(element.option.title);
+        });
+        decisions.forEach((element: IDecision) => {
+            addOption(element.option.title);
+        });
+
+        if (uniqueUsers.length > 1) {
+            let totalMatches = 0;
+            for (const key in userOptions) {
+                if (userOptions[key] == uniqueUsers.length) {
+                    totalMatches += 1;
+                }
+            }
+            setMatches(totalMatches);
+        }
+    };
+
+    const canDecide = async (setSnack: (snack: Snack) => void) => {
+        const response = await hasMadeDecision();
+        if (!response?.data.canDecide) {
+            console.log("error");
+
+            setSnack({ message: "already.made.decision.error", open: true, severity: "error" });
+            navigate(`/result/${pollId}`);
+        }
+    };
+
+    useEffect(() => {
+        canDecide(setSnack);
+    }, []);
 
     const swiped = (direction: SwipeDirection, id: any, index: any) => {
         updateCurrentIndex(index - 1);
@@ -84,6 +176,7 @@ const Tinder: FunctionComponent<Props> = ({ optionsData }) => {
 
     const sendDecision = async (option: string, user: any, poll: any) => {
         await addDecision({ variables: { data: { user, poll, option, answer: 0.6 } } });
+        getMatches();
     };
 
     return (
@@ -97,14 +190,14 @@ const Tinder: FunctionComponent<Props> = ({ optionsData }) => {
                         onSwipe={(dir: SwipeDirection) => swiped(dir, option.id, idx)}
                         onCardLeftScreen={() => outOfFrame(option.title, idx)}
                     >
-                        <Card first={idx + 1 === optionsData.length}>
+                        <Card first={idx + 1 === optionsData.length && onBoard}>
                             <Image
                                 src={option.thumbnailUrl && option.thumbnailUrl.length > 0 ? option.thumbnailUrl : "https://picsum.photos/200/300"}
                             />
-                            <Title first={true}>
+                            <Title first={idx + 1 === optionsData.length && onBoard}>
                                 {option.title} {idx}
                             </Title>
-                            {idx + 1 === optionsData.length && (
+                            {idx + 1 === optionsData.length && onBoard && (
                                 <OnBoard>
                                     <InfoBox>
                                         <TouchIcon />
@@ -119,7 +212,7 @@ const Tinder: FunctionComponent<Props> = ({ optionsData }) => {
                         </Card>
                     </TinderCard>
                 ))}
-                <VoteButtons>
+                <VoteButtons first={onBoard}>
                     <DownVote onClick={() => swipe(SwipeDirection.LEFT)}>
                         <IconClose />
                     </DownVote>
@@ -128,6 +221,17 @@ const Tinder: FunctionComponent<Props> = ({ optionsData }) => {
                     </UpVote>
                 </VoteButtons>
             </VoteWrapper>
+            {matches > 0 && (
+                <LinkButton
+                    onClick={() => {
+                        navigate(`/result/${pollId}`);
+                    }}
+                    arrow={true}
+                    active={true}
+                >
+                    Du hast {matches} Matches!
+                </LinkButton>
+            )}
         </ColumnFullWidth>
     );
 };

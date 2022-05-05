@@ -229,7 +229,6 @@ export type GQLQuery = {
   getQRCode: GQLPoll;
   getPoll: GQLPoll;
   usersAll: Array<GQLUser>;
-  refreshToken: Scalars['String'];
   checkToken: Scalars['Boolean'];
   thumbnailsAll: Array<GQLThumbnail>;
   optionsAll: Array<GQLDecision>;
@@ -280,11 +279,6 @@ export type GQLQuerygetPollArgs = {
 };
 
 
-export type GQLQueryrefreshTokenArgs = {
-  data: GQLRefreshTokenInput;
-};
-
-
 export type GQLQuerygetOptionsForPollArgs = {
   data: GQLGetOptionsForPollDto;
 };
@@ -312,10 +306,6 @@ export type GQLQuerygetActivityArgs = {
 
 export type GQLQuerygetRestaurantsPresetArgs = {
   data: GQLLocationDto;
-};
-
-export type GQLRefreshTokenInput = {
-  refreshToken: Scalars['String'];
 };
 
 export type GQLSortDirection =

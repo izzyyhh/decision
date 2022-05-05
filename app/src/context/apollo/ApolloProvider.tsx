@@ -37,6 +37,7 @@ const CustomApolloProvider: FunctionComponent = ({ children }) => {
                 headers: {
                     ...headers,
                     Authorization: authToken ? `Bearer ${authToken}` : null,
+                    Origin: "https://decision.projects.multimediatechnology.at",
                 },
             };
         }),

@@ -9,3 +9,8 @@ export const DecideWrapper = styled.div`
     align-items: flex-start;
     justify-content: centerflex-start;
 `;
+
+export const HeadingWrapper = styled.div`
+    grid-column: 2 / span 22;
+    display: flex;
+`;
