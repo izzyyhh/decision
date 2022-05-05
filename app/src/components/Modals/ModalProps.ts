@@ -4,4 +4,5 @@ export interface ModalProps {
     handleClose: (a?: any) => void;
     getOptionsList: (a: any) => any;
     query: any;
+    options?: any;
 }
