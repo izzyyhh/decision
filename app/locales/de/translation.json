@@ -63,5 +63,12 @@
     "tinder": {
         "downVote": "Magst du nicht links swipen",
         "vote": "Magst du rechts swipen"
+    },
+    "join": {
+        "decision": {
+            "with": {
+                "qrcode": "QR Code scannen"
+            }
+        }
     }
 }

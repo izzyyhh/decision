@@ -78,7 +78,7 @@ const Tinder: FunctionComponent<Props> = ({ optionsData }) => {
     const [matches, setMatches] = useState<number>(0);
     const userOptions: IOptions = {};
     const uniqueUsers: Array<string> = [];
-    const [data] = useLazyQuery(DecisionsPollQuery, { variables: { data: { pollId } } });
+    const [getData, { refetch }] = useLazyQuery(DecisionsPollQuery, { variables: { data: { pollId } } });
     const { setSnack } = useSnack();
     const [hasMadeDecision] = useLazyQuery(CanDecideQuery, { variables: { data: { user: userId, poll: pollId } } });
 
@@ -115,14 +115,14 @@ const Tinder: FunctionComponent<Props> = ({ optionsData }) => {
     };
 
     const getMatches = async () => {
-        const results = await data();
+        const results = await refetch();
         const decisions = results.data?.getDecisionsForPoll;
         decisions.forEach((element: IDecision) => {
             addUser(element.user.id);
-            initilizeOptions(element.option.title);
+            initilizeOptions(element.option.id);
         });
         decisions.forEach((element: IDecision) => {
-            addOption(element.option.title);
+            addOption(element.option.id);
         });
 
         if (uniqueUsers.length > 1) {

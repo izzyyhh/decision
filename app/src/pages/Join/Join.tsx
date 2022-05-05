@@ -72,7 +72,7 @@ const Join: FunctionComponent = () => {
                         <QrCodeWrapper>
                             <QrReader
                                 className="test"
-                                constraints={{ facingMode: "rear" }}
+                                constraints={{ facingMode: "environment" }}
                                 onResult={(result, error) => {
                                     if (result) {
                                         if (result.getText().includes(window.location.origin)) {

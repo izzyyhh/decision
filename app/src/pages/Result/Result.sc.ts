@@ -66,3 +66,40 @@ export const ButtonContainer = styled.div`
     flex-direction: column;
     gap: 0.5rem;
 `;
+
+export const Image = styled.img`
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    postion: relative;
+    border-radius: 10px;
+    margin-top: 10px;
+`;
+
+export const TinderResultTextWrapper = styled.div`
+    width: 100%;
+    color: white;
+    padding: 0px 0px 45px 0px;
+    margin-top: -50px;
+    border-radius: 10px;
+    position: relative;
+    margin-bottom: 10px;
+`;
+
+export const TinderResultTextBackdrop = styled.div`
+    width: 100%;
+    position: absolute;
+    content: "";
+    bottom: 0;
+    height: 100%;
+    background: rgb(0, 0, 0);
+    background: linear-gradient(0deg, rgba(0, 0, 0, 1) 10%, rgba(0, 0, 0, 0) 100%);
+    border-radius: 10px;
+`;
+
+export const TinderResultText = styled.div`
+    color: white;
+    font-size: 1.3rem;
+    font-weight: 100;
+    padding: 0px 10px;
+`;
