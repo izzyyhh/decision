@@ -23,6 +23,12 @@ export const HeadlineH2 = styled.h2`
 
 export const HeadlineH3 = styled.h3`
     ${Headline}
-    font-size: 36px;
+    font-size: 20px;
     font-weight: 400;
+    margin-top: 0;
+    line-height: 25px;
+
+    @media (min-width: ${({ theme }) => theme.breakpoints.values.sm}px) {
+        font-size: 36px;
+    }
 `;
