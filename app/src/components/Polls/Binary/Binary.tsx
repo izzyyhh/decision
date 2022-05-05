@@ -3,6 +3,7 @@ import { ColumnFullWidth } from "@app/common/Column.sc";
 import { GQLOption } from "@app/graphql.generated";
 import Card from "@components/Card/Card";
 import LinkButton from "@components/LinkButton/LinkButton";
+import { useSnack } from "@context/snackbar/useSnack";
 import { useUser } from "@context/user/useUser";
 import React, { FunctionComponent, useState } from "react";
 import { useTranslation } from "react-i18next";
@@ -22,13 +23,18 @@ const Binary: FunctionComponent<Props> = ({ optionsData }) => {
     const { pollId } = useParams();
     const { t } = useTranslation();
     const userId = user?.id;
+    const { setSnack } = useSnack();
 
     const [data] = useMutation(ADD_DECISION, { variables: { data: { user: userId, poll: pollId, option: active, answer: 0.6 } } });
 
     const sendDecision = async () => {
-        const res = await data();
-        if (!res.errors) {
-            navigate(`/result/${pollId}`);
+        try {
+            const res = await data();
+            if (!res.errors) {
+                navigate(`/result/${pollId}`);
+            }
+        } catch {
+            setSnack({ message: "Please choose an option", open: true, severity: "warning" });
         }
     };
 
