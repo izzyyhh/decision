@@ -24,18 +24,16 @@ export class TasksConsole {
         await movies.forEach(async (m: Movie) => {
             await this.movieRepository.removeAndFlush(m);
         });
-
         await this.movieResolver.addMovies(1);
     }
 
     @Timeout(1000)
     async handleGenres() {
-        // const genres = await this.genreRepository.findAll();
-        // await genres.forEach(async (g: Genre) => {
-        //     await this.genreRepository.removeAndFlush(g);
-        // });
+        const genres = await this.genreRepository.findAll();
+        await genres.forEach(async (g: Genre) => {
+            await this.genreRepository.removeAndFlush(g);
+        });
         await this.genreResolver.addGenres();
-
         this.logger.debug("Called once after 5 seconds");
     }
 
@@ -46,7 +44,6 @@ export class TasksConsole {
         await movies.forEach(async (m: Movie) => {
             await this.movieRepository.removeAndFlush(m);
         });
-
         await this.movieResolver.addMovies(1);
     }
 }

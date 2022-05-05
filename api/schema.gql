@@ -127,7 +127,7 @@ type Query {
   getDecisionsForPoll(data: GetDecisionForPollDto!): [Decision!]!
   canDecide(data: GetDecisionForUserAndPollDto!): Boolean!
   getActivity(data: ActivityInput!): [Activity!]!
-  getRestaurantsPreset(data: LocationDto!): [Option!]!
+  getRestaurantsPreset(data: CityDto!): [Option!]!
   genresAll: [Genre!]!
   addGenres: Boolean!
   getMoviesPreset: [MoviesDto!]!
@@ -169,9 +169,9 @@ input ActivityInput {
   id: String!
 }
 
-input LocationDto {
-  latitude: Float!
-  longitude: Float!
+input CityDto {
+  name: String!
+  amount: Float!
 }
 
 type Mutation {

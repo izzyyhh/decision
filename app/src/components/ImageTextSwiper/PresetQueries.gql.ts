@@ -10,8 +10,8 @@ export const moviesQuery = gql`
 `;
 
 export const restaurantsQuery = gql`
-    query getRestaurants {
-        getRestaurantsPreset(data: { latitude: 0, longitude: 0 }) {
+    query getRestaurants($data: CityDto!) {
+        getRestaurantsPreset(data: $data) {
             title
             thumbnailUrl
         }
