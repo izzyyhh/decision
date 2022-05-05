@@ -10,7 +10,7 @@ const Seo: FunctionComponent<Props> = ({ title }) => {
     return (
         <Helmet
             link={[{ rel: "canonical", href: window.location.href }]}
-            title={`${config.REACT_APP_SITE_TITLE} ${title === undefined ? " Make fast Decisions" : ` | ${title}`} `}
+            title={`${config.REACT_APP_SITE_TITLE} ${title === undefined ? "- Decide Fast" : ` | ${title}`} `}
         >
             <meta
                 name="keywords"
