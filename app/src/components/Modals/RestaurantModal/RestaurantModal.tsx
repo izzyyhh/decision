@@ -1,63 +1,15 @@
 import { useSnack } from "@context/snackbar/useSnack";
 import Button from "@mui/material/Button";
-import Dialog from "@mui/material/Dialog";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
-import { styled } from "@mui/material/styles";
-import TextField from "@mui/material/TextField";
 import React, { FunctionComponent, useState } from "react";
 
 import { ModalProps } from "../ModalProps";
+import { BootstrapDialog, CssTextField } from "../ModalTools";
 
-const BootstrapDialog = styled(Dialog)(({ theme }) => ({
-    "& .MuiDialogTitle-root": {
-        background: "#202020",
-        color: "white",
-    },
-    "& .MuiDialogContent-root": {
-        padding: theme.spacing(2),
-        background: "#202020",
-        color: "white",
-    },
-    "& .MuiDialogContentText-root,& .MuiFormControl-root": {
-        color: "white",
-    },
-    "& .MuiInputLabel-root": {
-        color: "white",
-    },
-    "& .MuiDialogActions-root": {
-        padding: theme.spacing(1),
-        background: "#202020",
-    },
-    "& .MuiDialogActions-root .MuiButton-root": {
-        color: "white",
-    },
-}));
 
-const CssTextField = styled(TextField)(({ theme }) => ({
-    "& label.Mui-focused": {
-        color: "white",
-    },
-    "& .MuiInputBase-input": {
-        color: "white",
-    },
-    "& .MuiInput-underline:after": {
-        borderBottomColor: "white",
-    },
-    "& .MuiOutlinedInput-root": {
-        "& fieldset": {
-            borderColor: "red",
-        },
-        "&:hover fieldset": {
-            borderColor: "yellow",
-        },
-        "&.Mui-focused fieldset": {
-            borderColor: "green",
-        },
-    },
-}));
 
 const RestaurantModal: FunctionComponent<ModalProps> = ({ open, setOpen, handleClose }) => {
     const [name, setName] = useState("");

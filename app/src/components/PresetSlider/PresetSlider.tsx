@@ -12,6 +12,7 @@ import { addOptionsMutation, addPollMutation } from "@pages/PollWithType/PollWit
 import React, { FunctionComponent } from "react";
 import { useNavigate } from "react-router";
 
+import { fetchMoviesPreset,genresAll } from "../Modals/MoviesModal/MoviesModal.gql";
 import getPresetQuery from "./getPresets.gql";
 
 const PresetSlider: FunctionComponent = () => {
@@ -19,9 +20,12 @@ const PresetSlider: FunctionComponent = () => {
     const [openMovies, setOpenMovies] = React.useState(false);
     const [title, setTitle] = React.useState("");
     const [getRestaurants] = useLazyQuery(restaurantsQuery);
+    const [getMoviesPreset] = useLazyQuery(fetchMoviesPreset)
     const [addOption] = useMutation(addOptionsMutation);
     const { setSnack } = useSnack();
     const { user } = useUser();
+    const { data } = useQuery<GQLQuery>(getPresetQuery);
+    const genreData = useQuery<GQLQuery>(genresAll);
     const [addPoll] = useMutation(addPollMutation, {
         variables: { data: { title: title, predefined: true, owner: user?.id, type: Type.TINDER } },
     });
@@ -41,6 +45,7 @@ const PresetSlider: FunctionComponent = () => {
         }
     };
 
+    // eslint-disable-next-line
     const RestaurantHandler: ModalProps = {
         open: openRestauraunt,
         setOpen: setOpenRestaurant,
@@ -51,37 +56,41 @@ const PresetSlider: FunctionComponent = () => {
                     console.log("error");
                 } else {
                     const options = r.data.getRestaurantsPreset;
+                    console.log(options)
                     setOpenRestaurant(false);
-                    createPoll(options, data.title);
+                    //createPoll(options, data.title);
                     console.log(r);
                 }
             } catch (e) {
                 setSnack({ message: "Error", open: true, severity: "error" });
             }
-
-            //getoptions
-            //createDecision
-            //navigate
         },
         getOptionsList: (data) => data.getRestaurantsPreset,
         query: restaurantsQuery,
     };
+
+    // eslint-disable-next-line
     const MoviesHandler: ModalProps = {
         open: openMovies,
         setOpen: setOpenMovies,
-        handleClose: (data) => {
-            moviesQuery;
-            console.log(data);
-            //getoptions
-            //createDecision
-            //navigate
-            setOpenMovies(false);
+        handleClose: async (data) => {
+            const r = await getMoviesPreset({variables: {data: {size: data.amount, categories: data.personName.join(',')}}})
+            if(r.error){
+                console.log("shit");
+            }else{
+                // eslint-disable-next-line
+                const options = r.data.fetchMoviePreset.map((e: any) => {
+                    return {title: e.title, thumbnailUrl: e.posterPath}
+                })
+                console.log(options)
+                setOpenMovies(false);
+                createPoll(options, data.title)
+            }
         },
         getOptionsList: (data) => data.getMoviesPreset,
         query: moviesQuery,
     };
 
-    const { data } = useQuery<GQLQuery>(getPresetQuery);
 
     let images: Array<any> = [];
     if (data) {
@@ -102,7 +111,9 @@ const PresetSlider: FunctionComponent = () => {
         <>
             <ImageTextSwiper images={images} />;
             <RestaurantModal {...RestaurantHandler} />
-            <MoviesModal {...MoviesHandler} />
+            { genreData.data &&
+                <MoviesModal {...MoviesHandler}  options={genreData.data.genresAll.map((e) => e.title)} />
+            }
         </>
     );
 };
