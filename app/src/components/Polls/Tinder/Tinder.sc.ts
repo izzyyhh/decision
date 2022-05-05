@@ -19,7 +19,6 @@ export const Card = styled.div<Props>`
     display: block;
     border-radius: 7.5px;
     height: 350px;
-    background: yellow;
     display: block;
     border-radius: 22px;
     overflow: hidden;
@@ -104,10 +103,10 @@ export const OnBoard = styled.div`
 
     @keyframes onBoardWrapper {
         0% {
-            opacity: 0.8;
+            opacity: 0.4;
         }
         85% {
-            opacity: 0.8;
+            opacity: 0.4;
         }
         90% {
             opacity: 0;
@@ -187,7 +186,7 @@ export const Title = styled.p<Props>`
     }
 `;
 
-export const VoteButtons = styled.div`
+export const VoteButtons = styled.div<Props>`
     position: absolute;
     top: 0;
     bottom: 0;
@@ -202,7 +201,11 @@ export const VoteButtons = styled.div`
     display: flex;
     justify-content: space-between;
 
-    animation: onBoardBTN 5s 1 linear;
+    ${({ first }) =>
+        first &&
+        css`
+            animation: onBoardBTN 5s 1 linear;
+        `}
 
     @keyframes onBoardBTN {
         0% {
