@@ -1,42 +1,37 @@
-#!/usr/bin/env bash
-. ~/.nvm/nvm.sh
+#!/bin/bash
 
-# Run this script to restart development with a clean-dev-enviroment
-#
-# Also helps when: 
-# - started "npm run dev" within the wrong node version and packages are broken
-# - you need to change a migration that has already run locally
-# - generally: when lib folders are out of sync with src folders 
+# Uninstall Script
 
-
-
-# jump into project dir
-cd $(dirname $0)
-
-
-if [ ! -d node_modules ]; then
-    echo "No npm packages installed, not able to reset things, run install.sh first"
-    exit
+if [ "${USER}" != "root" ]; then
+	echo "$0 must be run as root!"
+	exit 2
 fi
 
+while true; do
+  read -p "Remove all Docker Machine VMs? (Y/N): " yn
+  case $yn in
+    [Yy]* ) docker-machine rm -f $(docker-machine ls -q); break;;
+    [Nn]* ) break;;
+    * ) echo "Please answer yes or no."; exit 1;;
+  esac
+done
 
-# 1 
-# stop all
-npx pm2 delete all
+echo "Removing Applications..."
+rm -rf /Applications/Docker.app
 
-# 2
-# delete all docker volumes 
-docker-compose down --remove-orphans --volumes
+echo "Removing docker binaries..."
+rm -f /usr/local/bin/docker
+rm -f /usr/local/bin/docker-machine
+rm -r /usr/local/bin/docker-machine-driver*
+rm -f /usr/local/bin/docker-compose
 
+echo "Removing boot2docker.iso"
+rm -rf /usr/local/share/boot2docker
 
-# 3
-# delete all files which are ignored in .gitignore (node_modules, dist, lib)
-git clean -nXdf # dry run
+echo "Forget packages"
+pkgutil --forget io.docker.pkg.docker
+pkgutil --forget io.docker.pkg.dockercompose
+pkgutil --forget io.docker.pkg.dockermachine
+pkgutil --forget io.boot2dockeriso.pkg.boot2dockeriso
 
-read -p "Sure to remove these files? (y/n) " -n 1 -r
-echo   
-if [[ $REPLY =~ ^[Yy]$ ]]
-then
-    git clean -Xdf
-fi
-
+echo "All Done!"

@@ -139,8 +139,6 @@ const Tinder: FunctionComponent<Props> = ({ optionsData }) => {
     const canDecide = async (setSnack: (snack: Snack) => void) => {
         const response = await hasMadeDecision();
         if (!response?.data.canDecide) {
-            console.log("error");
-
             setSnack({ message: "already.made.decision.error", open: true, severity: "error" });
             navigate(`/result/${pollId}`);
         }

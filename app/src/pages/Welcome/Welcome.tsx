@@ -39,10 +39,10 @@ const Welcome: FunctionComponent = () => {
                 </Column>
                 <Column>
                     <ColumnFullWidth>
-                        <Headline type="h3">Presets</Headline>
+                        <Headline type="h3">{t("welcome.presets.headline")}</Headline>
                     </ColumnFullWidth>
                     <ColumnFullWidth>
-                        <Eyebrow>Pick a decision with predefined options</Eyebrow>
+                        <Eyebrow>{t("welcome.presets.eyebrow")}</Eyebrow>
                     </ColumnFullWidth>
                     <ColumnFullWidth>
                         <PresetSlider />
@@ -50,10 +50,10 @@ const Welcome: FunctionComponent = () => {
                 </Column>
                 <Column>
                     <ColumnFullWidth>
-                        <Headline type="h3">Recent Activity</Headline>
+                        <Headline type="h3">{t("welcome.recentActivity.headline")}</Headline>
                     </ColumnFullWidth>
                     <ColumnFullWidth>
-                        <Eyebrow>Don’t waste time. Make fast decisions.</Eyebrow>
+                        <Eyebrow>{t("welcome.recentActivity.eyebrow")}</Eyebrow>
                     </ColumnFullWidth>
                     <ColumnFullWidth>
                         <RecentActivity />

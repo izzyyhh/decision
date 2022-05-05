@@ -52,14 +52,11 @@ const PresetSlider: FunctionComponent = () => {
         handleClose: async (data) => {
             try {
                 const r = await getRestaurants({ variables: { data: { name: data.name, amount: data.amount } } });
-                if (r.error) {
-                    console.log("error");
-                } else {
+                if (!r.error) {
                     const options = r.data.getRestaurantsPreset;
                     console.log(options)
                     setOpenRestaurant(false);
-                    //createPoll(options, data.title);
-                    console.log(r);
+                    createPoll(options, data.title);
                 }
             } catch (e) {
                 setSnack({ message: "Error", open: true, severity: "error" });
@@ -109,7 +106,7 @@ const PresetSlider: FunctionComponent = () => {
 
     return (
         <>
-            <ImageTextSwiper images={images} />;
+            <ImageTextSwiper images={images} />
             <RestaurantModal {...RestaurantHandler} />
             { genreData.data &&
                 <MoviesModal {...MoviesHandler}  options={genreData.data.genresAll.map((e) => e.title)} />

@@ -18,6 +18,10 @@ export const Modal = styled(MuiModal)`
     background: #f6f6f6;
     height: max-content;
     border-radius: 7.5px;
+
+    @media (min-width: ${({ theme }) => theme.breakpoints.values.sm}px) {
+        width: 525px;
+    }
 `;
 
 export const Title = styled.p<Props>`
