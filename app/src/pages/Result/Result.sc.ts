@@ -69,7 +69,7 @@ export const ButtonContainer = styled.div`
 
 export const Image = styled.img`
     width: 100%;
-    height: 150px;
+    height: 80px;
     object-fit: cover;
     postion: relative;
     border-radius: 10px;

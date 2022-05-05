@@ -78,9 +78,9 @@ const Tinder: FunctionComponent<Props> = ({ optionsData }) => {
     const [matches, setMatches] = useState<number>(0);
     const userOptions: IOptions = {};
     const uniqueUsers: Array<string> = [];
-    const [getData, { refetch }] = useLazyQuery(DecisionsPollQuery, { variables: { data: { pollId } } });
+    const [, { refetch }] = useLazyQuery(DecisionsPollQuery, { variables: { data: { pollId } } });
     const { setSnack } = useSnack();
-    const [hasMadeDecision] = useLazyQuery(CanDecideQuery, { variables: { data: { user: userId, poll: pollId } } });
+    const [, { refetch: refetchMadeDecision }] = useLazyQuery(CanDecideQuery, { variables: { data: { user: userId, poll: pollId } } });
 
     const [currentIndex, setCurrentIndex] = useState(optionsData.length - 1);
     const canSwipe = currentIndex >= 0;
@@ -137,7 +137,7 @@ const Tinder: FunctionComponent<Props> = ({ optionsData }) => {
     };
 
     const canDecide = async (setSnack: (snack: Snack) => void) => {
-        const response = await hasMadeDecision();
+        const response = await refetchMadeDecision();
         if (!response?.data.canDecide) {
             console.log("error");
 
