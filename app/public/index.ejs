@@ -6,8 +6,8 @@
         <title>Decision App Make fast Decisions</title>
         <meta name="description" content="This decision app is designed to help you make a decision that you will be happy with. It's easy to use and can be used in a variety of situations." >
         <meta name="theme-color" content="#000000">
-        <link rel="shortcut icon" type="image/png" href="./decision_logo.png">
-        <link rel="apple-touch-icon" href="./decision_logo.png">
+        <link rel="shortcut icon" type="image/png" href='%PUBLIC_URL%/decision_logo.png'>
+        <link rel="apple-touch-icon" href='%PUBLIC_URL%/decision_logo.png'>
         <link rel="manifest" href="./manifest.json" />
         <script type="text/javascript">
             (function() {
@@ -22,7 +22,7 @@
         <script>
             if("serviceWorker" in navigator) {
                 window.addEventListener("load", ()=> {
-                    navigator.serviceWorker.register("./serviceworker.js")
+                    navigator.serviceWorker.register('%PUBLIC_URL%/serviceworker.js')
                 })
             }
         </script>
