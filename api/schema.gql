@@ -76,23 +76,22 @@ enum ActivityType {
   DECISION
 }
 
-type Genre {
-  apiId: ID!
-  title: String!
-  movies: [Movie!]!
-}
-
 type Movie {
   id: ID!
   title: String!
   posterPath: String!
   backdropPath: String!
-  rating: String!
+  rating: Float!
   description: String!
   releaseDate: String!
   adult: Boolean!
   mediaType: String!
-  genres: [Genre!]!
+  genres: String!
+}
+
+type Genre {
+  apiId: ID!
+  title: String!
 }
 
 type MoviesDto {
@@ -131,7 +130,7 @@ type Query {
   genresAll: [Genre!]!
   addGenres: Boolean!
   getMoviesPreset: [MoviesDto!]!
-  addMovies: Boolean!
+  fetchMoviePreset(data: GetMoviePresetDto!): [Movie!]!
   presetsAll: [Preset!]!
 }
 
@@ -172,6 +171,11 @@ input ActivityInput {
 input CityDto {
   name: String!
   amount: Float!
+}
+
+input GetMoviePresetDto {
+  categories: String!
+  size: Float!
 }
 
 type Mutation {

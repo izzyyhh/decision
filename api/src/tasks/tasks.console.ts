@@ -1,7 +1,7 @@
 import { InjectRepository } from "@mikro-orm/nestjs";
 import { EntityRepository } from "@mikro-orm/postgresql";
 import { Inject, Injectable, Logger } from "@nestjs/common";
-import { Cron, Timeout } from "@nestjs/schedule";
+import { Timeout } from "@nestjs/schedule";
 import { Genre } from "@src/genres/entities/genre.entity";
 import { GenresResolver } from "@src/genres/genres.resolver";
 import { Movie } from "@src/presets/movies/entities/movies.entity";
@@ -17,15 +17,16 @@ export class TasksConsole {
     ) {}
     private readonly logger = new Logger(TasksConsole.name);
 
-    @Cron("00 03 * * * *")
-    async handleCron() {
-        const movies = await this.movieRepository.findAll();
-        console.log("test8");
-        await movies.forEach(async (m: Movie) => {
-            await this.movieRepository.removeAndFlush(m);
-        });
-        await this.movieResolver.addMovies(1);
-    }
+    // @Cron("00 03 * * * *")
+    // async handleCron() {
+    //     const movies = await this.movieRepository.findAll();
+    //     console.log("test8");
+    //     await movies.forEach(async (m: Movie) => {
+    //         await this.movieRepository.removeAndFlush(m);
+    //     });
+
+    //     await this.movieResolver.addMovies(1);
+    // }
 
     @Timeout(1000)
     async handleGenres() {
@@ -34,16 +35,27 @@ export class TasksConsole {
             await this.genreRepository.removeAndFlush(g);
         });
         await this.genreResolver.addGenres();
-        this.logger.debug("Called once after 5 seconds");
     }
 
-    @Timeout(10000)
-    async handleMovies() {
-        const movies = await this.movieRepository.findAll();
-        console.log("test9");
-        await movies.forEach(async (m: Movie) => {
-            await this.movieRepository.removeAndFlush(m);
-        });
-        await this.movieResolver.addMovies(1);
-    }
+    // @Timeout(10000)
+    // async handleMovies() {
+    //     const movies = await this.movieRepository.findAll();
+    //     await movies.forEach(async (m: Movie) => {
+    //         await this.movieRepository.nativeDelete(m.id);
+    //     });
+
+    //     console.log("delete")
+
+    //     await this.movieResolver.addMovies(1);
+    // }
+
+    // @Timeout(5000)
+    // async insertTest() {
+    //     try {
+    //         await this.movieResolver.fetchMoviesAndPersist()
+    //         this.logger.log("movies insertion succeeded")
+    //     } catch {
+    //         this.logger.error("movie insertion failed")
+    //     }
+    // }
 }
