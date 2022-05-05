@@ -37,6 +37,14 @@
     "welcome": {
         "headline": "Welcome",
         "helpText": "Don’t waste time. Make fast decisions.",
+        "presets": {
+            "headline": "Presets",
+            "eyebrow": "Pick a decision with predefined options"
+        },
+        "recentActivity": {
+            "headline": "Recent Activity",
+            "eyebrow": "Don’t waste time. Make fast decisions."
+        },
         "links": {
             "create": "Create Decision",
             "predefined": "Predefined Decisions",

@@ -37,6 +37,14 @@
     "welcome": {
         "headline": "Willkommen",
         "helpText": "Verschwende keine Zeit. Treffe eine schnelle Entscheidung",
+        "presets": {
+            "headline": "Voreingestellte Umfragen",
+            "eyebrow": "Wähle deine Umfrage aus den voreingestellten Umfragen"
+        },
+        "recentActivity": {
+            "headline": "Letzten Umfragen",
+            "eyebrow": "Verschwende keine Zeit. Mache schnelle Entscheidigungen."
+        },
         "links": {
             "create": "Entscheidung erstellen",
             "predefined": "Vordefinierte Entscheidungen",
