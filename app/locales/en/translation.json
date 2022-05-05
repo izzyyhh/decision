@@ -75,5 +75,12 @@
     "tinder": {
         "downVote": "Dislike swipe left",
         "vote": "Like swipe right"
+    },
+    "join": {
+        "decision": {
+            "with": {
+                "qrcode": "Scann QR Code"
+            }
+        }
     }
 }

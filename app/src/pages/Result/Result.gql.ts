@@ -5,6 +5,7 @@ export const OptionsForPollQuery = gql`
         getOptionsForPoll(data: $data) {
             id
             title
+            thumbnailUrl
         }
     }
 `;
@@ -13,6 +14,7 @@ export const PollQuery = gql`
     query getPoll($data: GetPollDto!) {
         getPoll(data: $data) {
             title
+            type
         }
     }
 `;
@@ -25,6 +27,7 @@ export const DecisionsPollQuery = gql`
                 title
             }
             user {
+                id
                 name
             }
         }
