@@ -1,5 +1,5 @@
 import { Field, InputType } from "@nestjs/graphql";
-import { IsNumber } from "class-validator";
+import { IsNumber, IsString } from "class-validator";
 
 @InputType()
 export class LocationDto {
@@ -10,4 +10,15 @@ export class LocationDto {
     @Field()
     @IsNumber()
     longitude: number;
+}
+
+@InputType()
+export class CityDto {
+    @Field()
+    @IsString()
+    name: string;
+
+    @Field()
+    @IsNumber()
+    amount: number;
 }

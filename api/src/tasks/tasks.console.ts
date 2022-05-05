@@ -19,13 +19,12 @@ export class TasksConsole {
 
     @Cron("00 03 * * * *")
     async handleCron() {
-        const movies = await this.movieRepository.findAll();
-        console.log("test8");
-        await movies.forEach(async (m: Movie) => {
-            await this.movieRepository.removeAndFlush(m);
-        });
-
-        await this.movieResolver.addMovies(1);
+        // const movies = await this.movieRepository.findAll();
+        // console.log("test8");
+        // await movies.forEach(async (m: Movie) => {
+        //     await this.movieRepository.removeAndFlush(m);
+        // });
+        // await this.movieResolver.addMovies(1);
     }
 
     @Timeout(1000)
@@ -34,19 +33,17 @@ export class TasksConsole {
         // await genres.forEach(async (g: Genre) => {
         //     await this.genreRepository.removeAndFlush(g);
         // });
-        await this.genreResolver.addGenres();
-
-        this.logger.debug("Called once after 5 seconds");
+        // await this.genreResolver.addGenres();
+        // this.logger.debug("Called once after 5 seconds");
     }
 
     @Timeout(10000)
     async handleMovies() {
-        const movies = await this.movieRepository.findAll();
-        console.log("test9");
-        await movies.forEach(async (m: Movie) => {
-            await this.movieRepository.removeAndFlush(m);
-        });
-
-        await this.movieResolver.addMovies(1);
+        // const movies = await this.movieRepository.findAll();
+        // console.log("test9");
+        // await movies.forEach(async (m: Movie) => {
+        //     await this.movieRepository.removeAndFlush(m);
+        // });
+        // await this.movieResolver.addMovies(1);
     }
 }
