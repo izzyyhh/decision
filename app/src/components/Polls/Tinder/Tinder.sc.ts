@@ -71,7 +71,7 @@ export const Card = styled.div<Props>`
 
 export const VoteWrapper = styled.div`
     margin-top: 25px;
-    margin-bottom: 125px;
+    margin-bottom: 2rem;
     position: relative;
     height: calc(85vh - 150px);
 

@@ -8,7 +8,7 @@ export const Option = styled.p<Props>`
     font-size: 20px;
     position: relative;
     padding-left: 15px;
-    color: ${({ theme, active }) => (active ? theme.palette.primary.light : theme.palette.secondary.light)};
+    color: ${({ theme, active }) => (active ? theme.palette.secondary.light : theme.palette.secondary.dark)};
     cursor: pointer;
 
     &:before {
@@ -19,7 +19,7 @@ export const Option = styled.p<Props>`
         bottom: 0;
         width: 7.5px;
         height: 7.5px;
-        background: ${({ theme, active }) => (active ? theme.palette.primary.light : theme.palette.secondary.light)};
+        background: ${({ theme, active }) => (active ? theme.palette.secondary.light : theme.palette.secondary.dark)};
         margin-top: auto;
         margin-bottom: auto;
         border-radius: 50%;

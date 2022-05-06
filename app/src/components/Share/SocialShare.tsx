@@ -8,7 +8,7 @@ import { getQRCode } from "@pages/DecisionPage/pollData.gql";
 import React, { FunctionComponent, useState } from "react";
 import { CircleMenuItem } from "react-circular-menu";
 import { useTranslation } from "react-i18next";
-import { EmailIcon, EmailShareButton, TelegramIcon, TelegramShareButton, WhatsappIcon, WhatsappShareButton } from "react-share";
+import { EmailIcon, EmailShareButton, WhatsappIcon, WhatsappShareButton } from "react-share";
 
 import { CircleMenu, ShareIcon, ShareOutlineIcon, SocialShareWrapper } from "./SocialShare.sc";
 
@@ -51,17 +51,17 @@ const SocialShare: FunctionComponent<Props> = ({ url }) => {
     return (
         <SocialShareWrapper>
             {Icon}
-            <CircleMenu className="sharebutton" startAngle={-15} rotationAngle={210} itemSize={1.5} radius={3} onMenuToggle={() => setOpen(!open)}>
+            <CircleMenu className="sharebutton" startAngle={105} rotationAngle={150} itemSize={1.5} radius={3} onMenuToggle={() => setOpen(!open)}>
                 <CircleMenuItem tooltip={"WhatsApp"}>
                     <WhatsappShareButton url={url} title="Join the decision!" separator=": ">
                         <WhatsappIcon size={40} round></WhatsappIcon>
                     </WhatsappShareButton>
                 </CircleMenuItem>
-                <CircleMenuItem tooltip={"Telegram"} menuActive={open}>
+                {/* <CircleMenuItem tooltip={"Telegram"} menuActive={open}>
                     <TelegramShareButton url={url} title="Join the decision!">
                         <TelegramIcon size={40} round></TelegramIcon>
                     </TelegramShareButton>
-                </CircleMenuItem>
+                </CircleMenuItem> */}
                 <CircleMenuItem tooltip={"Email"} menuActive={open}>
                     <EmailShareButton url={url} subject="Join the decision!" title="Join the decision!">
                         <EmailIcon size={40} round></EmailIcon>

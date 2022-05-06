@@ -19,6 +19,7 @@ export type GQLActivity = {
   date: Maybe<Scalars['Float']>;
   type: GQLActivityType;
   id: Scalars['String'];
+  pollId: Scalars['String'];
 };
 
 export type GQLActivityInput = {

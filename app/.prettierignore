@@ -6,3 +6,5 @@ package-lock.json
 fragmentTypes.json
 graphql.generated.ts
 schema.gpl
+src/components/Modals/MoviesModal/MoviesModal.tsx
+src/components/Modals/RestaurantModal/RestaurantModal.tsx

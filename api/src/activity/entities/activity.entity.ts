@@ -20,6 +20,9 @@ export class Activity {
 
     @Field()
     id: string;
+
+    @Field()
+    pollId: string;
 }
 
 registerEnumType(ActivityType, {

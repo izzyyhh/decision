@@ -7,6 +7,7 @@ export default gql`
             date
             type
             id
+            pollId
         }
     }
 `;

@@ -26,6 +26,7 @@ export class ActivityResolver {
                         date: poll.createdAt ?? Date.now(),
                         type: ActivityType.POLL,
                         id: poll.id,
+                        pollId: poll.id,
                     };
                 });
                 resolve(activities);
@@ -39,7 +40,8 @@ export class ActivityResolver {
                         date: decision.createdAt ?? Date.now(),
                         name: decision.option.title,
                         type: ActivityType.DECISION,
-                        id: decision.poll.id,
+                        id: decision.id,
+                        pollId: decision.poll.id,
                     };
                 });
                 resolve(decisiondata);
