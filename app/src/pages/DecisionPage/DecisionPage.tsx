@@ -4,7 +4,7 @@ import Seo from "@app/seo/Seo";
 import Auth from "@components/Auth/Auth";
 import Headline from "@components/Headline/Headline";
 import Polls from "@components/Polls/Polls";
-import SocialShare from "@components/Share/SocialShare";
+import Share from "@components/Share/Share";
 import React, { FunctionComponent } from "react";
 import { useParams } from "react-router";
 
@@ -24,7 +24,7 @@ const DecisionPage: FunctionComponent = () => {
             <Auth>
                 <HeadingWrapper>
                     {pollData?.title && <Headline type="h2">{pollData.title}</Headline>}
-                    <SocialShare url={shareLink} />
+                    <Share url={shareLink} />
                 </HeadingWrapper>
                 <Polls poll={pollType} />
             </Auth>

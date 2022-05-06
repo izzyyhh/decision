@@ -6,6 +6,8 @@ import Auth from "@components/Auth/Auth";
 import Card from "@components/Card/Card";
 import Headline from "@components/Headline/Headline";
 import LinkButton from "@components/LinkButton/LinkButton";
+import Share from "@components/Share/Share";
+import { HeadingWrapper } from "@pages/DecisionPage/DecisionPage.sc";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
@@ -60,6 +62,7 @@ const Result: FunctionComponent = () => {
     const uniqueUsers: Array<string> = [];
     const [getTinderResults, { data: tinderResults }] = useLazyQuery(DecisionsPollQuery, { variables: { data: { pollId } }, pollInterval: 500 });
     const [userOptionsAll, setUserOptionsAll] = useState<IOptions>(userOptions);
+    const shareLink = `${window.location.origin}/result/${pollId}`;
 
     const decisionsArr = decisions.data ? decisions.data?.getDecisionsForPoll : [];
     const resultData = decisionsArr.reduce((agg: any, curr: any) => {
@@ -150,7 +153,10 @@ const Result: FunctionComponent = () => {
             <Seo title={poll.data?.getPoll.title} />
             <Auth>
                 <ColumnFullWidth>
-                    <Headline type="h2">{poll.data?.getPoll.title}</Headline>
+                    <HeadingWrapper>
+                        <Headline type="h2">{poll.data?.getPoll.title}</Headline>
+                        <Share url={shareLink}></Share>
+                    </HeadingWrapper>
                     <>
                         {poll.data && poll.data?.getPoll.type === Type.TINDER && (
                             <Card title={`Result: ${matches} Matches`}>
