@@ -1,7 +1,6 @@
 import { useSnack } from "@context/snackbar/useSnack";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
 import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import OutlinedInput from "@mui/material/OutlinedInput";
@@ -13,7 +12,7 @@ import { useTranslation } from "react-i18next";
 import Modal from "../Modal";
 import { ModalProps } from "../ModalProps";
 import { CssTextField } from "../ModalTools";
-import { ModalInput, StyledButton, StyledFormControl, Title } from "./MoviesModal.sc";
+import { ContentText, ModalInput, StyledButton, StyledFormControl, Title } from "./MoviesModal.sc";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -27,7 +26,6 @@ const MenuProps = {
         },
     },
 };
-
 function getStyles(name: string, personName: string[], theme: Theme) {
     const notselected = personName.indexOf(name) === -1;
     return {
@@ -65,8 +63,8 @@ const MoviesModal: FunctionComponent<ModalProps> = ({ open, setOpen, handleClose
         <Modal open={open} setOpen={(value: boolean) => setOpen(value)}>
             <Title>{t("modals.movie.title")}</Title>
             <DialogContent>
-                <DialogContentText>{t("modals.movie.text")}</DialogContentText>
-                <ModalInput update={(value) => setTitle(value)} label="Title" />
+                <ContentText>{t("modals.movie.text")}</ContentText>
+                <ModalInput update={(value: string) => setTitle(value)} label="Title" />
                 {options && (
                     <StyledFormControl fullWidth>
                         <InputLabel>Genres</InputLabel>

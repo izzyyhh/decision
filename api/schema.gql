@@ -69,6 +69,7 @@ type Activity {
   date: Float
   type: ActivityType!
   id: String!
+  pollId: String!
 }
 
 enum ActivityType {
