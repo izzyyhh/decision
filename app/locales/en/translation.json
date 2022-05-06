@@ -52,7 +52,7 @@
         "links": {
             "create": "Create Decision",
             "predefined": "Predefined Decisions",
-            "join": "Join Decision",
+            "join": "Join Decision with QR code",
             "about": "About"
         }
     },
@@ -82,5 +82,28 @@
                 "qrcode": "Scann QR Code"
             }
         }
+    },
+    "modals": {
+        "restaurant":{
+            "title": "Restaurant-Decision",
+            "text": "Configure your restaurant selection"
+        },
+        "movie":{
+            "title": "Movie-Decision",
+            "text": "Configure your movie selection"
+        },
+        "decision": {
+            "title": "Set your decisiontitle",
+            "city":"Choose a City",
+            "amount": "Pick an amount",
+            "genres": "Genres"
+        },
+        "errors": {
+            "fields": "Missing fields",
+            "amount": "Amount must be between 5 and 50"
+        },
+        "cancel": "Cancel",
+        "create": "create"
     }
+
 }

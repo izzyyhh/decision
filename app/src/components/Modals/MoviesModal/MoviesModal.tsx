@@ -8,6 +8,7 @@ import OutlinedInput from "@mui/material/OutlinedInput";
 import Select, { SelectChangeEvent } from "@mui/material/Select";
 import { Theme, useTheme } from "@mui/material/styles";
 import React, { FunctionComponent, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import Modal from "../Modal";
 import { ModalProps } from "../ModalProps";
@@ -38,16 +39,16 @@ function getStyles(name: string, personName: string[], theme: Theme) {
 
 const MoviesModal: FunctionComponent<ModalProps> = ({ open, setOpen, handleClose, options }) => {
     const theme = useTheme();
-
+    const { t } = useTranslation();
     const [amount, setAmount] = useState(10);
     const [title, setTitle] = useState("");
     const { setSnack } = useSnack();
     const [personName, setPersonName] = useState<string[]>([]);
     const submit = () => {
         if (title == "") {
-            setSnack({ message: "Felder fehlen", open: true, severity: "warning" });
+            setSnack({ message: t("modals.errors.fields"), open: true, severity: "warning" });
         } else if (amount < 5 || amount > 50) {
-            setSnack({ message: "Anzahl zu groß", open: true, severity: "warning" });
+            setSnack({ message: t("modals.errors.amount"), open: true, severity: "warning" });
         } else {
             handleClose({ amount, title, personName });
         }
@@ -62,11 +63,9 @@ const MoviesModal: FunctionComponent<ModalProps> = ({ open, setOpen, handleClose
 
     return (
         <Modal open={open} setOpen={(value: boolean) => setOpen(value)}>
-            <Title>RestaurantModal</Title>
+            <Title>{t("modals.movie.title")}</Title>
             <DialogContent>
-                <DialogContentText>
-                    To subscribe to this website, please enter your email address here. We will send updates occasionally.
-                </DialogContentText>
+                <DialogContentText>{t("modals.movie.text")}</DialogContentText>
                 <ModalInput update={(value) => setTitle(value)} label="Title" />
                 {options && (
                     <StyledFormControl fullWidth>

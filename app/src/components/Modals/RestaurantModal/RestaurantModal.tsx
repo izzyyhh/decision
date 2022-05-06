@@ -5,6 +5,7 @@ import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
 import React, { FunctionComponent, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { ModalProps } from "../ModalProps";
 import { CssTextField } from "../ModalTools";
@@ -15,12 +16,13 @@ const RestaurantModal: FunctionComponent<ModalProps> = ({ open, setOpen, handleC
     const [amount, setAmount] = useState(10);
     const [title, setTitle] = useState("");
     const { setSnack } = useSnack();
+    const { t } = useTranslation();
 
     const submit = () => {
         if (name == "" || title == "") {
-            setSnack({ message: "Felder fehlen", open: true, severity: "warning" });
+            setSnack({ message: t("modals.errors.fields"), open: true, severity: "warning" });
         } else if (amount < 5 || amount > 50) {
-            setSnack({ message: "Anzahl zu groß", open: true, severity: "warning" });
+            setSnack({ message: t("modals.errors.amount"), open: true, severity: "warning" });
         } else {
             handleClose({ name, amount, title });
         }
@@ -28,18 +30,16 @@ const RestaurantModal: FunctionComponent<ModalProps> = ({ open, setOpen, handleC
 
     return (
         <Modal open={open} setOpen={(value: boolean) => setOpen(value)}>
-            <DialogTitle>RestaurantModal</DialogTitle>
+            <DialogTitle>{t("modals.restaurant.title")}</DialogTitle>
             <DialogContent>
-                <DialogContentText>
-                    To subscribe to this website, please enter your email address here. We will send updates occasionally.
-                </DialogContentText>
+                <DialogContentText>{t("modals.restaurant.text")}</DialogContentText>
                 <CssTextField
                     autoFocus
                     margin="normal"
                     id="title"
                     value={title}
                     onChange={(e) => setTitle(e.target.value)}
-                    label="Title"
+                    label={t("modals.decision.title")}
                     type="text"
                     fullWidth
                     variant="standard"
@@ -50,7 +50,7 @@ const RestaurantModal: FunctionComponent<ModalProps> = ({ open, setOpen, handleC
                     id="name"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    label="City"
+                    label={t("modals.decision.city")}
                     type="text"
                     fullWidth
                     variant="standard"
@@ -61,7 +61,7 @@ const RestaurantModal: FunctionComponent<ModalProps> = ({ open, setOpen, handleC
                     id="name"
                     value={amount}
                     onChange={(e) => setAmount(parseInt(e.target.value))}
-                    label="Anzahl der Vorschläge"
+                    label={t("modals.decision.amount")}
                     type="number"
                     fullWidth
                     variant="standard"
@@ -73,9 +73,9 @@ const RestaurantModal: FunctionComponent<ModalProps> = ({ open, setOpen, handleC
                         setOpen(false);
                     }}
                 >
-                    Cancel
+                    {t("modals.cancel")}
                 </StyledButton>
-                <StyledButton onClick={submit}>Subscribe</StyledButton>
+                <StyledButton onClick={submit}>{t("modals.create")}</StyledButton>
             </DialogActions>
         </Modal>
     );
