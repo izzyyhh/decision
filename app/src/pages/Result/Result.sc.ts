@@ -34,8 +34,8 @@ export const OptionContainer = styled.div`
 `;
 
 export const StatBar = styled.div`
-    height: 45px;
-    border-radius: 10px;
+    height: 35px;
+    border-radius: 7.5px;
     background-color: #4b4b53;
 `;
 
@@ -49,7 +49,8 @@ export const StatBarFiller = styled.div`
 `;
 
 export const OptionTitle = styled.p`
-    margin: 1rem 0;
+    margin: 10px 0;
+    font-size: 16px;
 `;
 
 export const OptionPercentage = styled.div`
@@ -58,6 +59,7 @@ export const OptionPercentage = styled.div`
     align-items: center;
     padding-left: 1rem;
     color: white;
+    font-size: 14px;
 `;
 
 export const ButtonContainer = styled.div`
