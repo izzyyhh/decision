@@ -11,6 +11,7 @@ import OutlinedInput from '@mui/material/OutlinedInput';
 import Select, { SelectChangeEvent } from '@mui/material/Select';
 import { Theme, useTheme } from '@mui/material/styles';
 import React, { FunctionComponent, useState } from "react";
+import { useTranslation } from "react-i18next";
 
 import { ModalProps } from "../ModalProps";
 import { BootstrapDialog,CssTextField } from "../ModalTools";
@@ -49,16 +50,16 @@ function getStyles(name: string, personName: string[], theme: Theme) {
 const MoviesModal: FunctionComponent<ModalProps> = ({ open, setOpen, handleClose, options }) => {
     
     const theme = useTheme();
-
+    const { t } = useTranslation();
     const [amount, setAmount] = useState(10);
     const [title, setTitle] = useState("");
     const { setSnack } = useSnack();
     const [personName, setPersonName] = useState<string[]>([]);
     const submit = () => {
         if (title == "") {
-            setSnack({ message: "Felder fehlen", open: true, severity: "warning" });
+            setSnack({ message: t('modals.errors.fields'), open: true, severity: "warning" });
         } else if (amount < 5 || amount > 50) {
-            setSnack({ message: "Anzahl zu groß", open: true, severity: "warning" });
+            setSnack({ message: t('modals.errors.amount'), open: true, severity: "warning" });
         } else {
             handleClose({amount, title, personName });
         }
@@ -81,13 +82,15 @@ const s = {className: {
   };
 
 
+/* eslint-disable */
+
     return (
         <div>
             <BootstrapDialog disableEnforceFocus open={open} onClose={submit}>
-                <DialogTitle>RestaurantModal</DialogTitle>
+                <DialogTitle>{t('modals.movie.title')}</DialogTitle>
                 <DialogContent>
                     <DialogContentText>
-                        To subscribe to this website, please enter your email address here. We will send updates occasionally.
+                        {t('modals.movie.text')}
                     </DialogContentText>
                     <CssTextField
                         autoFocus
@@ -95,15 +98,15 @@ const s = {className: {
                         id="title"
                         value={title}
                         onChange={(e) => setTitle(e.target.value)}
-                        label="Title"
+                        label={t('modals.decision.title')}
                         type="text"
                         fullWidth
                         variant="standard"
                     />
                     {options && 
                         <FormControl sx={{ m: 1, width: 300 }}>
-                        <InputLabel {...s} 
-                        id="demo-multiple-name-label">Genres</InputLabel>
+                        <InputLabel {...s} // eslint-disable-line 
+                        id="demo-multiple-name-label">{t('modals.decision.genres')}</InputLabel>
                         <Select
                           labelId="demo-multiple-name-label"
                           id="demo-multiple-name"
@@ -113,7 +116,7 @@ const s = {className: {
                           input={<OutlinedInput label="Name" />}
                           MenuProps={MenuProps}
                         >
-                          {options.map((name) => (
+                          {options.map((name) => ( // eslint-disable-line
                             <MenuItem
                               key={name}
                               value={name}
@@ -131,7 +134,7 @@ const s = {className: {
                         id="name"
                         value={amount}
                         onChange={(e) => setAmount(parseInt(e.target.value))}
-                        label="Anzahl der Vorschläge"
+                        label={t("modals.decision.amount")}
                         type="number"
                         fullWidth
                         variant="standard"
@@ -143,13 +146,14 @@ const s = {className: {
                             setOpen(false);
                         }}
                     >
-                        Cancel
+                        {t('modals.cancel')}
                     </Button>
-                    <Button onClick={submit}>Subscribe</Button>
+                    <Button onClick={submit}>{t('modals.create')}</Button>
                 </DialogActions>
             </BootstrapDialog>
         </div>
     );
+/* eslint-enable */
 };
 
 export default MoviesModal;
