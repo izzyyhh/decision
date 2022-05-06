@@ -52,7 +52,7 @@
         "links": {
             "create": "Entscheidung erstellen",
             "predefined": "Vordefinierte Entscheidungen",
-            "join": "Entscheidung betretten",
+            "join": "Entscheidung mit QR Code beitreten",
             "about": "Über uns"
         }
     },

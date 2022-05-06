@@ -52,7 +52,7 @@
         "links": {
             "create": "Create Decision",
             "predefined": "Predefined Decisions",
-            "join": "Join Decision",
+            "join": "Join Decision with QR code",
             "about": "About"
         }
     },
