@@ -13,4 +13,5 @@ export const DecideWrapper = styled.div`
 export const HeadingWrapper = styled.div`
     grid-column: 2 / span 22;
     display: flex;
+    justify-content: space-between;
 `;
