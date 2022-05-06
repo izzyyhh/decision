@@ -3,7 +3,7 @@ import styled from "styled-components";
 
 export const Wrapper = styled.div`
     margin-top: 25px;
-    padding: 15px;
+    padding: 5px;
     border: 1px solid ${({ theme }) => theme.palette.secondary.light};
     position: relative;
     cursor: pointer;
@@ -31,6 +31,7 @@ export const Preview = styled(Wrapper)`
     padding: 0;
     border: none;
     cursor: auto;
+    max-height: 300px;
 `;
 
 export const Image = styled.img`

@@ -4,9 +4,6 @@ import styled from "styled-components";
 export const AddButton = styled.div`
     margin-top: 25px;
     width: 100%;
-    background: ${({ theme }) => theme.palette.secondary.light};
-    border-radius: 10px;
-    min-height: 48.5px;
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -16,7 +13,7 @@ export const AddButton = styled.div`
 export const Add = styled(AddCircleOutlineIcon)`
     && {
         margin: auto;
-        color: ${({ theme }) => theme.palette.background.paper};
+        color: ${({ theme }) => theme.palette.secondary.light};
     }
 `;
 

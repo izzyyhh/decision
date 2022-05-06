@@ -60,7 +60,7 @@ export default createTheme({
         secondary: {
             main: colors.secondary,
             light: colors.secondary,
-            dark: colors.secondaryDark,
+            dark: colors.primary,
             contrastText: colors.secondary,
         },
         neutral: {
