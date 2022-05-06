@@ -102,6 +102,15 @@ const Result: FunctionComponent = () => {
         userOptions[optionId].number = userOptions[optionId].number + 1;
     };
 
+    const convertDate = ((type: any, date: string) => {
+        if (type === Type.DATE) {
+            const dt = new Date(date);
+            const title = dt.toLocaleDateString() + " " + dt.getHours() + ":" + dt.getMinutes();
+            return title;
+        }
+        return date;
+    });
+
     useEffect(() => {
         getTinderResults();
     }, []);
@@ -195,7 +204,7 @@ const Result: FunctionComponent = () => {
 
                                                 return (
                                                     <OptionContainer key={option.id}>
-                                                        <OptionTitle>{option.title}</OptionTitle>
+                                                        <OptionTitle>{convertDate(poll.data?.getPoll.type, option.title)}</OptionTitle>
                                                         <StatBar>
                                                             <StatBarFiller id={option.title} style={{ width: `${percentage}%` }}>
                                                                 <OptionPercentage>{Math.round(percentage)}%</OptionPercentage>
