@@ -82,5 +82,27 @@
                 "qrcode": "QR Code scannen"
             }
         }
+    },
+    "modals": {
+        "restaurant":{
+            "title": "Restaurant Entscheidung",
+            "text": "Konfiguriere deine Restaurant-Auswahl"
+        },
+        "movie":{
+            "title": "Film Entscheidung",
+            "text": "Konfiguriere deine Film-Auswahl"
+        },
+        "decision": {
+            "title": "Abstimmungstitel",
+            "city":"Wähle eine Stadt",
+            "amount": "Anzahl",
+            "genres": "Genres"
+        },
+        "errors": {
+            "fields": "Fehlende Felder",
+            "amount": "Anzahl muss zwischen 5 und 50 sein"
+        },
+        "cancel": "Abbrechen",
+        "create": "Erstellen"
     }
 }
