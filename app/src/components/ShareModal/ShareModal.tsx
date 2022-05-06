@@ -1,6 +1,7 @@
 import { useQuery } from "@apollo/client";
 import { GQLQuery } from "@app/graphql.generated";
 import LinkButton from "@components/LinkButton/LinkButton";
+import Modal from "@components/Modals/Modal";
 import { useSnack } from "@context/snackbar/useSnack";
 import MailOutlineIcon from "@material-ui/icons/MailOutline";
 import TelegramIcon from "@material-ui/icons/Telegram";
@@ -13,13 +14,14 @@ import { useTranslation } from "react-i18next";
 import { useNavigate } from "react-router";
 import { EmailShareButton, TelegramShareButton, WhatsappShareButton } from "react-share";
 
-import { ArrowIcon, Body, Image, Links, Modal, QRCodeWrapper, ShareBar, Title } from "./ShareModal.sc";
+import { ArrowIcon, Image, Links, QRCodeWrapper, ShareBar, Title } from "./ShareModal.sc";
 
 interface Props {
     pollId: string;
 }
 
 const ShareModal: FunctionComponent<Props> = ({ pollId }) => {
+    const [open, setOpen] = useState<boolean>(pollId.length > 0);
     const shareLink = `${window.location.origin}/decision/${pollId}`;
     const { t } = useTranslation();
     const navigate = useNavigate();
@@ -33,40 +35,34 @@ const ShareModal: FunctionComponent<Props> = ({ pollId }) => {
         setSnack({ message: t("decision.linkCopied"), severity: "info", open: true });
     };
 
-    if (pollId.length < 1) {
-        return <></>;
-    }
-
     return (
-        <Modal open={true} onBackdropClick={() => window.location.reload()} BackdropProps={{ style: { backgroundColor: "rgba(0,0,0, 0.7)" } }}>
-            <Body>
-                <Title visible={showQR}>{t("link.social.share")}</Title>
-                <ShareBar visible={showQR}>
-                    <WhatsappShareButton url={shareLink} title={t("link.social.join")} separator=": ">
-                        <WhatsAppIcon />
-                    </WhatsappShareButton>
-                    <TelegramShareButton url={shareLink} title={t("link.social.join")}>
-                        <TelegramIcon />
-                    </TelegramShareButton>
-                    <EmailShareButton url={shareLink} subject={t("link.social.join")} title={t("link.social.join")}>
-                        <MailOutlineIcon />
-                    </EmailShareButton>
-                    <QrCode2OutlinedIcon onClick={() => setShowQr(true)} />
-                    <LinkOutlinedIcon onClick={copyToClipBoard} />
-                </ShareBar>
-                <Links visible={showQR}>
-                    <LinkButton active={true} onClick={() => navigate(`/decision/${pollId}`)}>
-                        {t("create.links.start")}
-                    </LinkButton>
-                    <LinkButton active={true} onClick={() => navigate(`/result/${pollId}`)}>
-                        {t("create.links.result")}
-                    </LinkButton>
-                </Links>
-                <QRCodeWrapper visible={showQR}>
-                    <ArrowIcon onClick={() => setShowQr(false)} />
-                    <Image src={qrCodeBase64} alt="QR Code" />
-                </QRCodeWrapper>
-            </Body>
+        <Modal open={open} setOpen={(value: boolean) => setOpen(value)}>
+            <Title visible={showQR}>{t("link.social.share")}</Title>
+            <ShareBar visible={showQR}>
+                <WhatsappShareButton url={shareLink} title={t("link.social.join")} separator=": ">
+                    <WhatsAppIcon />
+                </WhatsappShareButton>
+                <TelegramShareButton url={shareLink} title={t("link.social.join")}>
+                    <TelegramIcon />
+                </TelegramShareButton>
+                <EmailShareButton url={shareLink} subject={t("link.social.join")} title={t("link.social.join")}>
+                    <MailOutlineIcon />
+                </EmailShareButton>
+                <QrCode2OutlinedIcon onClick={() => setShowQr(true)} />
+                <LinkOutlinedIcon onClick={copyToClipBoard} />
+            </ShareBar>
+            <Links visible={showQR}>
+                <LinkButton active={true} onClick={() => navigate(`/decision/${pollId}`)}>
+                    {t("create.links.start")}
+                </LinkButton>
+                <LinkButton active={true} onClick={() => navigate(`/result/${pollId}`)}>
+                    {t("create.links.result")}
+                </LinkButton>
+            </Links>
+            <QRCodeWrapper visible={showQR}>
+                <ArrowIcon onClick={() => setShowQr(false)} />
+                <Image src={qrCodeBase64} alt="QR Code" />
+            </QRCodeWrapper>
         </Modal>
     );
 };

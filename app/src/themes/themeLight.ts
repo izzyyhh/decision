@@ -10,7 +10,7 @@ const colors = {
     primary: "#929293",
     primaryLight: "#FFFFFF",
     primaryDark: "#002350",
-    secondary: "#2C2B2D",
+    secondary: "#FFFFFF",
     secondaryLight: "#FF6F5B",
     secondaryDark: "#9D0007",
 };
@@ -59,9 +59,9 @@ export default createTheme({
         },
         secondary: {
             main: colors.secondary,
-            light: "#929293",
+            light: colors.secondary,
             dark: colors.secondaryDark,
-            contrastText: "#ffffff",
+            contrastText: colors.secondary,
         },
         neutral: {
             main: "#002C55",
@@ -73,7 +73,13 @@ export default createTheme({
             main: "#D32F2F",
         },
         success: {
-            main: "#46800D",
+            main: "#FFFFFF",
+            dark: "#FFFFFF",
+            light: "#FFFFFF",
+            contrastText: "#FFFFFF",
+        },
+        action: {
+            active: "#FFFFFFF",
         },
         info: {
             main: "#A9A9A9",
@@ -112,10 +118,14 @@ export default createTheme({
         },
         MuiButton: {
             root: {
+                color: "#929293",
                 paddingTop: "1rem",
                 paddingBottom: "1rem",
                 paddingLeft: "0.8rem",
                 paddingRight: "0.8rem",
+            },
+            text: {
+                color: "#FFFFFF",
             },
             contained: {
                 minWidth: "200px",
@@ -168,6 +178,62 @@ export default createTheme({
                 marginTop: "-10px",
                 marginBottom: "10px",
                 fontSize: "14px",
+                color: "#FFFFFF",
+            },
+        },
+        MuiFormLabel: {
+            root: {
+                color: "#FFFFFF",
+                fontSize: "14px",
+                "&:focus": {
+                    color: "#FFFFFF",
+                },
+            },
+        },
+        MuiInputBase: {
+            root: {
+                color: "#FFFFFF",
+                "&:focus": {
+                    color: "#FFFFFF",
+                },
+            },
+            input: {
+                color: "#FFFFFF",
+                "&:focused": {
+                    color: "#FFFFFF",
+                },
+            },
+        },
+        MuiFormControl: {
+            root: {
+                margin: "0px",
+                fontSize: "14px",
+                color: "#FFFFFF",
+            },
+        },
+        MuiOutlinedInput: {
+            root: {
+                color: "#FFFFFF",
+            },
+        },
+        MuiInputLabel: {
+            root: {
+                color: "#FFFFFF",
+            },
+        },
+        MuiMenuItem: {
+            root: {
+                backgroundColor: "#929293",
+            },
+        },
+        MuiDialogActions: {
+            root: {
+                color: "#FFFFF",
+            },
+        },
+        MuiButtonBase: {
+            root: {
+                color: "#FFFFFF",
             },
         },
     },
