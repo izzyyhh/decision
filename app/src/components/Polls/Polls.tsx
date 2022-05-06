@@ -5,6 +5,7 @@ import React, { FunctionComponent } from "react";
 import { useParams } from "react-router-dom";
 
 import Binary from "./Binary/Binary";
+import Date from "./Date/Date";
 import Tinder from "./Tinder/Tinder";
 
 interface Props {
@@ -14,7 +15,7 @@ interface Props {
 const Poll: any = {
     BINARY: Binary,
     TINDER: Tinder,
-    DATE: Binary,
+    DATE: Date,
 };
 
 const Polls: FunctionComponent<Props> = ({ poll }) => {
