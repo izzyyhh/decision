@@ -1,4 +1,5 @@
 import Input from "@components/Input/Input";
+import { DialogContentText } from "@material-ui/core";
 import Button from "@mui/material/Button";
 import FormControl from "@mui/material/FormControl";
 import styled from "styled-components";
@@ -16,6 +17,12 @@ export const ModalInput = styled(Input)`
         label {
             color: white;
         }
+    }
+`;
+
+export const ContentText = styled(DialogContentText)`
+    && {
+        color: white;
     }
 `;
 

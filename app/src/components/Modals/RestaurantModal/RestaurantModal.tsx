@@ -2,14 +2,12 @@ import Modal from "@components/Modals/Modal";
 import { useSnack } from "@context/snackbar/useSnack";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
-import DialogContentText from "@mui/material/DialogContentText";
-import DialogTitle from "@mui/material/DialogTitle";
 import React, { FunctionComponent, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { ModalProps } from "../ModalProps";
 import { CssTextField } from "../ModalTools";
-import { StyledButton } from "../MoviesModal/MoviesModal.sc";
+import { ContentText, StyledButton, Title } from "../MoviesModal/MoviesModal.sc";
 
 const RestaurantModal: FunctionComponent<ModalProps> = ({ open, setOpen, handleClose }) => {
     const [name, setName] = useState("");
@@ -30,9 +28,9 @@ const RestaurantModal: FunctionComponent<ModalProps> = ({ open, setOpen, handleC
 
     return (
         <Modal open={open} setOpen={(value: boolean) => setOpen(value)}>
-            <DialogTitle>{t("modals.restaurant.title")}</DialogTitle>
+            <Title>{t("modals.restaurant.title")}</Title>
             <DialogContent>
-                <DialogContentText>{t("modals.restaurant.text")}</DialogContentText>
+                <ContentText>{t("modals.restaurant.text")}</ContentText>
                 <CssTextField
                     autoFocus
                     margin="normal"

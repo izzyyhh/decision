@@ -41,7 +41,7 @@ const BottomNav: FunctionComponent = () => {
                 />
                 <BottomNavigationAction
                     onClick={() => {
-                        navigate("/");
+                        navigate("/account");
                     }}
                     label="Account"
                     icon={<AccountCircleOutlinedIcon fontSize="large" />}

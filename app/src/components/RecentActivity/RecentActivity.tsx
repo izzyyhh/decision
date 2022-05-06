@@ -1,9 +1,9 @@
-import { useQuery } from "@apollo/client";
+import { useLazyQuery } from "@apollo/client";
 import LinkButton from "@components/LinkButton/LinkButton";
 import { useUser } from "@context/user/useUser";
 import HowToVoteOutlinedIcon from "@mui/icons-material/HowToVoteOutlined";
 import PollOutlinedIcon from "@mui/icons-material/PollOutlined";
-import React, { FunctionComponent } from "react";
+import React, { FunctionComponent, useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { format, register } from "timeago.js";
 
@@ -26,15 +26,23 @@ const deLocale = (number: number, index: number): [string, string] => {
         ["vor %s Monaten", "in %s Monaten"],
         ["vor 1 Jahr", "in 1 Jahr"],
         ["vor %s Jahren", "in %s Jahren"],
-    ][index] as [string, string];
-};
+    ][index] as [string, string];};
 
 register("de", deLocale);
 
-const RecentActivity: FunctionComponent = () => {
+interface ActivityProps {
+    limit: number;
+}
+
+const RecentActivity: FunctionComponent<ActivityProps> = ({limit = 5}) => {
     const { user } = useUser();
-    const { data } = useQuery(getActivityQuery, { variables: { data: { id: user?.id } } });
+    const  [getRecentActivity, { data}] = useLazyQuery(getActivityQuery, { variables: { data: { id: user?.id }, pollInterval: 1000  } });
     const { t } = useTranslation();
+
+    useEffect(() => {
+        getRecentActivity();
+    }, []);
+
     const iconSwitch: any = {
         POLL: <PollOutlinedIcon fontSize="inherit"></PollOutlinedIcon>,
         DECISION: <HowToVoteOutlinedIcon fontSize="inherit"></HowToVoteOutlinedIcon>,
@@ -45,8 +53,8 @@ const RecentActivity: FunctionComponent = () => {
     if (user && data && data.getActivity.length != 0) {
         return (
             <Wrapper>
-                {data.getActivity.slice(0, 5).map((activity: { name: string; date: number; type: string; id: string }, idx: number) => (
-                    <LinkButton key={idx} primary={false} active={true} arrow={true} link={`/join/${activity.id}`}>
+                {data.getActivity.slice(0, limit).map((activity: { name: string; date: number; type: string; id: string, pollId:string }, idx: number) => (
+                    <LinkButton key={idx} primary={false} active={true} arrow={true} link={`/result/${activity.id == activity.pollId ? activity.id : activity.pollId}`}>
                         <ActivityContainer>
                             <IconContainer>{iconSwitch[activity.type]}</IconContainer>
                             <ActivityInformation>

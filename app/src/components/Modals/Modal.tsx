@@ -29,7 +29,7 @@ const ModalWrapper = styled(MuiModal)`
     right: 0;
     margin: auto;
     padding: 15px;
-    background: #f6f6f6;
+    background: #747474;
     height: max-content;
     border-radius: 7.5px;
 
