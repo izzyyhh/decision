@@ -1,5 +1,5 @@
+import Modal from "@components/Modals/Modal";
 import { useSnack } from "@context/snackbar/useSnack";
-import Button from "@mui/material/Button";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
@@ -8,9 +8,8 @@ import React, { FunctionComponent, useState } from "react";
 import { useTranslation } from "react-i18next";
 
 import { ModalProps } from "../ModalProps";
-import { BootstrapDialog, CssTextField } from "../ModalTools";
-
-
+import { CssTextField } from "../ModalTools";
+import { StyledButton } from "../MoviesModal/MoviesModal.sc";
 
 const RestaurantModal: FunctionComponent<ModalProps> = ({ open, setOpen, handleClose }) => {
     const [name, setName] = useState("");
@@ -30,59 +29,55 @@ const RestaurantModal: FunctionComponent<ModalProps> = ({ open, setOpen, handleC
     };
 
     return (
-        <div>
-            <BootstrapDialog open={open} onClose={submit}>
-                <DialogTitle>{t('modals.restaurant.title')}</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        {t('modals.restaurant.text')}
-                    </DialogContentText>
-                    <CssTextField
-                        autoFocus
-                        margin="normal"
-                        id="title"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        label={t('modals.decision.title')}
-                        type="text"
-                        fullWidth
-                        variant="standard"
-                    />
-                    <CssTextField
-                        autoFocus
-                        margin="dense"
-                        id="name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        label={t('modals.decision.city')}
-                        type="text"
-                        fullWidth
-                        variant="standard"
-                    />
-                    <CssTextField
-                        autoFocus
-                        margin="dense"
-                        id="name"
-                        value={amount}
-                        onChange={(e) => setAmount(parseInt(e.target.value))}
-                        label={t('modals.decision.amount')}
-                        type="number"
-                        fullWidth
-                        variant="standard"
-                    />
-                </DialogContent>
-                <DialogActions>
-                    <Button
-                        onClick={() => {
-                            setOpen(false);
-                        }}
-                    >
-                        {t('modals.cancel')}
-                    </Button>
-                    <Button onClick={submit}>{t('modals.create')}</Button>
-                </DialogActions>
-            </BootstrapDialog>
-        </div>
+        <Modal open={open} setOpen={(value: boolean) => setOpen(value)}>
+            <DialogTitle>{t("modals.restaurant.title")}</DialogTitle>
+            <DialogContent>
+                <DialogContentText>{t("modals.restaurant.text")}</DialogContentText>
+                <CssTextField
+                    autoFocus
+                    margin="normal"
+                    id="title"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    label={t("modals.decision.title")}
+                    type="text"
+                    fullWidth
+                    variant="standard"
+                />
+                <CssTextField
+                    autoFocus
+                    margin="dense"
+                    id="name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    label={t("modals.decision.city")}
+                    type="text"
+                    fullWidth
+                    variant="standard"
+                />
+                <CssTextField
+                    autoFocus
+                    margin="dense"
+                    id="name"
+                    value={amount}
+                    onChange={(e) => setAmount(parseInt(e.target.value))}
+                    label={t("modals.decision.amount")}
+                    type="number"
+                    fullWidth
+                    variant="standard"
+                />
+            </DialogContent>
+            <DialogActions>
+                <StyledButton
+                    onClick={() => {
+                        setOpen(false);
+                    }}
+                >
+                    {t("modals.cancel")}
+                </StyledButton>
+                <StyledButton onClick={submit}>{t("modals.create")}</StyledButton>
+            </DialogActions>
+        </Modal>
     );
 };
 

@@ -48,24 +48,24 @@ const Welcome: FunctionComponent = () => {
                             {t("welcome.links.join")}
                         </LinkButton>
                         <CustomModal openModal={openModal} handleClose={handleCloseModal}>
-                        <QrCodeWrapper>
-                            <QrReader
-                                className="test"
-                                constraints={{ facingMode: "environment" }}
-                                onResult={(result, error) => {
-                                    if (result) {
-                                        if (result.getText().includes(window.location.origin)) {
-                                            window.location.href = result.getText();
+                            <QrCodeWrapper>
+                                <QrReader
+                                    className="test"
+                                    constraints={{ facingMode: "environment" }}
+                                    onResult={(result, error) => {
+                                        if (result) {
+                                            if (result.getText().includes(window.location.origin)) {
+                                                window.location.href = result.getText();
+                                            }
                                         }
-                                    }
 
-                                    if (error) {
-                                        console.info(error);
-                                    }
-                                }}
-                            />
-                        </QrCodeWrapper>
-                    </CustomModal>
+                                        if (error) {
+                                            console.info(error);
+                                        }
+                                    }}
+                                />
+                            </QrCodeWrapper>
+                        </CustomModal>
                     </ColumnFullWidth>
                 </Column>
                 <Column>

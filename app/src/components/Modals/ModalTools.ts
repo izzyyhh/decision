@@ -21,12 +21,12 @@ export const BootstrapDialog = styled(Dialog)(({ theme }) => ({
         padding: theme.spacing(1),
         background: "#202020",
     },
-    '& .MuiFormControl-root':{
-        color: 'white'
+    "& .MuiFormControl-root": {
+        color: "white",
     },
 
-    '.MuiCheck-root':{
-        background: 'green',
+    ".MuiCheck-root": {
+        background: "green",
     },
     "& .MuiDialogActions-root .MuiButton-root": {
         color: "white",
@@ -59,7 +59,7 @@ export const CssTextField = styled(TextField)(({ theme }) => ({
 export const CssLabel = styled(InputLabel)(({ theme }) => ({
     "& label.Mui-focused": {
         color: "white",
-        borderColor: 'white',
+        borderColor: "white",
     },
     "& .MuiInputBase-input": {
         color: "white",
@@ -78,4 +78,4 @@ export const CssLabel = styled(InputLabel)(({ theme }) => ({
             borderColor: "green",
         },
     },
-}))
+}));
