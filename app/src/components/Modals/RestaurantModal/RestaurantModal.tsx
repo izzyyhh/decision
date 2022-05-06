@@ -1,5 +1,5 @@
+import Modal from "@components/Modals/Modal";
 import { useSnack } from "@context/snackbar/useSnack";
-import Button from "@mui/material/Button";
 import DialogActions from "@mui/material/DialogActions";
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
@@ -7,9 +7,8 @@ import DialogTitle from "@mui/material/DialogTitle";
 import React, { FunctionComponent, useState } from "react";
 
 import { ModalProps } from "../ModalProps";
-import { BootstrapDialog, CssTextField } from "../ModalTools";
-
-
+import { CssTextField } from "../ModalTools";
+import { StyledButton } from "../MoviesModal/MoviesModal.sc";
 
 const RestaurantModal: FunctionComponent<ModalProps> = ({ open, setOpen, handleClose }) => {
     const [name, setName] = useState("");
@@ -28,59 +27,57 @@ const RestaurantModal: FunctionComponent<ModalProps> = ({ open, setOpen, handleC
     };
 
     return (
-        <div>
-            <BootstrapDialog open={open} onClose={submit}>
-                <DialogTitle>RestaurantModal</DialogTitle>
-                <DialogContent>
-                    <DialogContentText>
-                        To subscribe to this website, please enter your email address here. We will send updates occasionally.
-                    </DialogContentText>
-                    <CssTextField
-                        autoFocus
-                        margin="normal"
-                        id="title"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        label="Title"
-                        type="text"
-                        fullWidth
-                        variant="standard"
-                    />
-                    <CssTextField
-                        autoFocus
-                        margin="dense"
-                        id="name"
-                        value={name}
-                        onChange={(e) => setName(e.target.value)}
-                        label="City"
-                        type="text"
-                        fullWidth
-                        variant="standard"
-                    />
-                    <CssTextField
-                        autoFocus
-                        margin="dense"
-                        id="name"
-                        value={amount}
-                        onChange={(e) => setAmount(parseInt(e.target.value))}
-                        label="Anzahl der Vorschläge"
-                        type="number"
-                        fullWidth
-                        variant="standard"
-                    />
-                </DialogContent>
-                <DialogActions>
-                    <Button
-                        onClick={() => {
-                            setOpen(false);
-                        }}
-                    >
-                        Cancel
-                    </Button>
-                    <Button onClick={submit}>Subscribe</Button>
-                </DialogActions>
-            </BootstrapDialog>
-        </div>
+        <Modal open={open} setOpen={(value: boolean) => setOpen(value)}>
+            <DialogTitle>RestaurantModal</DialogTitle>
+            <DialogContent>
+                <DialogContentText>
+                    To subscribe to this website, please enter your email address here. We will send updates occasionally.
+                </DialogContentText>
+                <CssTextField
+                    autoFocus
+                    margin="normal"
+                    id="title"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    label="Title"
+                    type="text"
+                    fullWidth
+                    variant="standard"
+                />
+                <CssTextField
+                    autoFocus
+                    margin="dense"
+                    id="name"
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    label="City"
+                    type="text"
+                    fullWidth
+                    variant="standard"
+                />
+                <CssTextField
+                    autoFocus
+                    margin="dense"
+                    id="name"
+                    value={amount}
+                    onChange={(e) => setAmount(parseInt(e.target.value))}
+                    label="Anzahl der Vorschläge"
+                    type="number"
+                    fullWidth
+                    variant="standard"
+                />
+            </DialogContent>
+            <DialogActions>
+                <StyledButton
+                    onClick={() => {
+                        setOpen(false);
+                    }}
+                >
+                    Cancel
+                </StyledButton>
+                <StyledButton onClick={submit}>Subscribe</StyledButton>
+            </DialogActions>
+        </Modal>
     );
 };
 
