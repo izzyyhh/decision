@@ -62,7 +62,7 @@ const Result: FunctionComponent = () => {
     const uniqueUsers: Array<string> = [];
     const [getTinderResults, { data: tinderResults }] = useLazyQuery(DecisionsPollQuery, { variables: { data: { pollId } }, pollInterval: 500 });
     const [userOptionsAll, setUserOptionsAll] = useState<IOptions>(userOptions);
-    const shareLink = `${window.location.origin}/result/${pollId}`;
+    const shareLink = `${window.location.origin}/decision/${pollId}`;
 
     const decisionsArr = decisions.data ? decisions.data?.getDecisionsForPoll : [];
     const resultData = decisionsArr.reduce((agg: any, curr: any) => {
@@ -105,14 +105,14 @@ const Result: FunctionComponent = () => {
         userOptions[optionId].number = userOptions[optionId].number + 1;
     };
 
-    const convertDate = ((type: any, date: string) => {
+    const convertDate = (type: any, date: string) => {
         if (type === Type.DATE) {
             const dt = new Date(date);
             const title = dt.toLocaleDateString() + " " + dt.getHours() + ":" + dt.getMinutes();
             return title;
         }
         return date;
-    });
+    };
 
     useEffect(() => {
         getTinderResults();
@@ -223,12 +223,12 @@ const Result: FunctionComponent = () => {
                                     )}
                                 </Card>
                                 <ButtonContainer>
-                                    <LinkButton active={true} link={AppRoutes.Poll}>
+                                    {/* <LinkButton active={true} link={`/decision/${pollId}`}>
                                         {t("result.vote")}
                                     </LinkButton>
                                     <LinkButton active={true} link={AppRoutes.Poll}>
                                         {t("result.share")}
-                                    </LinkButton>
+                                    </LinkButton> */}
                                 </ButtonContainer>
                             </>
                         )}
