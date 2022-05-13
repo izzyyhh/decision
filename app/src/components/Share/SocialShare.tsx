@@ -75,7 +75,7 @@ const SocialShare: FunctionComponent<Props> = ({ url }) => {
                 </CircleMenuItem>
             </CircleMenu>
             <CustomModal openModal={openModal} handleClose={handleCloseModal}>
-                {imageReady && <img src={qrCodeBase64}></img>}
+                {imageReady && <img alt="qrcode" src={qrCodeBase64}></img>}
             </CustomModal>
         </SocialShareWrapper>
     );
