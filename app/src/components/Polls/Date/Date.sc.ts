@@ -4,9 +4,7 @@ interface Props {
     active: boolean;
 }
 
-export const Option = styled.input<Props>`
-    
-`;
+export const Option = styled.input<Props>``;
 
 export const Label = styled.label<Props>`
     font-size: 20px;
@@ -22,5 +20,3 @@ export const InputWrapper = styled.div`
     flex-direction: row;
     padding: 10px 0px;
 `;
-
-

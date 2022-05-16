@@ -1,15 +1,12 @@
 import { useLazyQuery, useQuery } from "@apollo/client";
 import { GQLQuery } from "@app/graphql.generated";
-import { AppRoutes } from "@app/Router";
 import Seo from "@app/seo/Seo";
 import Auth from "@components/Auth/Auth";
 import Card from "@components/Card/Card";
 import Headline from "@components/Headline/Headline";
-import LinkButton from "@components/LinkButton/LinkButton";
 import Share from "@components/Share/Share";
 import { HeadingWrapper } from "@pages/DecisionPage/DecisionPage.sc";
 import React, { FunctionComponent, useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
 
 import { DecisionsPollQuery, OptionsForPollQuery, PollQuery } from "./Result.gql";
@@ -52,7 +49,6 @@ interface IDecision {
 
 // refactor me
 const Result: FunctionComponent = () => {
-    const { t } = useTranslation();
     const { pollId } = useParams();
     const options = useQuery<GQLQuery>(OptionsForPollQuery, { variables: { data: { pollId } } });
     const poll = useQuery<GQLQuery>(PollQuery, { variables: { data: { pollId } } });

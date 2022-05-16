@@ -8,8 +8,8 @@ import { useUser } from "@context/user/useUser";
 import React, { FunctionComponent, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
-import { CanDecideQuery } from "../Tinder/Tinder.gql";
 
+import { CanDecideQuery } from "../Tinder/Tinder.gql";
 import { Option } from "./Binary.sc";
 import { ADD_DECISION } from "./pollData.gql";
 
@@ -74,7 +74,3 @@ const Binary: FunctionComponent<Props> = ({ optionsData }) => {
 };
 
 export default Binary;
-function refetchMadeDecision() {
-    throw new Error("Function not implemented.");
-}
-

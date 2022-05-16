@@ -33,14 +33,14 @@ const Binary: FunctionComponent<Props> = ({ optionsData }) => {
             active.forEach(async (option) => {
                 const response = await data({ variables: { data: { user: userId, poll: pollId, option: option, answer: 0.6 } } });
                 res.push(response);
-            })
+            });
 
             let noError = true;
             res.forEach((r: any) => {
                 if (r.errors) {
                     noError = false;
                 }
-            })
+            });
 
             if (noError) {
                 navigate(`/result/${pollId}`);
@@ -50,7 +50,7 @@ const Binary: FunctionComponent<Props> = ({ optionsData }) => {
         }
     };
 
-    const handleClick = ((optionId: string) => {
+    const handleClick = (optionId: string) => {
         if (!active.includes(optionId)) {
             active.push(optionId);
             setActive(active);
@@ -58,33 +58,37 @@ const Binary: FunctionComponent<Props> = ({ optionsData }) => {
             const remove = active.filter((id) => id !== optionId);
             setActive(remove);
         }
-    })
+    };
 
-    const isActive = ((optionId: string) => {
+    const isActive = (optionId: string) => {
         return false;
-    })
+    };
 
-    const convertDate = ((date: string) => {
+    const convertDate = (date: string) => {
         const dt = new Date(date);
         const title = dt.toLocaleDateString() + " " + dt.getHours() + ":" + dt.getMinutes();
         return title;
-    });
+    };
 
     if (optionsData.length > 0) {
         return (
             <ColumnFullWidth>
                 <Card title={t("decision.options")}>
-                    
-                        {optionsData.map((option) => (
-                            <InputWrapper>
-                                <Option key={option.id} id={option.id} type="checkbox" value={option.id} onClick={() => handleClick(option.id)} active={isActive(option.id)} >
-                                </Option>
-                                <Label htmlFor={option.id} active={isActive(option.id)}>
-                                    {convertDate(option.title)}
-                                </Label>
-                            </InputWrapper>
-                        ))}
-                    
+                    {optionsData.map((option) => (
+                        <InputWrapper>
+                            <Option
+                                key={option.id}
+                                id={option.id}
+                                type="checkbox"
+                                value={option.id}
+                                onClick={() => handleClick(option.id)}
+                                active={isActive(option.id)}
+                            ></Option>
+                            <Label htmlFor={option.id} active={isActive(option.id)}>
+                                {convertDate(option.title)}
+                            </Label>
+                        </InputWrapper>
+                    ))}
                 </Card>
 
                 <LinkButton onClick={sendDecision} arrow={false} active={true} title={""}>
