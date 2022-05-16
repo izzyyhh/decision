@@ -118,7 +118,6 @@ const Result: FunctionComponent = () => {
                                 {options.data && (
                                     <>
                                         {options.data.getOptionsForPoll.map((option) => {
-                                            console.log(userOptionsAll[option.title]);
                                             const test = userOptionsAll[option.title];
 
                                             if (test && test.isMatch) {

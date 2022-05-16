@@ -120,6 +120,7 @@
         "react-error-overlay": "^6.0.9",
         "react-test-renderer": "^17.0.2",
         "style-loader": "^3.3.1",
+        "ts-jest": "^28.0.2",
         "ts-node": "^10.4.0",
         "typescript": "^4.5.5",
         "webpack": "^5.67.0",
@@ -139,6 +140,7 @@
         "cypress:e2e": "cypress open",
         "cypress:e2e:run": "cypress run --browser chrome --headless",
         "cypress:unit": "cypress open-ct",
-        "cypress:unit:run": "cypress run-ct"
+        "cypress:unit:run": "cypress run-ct",
+        "test": "jest"
     }
 }
