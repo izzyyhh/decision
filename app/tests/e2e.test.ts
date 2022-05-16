@@ -1,6 +1,6 @@
 import puppeteer from "puppeteer";
 
-describe("App.js", () => {
+describe("e2e:tests", () => {
     let browser: any;
     let page: any;
 
@@ -9,7 +9,7 @@ describe("App.js", () => {
         page = await browser.newPage();
     });
 
-    it("2 presets get served", async () => {
+    it("2 presets get served test", async () => {
         await page.goto("http://localhost:8080");
         await page.waitForSelector(".swiper-slide");
         const presetCount = await page.$$eval(".swiper-slide", (e: any) => e.length);
