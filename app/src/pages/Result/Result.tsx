@@ -1,17 +1,16 @@
 import { useLazyQuery, useQuery } from "@apollo/client";
 import { GQLQuery } from "@app/graphql.generated";
-import { AppRoutes } from "@app/Router";
 import Seo from "@app/seo/Seo";
 import Auth from "@components/Auth/Auth";
 import Card from "@components/Card/Card";
 import Headline from "@components/Headline/Headline";
-import LinkButton from "@components/LinkButton/LinkButton";
 import Share from "@components/Share/Share";
 import { HeadingWrapper } from "@pages/DecisionPage/DecisionPage.sc";
 import React, { FunctionComponent, useEffect, useState } from "react";
-import { useTranslation } from "react-i18next";
 import { useParams } from "react-router";
 
+import IOptions from "../../types/IOptions";
+import { getMatches } from "../../utils/getMatches";
 import { DecisionsPollQuery, OptionsForPollQuery, PollQuery } from "./Result.gql";
 import {
     ButtonContainer,
@@ -33,33 +32,14 @@ export enum Type {
     DATE = "DATE",
 }
 
-interface IOptions {
-    [id: string]: {
-        number: number;
-        isMatch: boolean;
-    };
-}
-interface IDecision {
-    user: {
-        id: string;
-        name: string;
-    };
-    option: {
-        id: string;
-        title: string;
-    };
-}
-
 // refactor me
 const Result: FunctionComponent = () => {
-    const { t } = useTranslation();
     const { pollId } = useParams();
     const options = useQuery<GQLQuery>(OptionsForPollQuery, { variables: { data: { pollId } } });
     const poll = useQuery<GQLQuery>(PollQuery, { variables: { data: { pollId } } });
     const decisions = useQuery<GQLQuery>(DecisionsPollQuery, { variables: { data: { pollId } } });
     const [matches, setMatches] = useState<number>(0);
     const userOptions: IOptions = {};
-    const uniqueUsers: Array<string> = [];
     const [getTinderResults, { data: tinderResults }] = useLazyQuery(DecisionsPollQuery, { variables: { data: { pollId } }, pollInterval: 500 });
     const [userOptionsAll, setUserOptionsAll] = useState<IOptions>(userOptions);
     const shareLink = `${window.location.origin}/decision/${pollId}`;
@@ -88,23 +68,6 @@ const Result: FunctionComponent = () => {
         getDecisions();
     }, []);
 
-    const addUser = (userId: string) => {
-        if (!uniqueUsers.includes(userId)) {
-            uniqueUsers.push(userId);
-        }
-    };
-
-    const initilizeOptions = (optionId: string) => {
-        userOptions[optionId] = {
-            number: 0,
-            isMatch: false,
-        };
-    };
-
-    const addOption = (optionId: string) => {
-        userOptions[optionId].number = userOptions[optionId].number + 1;
-    };
-
     const convertDate = (type: any, date: string) => {
         if (type === Type.DATE) {
             const dt = new Date(date);
@@ -122,27 +85,10 @@ const Result: FunctionComponent = () => {
         if (tinderResults !== undefined) {
             const results = tinderResults;
             const decisions = results.getDecisionsForPoll;
-            decisions.forEach((element: IDecision) => {
-                addUser(element.user.id);
-                initilizeOptions(element.option.title);
-            });
-            console.log(userOptions);
-            decisions.forEach((element: IDecision) => {
-                addOption(element.option.title);
-            });
-
-            if (uniqueUsers.length > 1) {
-                let totalMatches = 0;
-                for (const key in userOptions) {
-                    if (userOptions[key].number == uniqueUsers.length) {
-                        totalMatches += 1;
-                        userOptions[key].isMatch = true;
-                    }
-                }
-                setMatches(totalMatches);
-            }
+            
+            const {totalMatches, userOptions} = getMatches(decisions);
+            setMatches(totalMatches);
             setUserOptionsAll(userOptions);
-            console.log(userOptionsAll);
         }
     }, [tinderResults]);
 
