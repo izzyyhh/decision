@@ -85,8 +85,8 @@ const Result: FunctionComponent = () => {
         if (tinderResults !== undefined) {
             const results = tinderResults;
             const decisions = results.getDecisionsForPoll;
-            
-            const {totalMatches, userOptions} = getMatches(decisions);
+
+            const { totalMatches, userOptions } = getMatches(decisions);
             setMatches(totalMatches);
             setUserOptionsAll(userOptions);
         }
