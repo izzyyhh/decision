@@ -146,7 +146,7 @@
         "cypress:e2e:run": "cypress run --browser chrome --headless",
         "cypress:unit": "cypress open-ct",
         "cypress:unit:run": "cypress run-ct",
-        "test": "jest",
+        "test": "jest tests/getMatches.test.ts",
         "test:e2e": "react-scripts test"
     }
 }
