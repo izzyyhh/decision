@@ -16,6 +16,7 @@ import storageConf from "../firebase-storageconf";
 import { ActivityModule } from "./activity/activity.module";
 import { AppController } from "./app.controller";
 import { AppService } from "./app.service";
+import { AuthGuard } from "./common/guards/auth.guard";
 import { DecisionsModule } from "./decisions/decisions.module";
 import { GenresModule } from "./genres/genres.module";
 import { OptionsController } from "./options/options.controller";
@@ -30,6 +31,7 @@ import { UsersModule } from "./users/users.module";
 export const firebaseApp = admin.initializeApp({
     credential: admin.credential.cert(serviceAccount as ServiceAccount),
 });
+import { APP_GUARD } from "@nestjs/core";
 
 export const firebaseStorage = getStorage(storageApp(storageConf));
 
@@ -68,6 +70,6 @@ export const firebaseStorage = getStorage(storageApp(storageConf));
         PresetsModule,
     ],
     controllers: [AppController, OptionsController],
-    providers: [AppService],
+    providers: [AppService, { provide: APP_GUARD, useClass: AuthGuard }],
 })
 export class AppModule {}
