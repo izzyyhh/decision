@@ -9,6 +9,7 @@ import { useCookies } from "react-cookie";
 import { useTranslation } from "react-i18next";
 import { useNavigate, useParams } from "react-router-dom";
 
+import { getMatches } from "../../../utils/getMatches";
 import { ADD_DECISION } from "../Binary/pollData.gql";
 import { CanDecideQuery, DecisionsPollQuery } from "./Tinder.gql";
 import {
@@ -31,19 +32,6 @@ import {
 enum SwipeDirection {
     RIGHT = "right",
     LEFT = "left",
-}
-interface IOptions {
-    [id: string]: number;
-}
-interface IDecision {
-    user: {
-        id: string;
-        name: string;
-    };
-    option: {
-        id: string;
-        title: string;
-    };
 }
 
 type Snack = {
@@ -76,8 +64,6 @@ const Tinder: FunctionComponent<Props> = ({ optionsData }) => {
     const [onBoard] = useState<boolean>(getOnBoard());
 
     const [matches, setMatches] = useState<number>(0);
-    const userOptions: IOptions = {};
-    const uniqueUsers: Array<string> = [];
     const [, { refetch }] = useLazyQuery(DecisionsPollQuery, { variables: { data: { pollId } } });
     const { setSnack } = useSnack();
     const [, { refetch: refetchMadeDecision }] = useLazyQuery(CanDecideQuery, { variables: { data: { user: userId, poll: pollId } } });
@@ -100,40 +86,11 @@ const Tinder: FunctionComponent<Props> = ({ optionsData }) => {
         currentIndexRef.current = val;
     };
 
-    const addUser = (userId: string) => {
-        if (!uniqueUsers.includes(userId)) {
-            uniqueUsers.push(userId);
-        }
-    };
-
-    const initilizeOptions = (optionId: string) => {
-        userOptions[optionId] = 0;
-    };
-
-    const addOption = (optionId: string) => {
-        userOptions[optionId] = userOptions[optionId] + 1;
-    };
-
-    const getMatches = async () => {
+    const showMatches = async () => {
         const results = await refetch();
         const decisions = results.data?.getDecisionsForPoll;
-        decisions.forEach((element: IDecision) => {
-            addUser(element.user.id);
-            initilizeOptions(element.option.id);
-        });
-        decisions.forEach((element: IDecision) => {
-            addOption(element.option.id);
-        });
-
-        if (uniqueUsers.length > 1) {
-            let totalMatches = 0;
-            for (const key in userOptions) {
-                if (userOptions[key] == uniqueUsers.length) {
-                    totalMatches += 1;
-                }
-            }
-            setMatches(totalMatches);
-        }
+        const {totalMatches} = getMatches(decisions);
+        setMatches(totalMatches);
     };
 
     const canDecide = async (setSnack: (snack: Snack) => void) => {
@@ -174,7 +131,7 @@ const Tinder: FunctionComponent<Props> = ({ optionsData }) => {
 
     const sendDecision = async (option: string, user: any, poll: any) => {
         await addDecision({ variables: { data: { user, poll, option, answer: 0.6 } } });
-        getMatches();
+        showMatches();
     };
 
     return (
