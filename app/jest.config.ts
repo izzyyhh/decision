@@ -4,7 +4,6 @@ const config: Config.InitialOptions = {
     verbose: true,
     transform: {
         "^.+\\.tsx?$": "ts-jest",
-        "^.+\\.ts?$": "ts-jest"
     },
     extensionsToTreatAsEsm: [".tsx", ".ts"],
     globals: {
