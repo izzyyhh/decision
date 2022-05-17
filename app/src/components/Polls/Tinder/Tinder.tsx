@@ -89,7 +89,7 @@ const Tinder: FunctionComponent<Props> = ({ optionsData }) => {
     const showMatches = async () => {
         const results = await refetch();
         const decisions = results.data?.getDecisionsForPoll;
-        const {totalMatches} = getMatches(decisions);
+        const { totalMatches } = getMatches(decisions);
         setMatches(totalMatches);
     };
 

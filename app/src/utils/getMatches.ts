@@ -29,7 +29,7 @@ export function getMatches(decisions: Array<IDecision>) {
         addUser(element.user.id);
         initilizeOptions(element.option.title);
     });
-    
+
     decisions.forEach((element: IDecision) => {
         addOption(element.option.title);
     });
@@ -43,5 +43,5 @@ export function getMatches(decisions: Array<IDecision>) {
             }
         }
     }
-    return {totalMatches, userOptions};
+    return { totalMatches, userOptions };
 }

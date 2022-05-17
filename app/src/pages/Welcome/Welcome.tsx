@@ -87,7 +87,7 @@ const Welcome: FunctionComponent = () => {
                         <Eyebrow>{t("welcome.recentActivity.eyebrow")}</Eyebrow>
                     </ColumnFullWidth>
                     <ColumnFullWidth>
-                        <RecentActivity />
+                        <RecentActivity limit={20} />
                     </ColumnFullWidth>
                 </Column>
             </Auth>
