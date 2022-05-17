@@ -7,7 +7,7 @@ interface MuiDropzoneNameToClassKey {
 }
 
 const colors = {
-    primary: "#929293",
+    primary: "#ede9e8",
     primaryLight: "#FFFFFF",
     primaryDark: "#002350",
     secondary: "#FFFFFF",
@@ -86,7 +86,7 @@ export default createTheme({
         },
         text: {
             primary: "#FFFFFF",
-            secondary: "#7E7E7E",
+            secondary: "#ede9e8",
             disabled: "#b6b6b6",
         },
         grey: neutral,

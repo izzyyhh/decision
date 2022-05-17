@@ -81,7 +81,7 @@ const Share: FunctionComponent<Props> = ({ url }) => {
                     <QrCode2OutlinedIcon fontSize="medium"></QrCode2OutlinedIcon>
                 </Fab>
                 <CustomModal openModal={openModal} handleClose={handleCloseModal}>
-                    {imageReady && <img src={qrCodeBase64}></img>}
+                    {imageReady && <img alt="qrcode" src={qrCodeBase64}></img>}
                 </CustomModal>
             </NavigatorShareWrapper>
         );
