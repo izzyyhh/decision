@@ -39,32 +39,6 @@ const Share: FunctionComponent<Props> = ({ url }) => {
         });
     };
 
-    // const navigatorShareQrCode = () => {
-    //     if (imageReady) {
-    //         fetch(qrCodeBase64 as string)
-    //             .then((res) => res.blob())
-    //             .then((blob) => {
-    //                 const qrCode = new File([blob], "Dast-Qr-Code.png", { type: "image/png" });
-
-    //                 if (navigator.canShare != undefined && navigator.canShare({ files: [qrCode] })) {
-    //                     navigator
-    //                         .share({
-    //                             title: "Dast - Decide fast",
-    //                             text: "Scan the QR code and joint the decision!",
-    //                             files: [qrCode],
-    //                         })
-    //                         .catch(() => {
-    //                             setSnack({
-    //                                 message: "Browser does not support sharing files",
-    //                                 severity: "error",
-    //                                 open: true,
-    //                             });
-    //                         });
-    //                 }
-    //             });
-    //     }
-    // };
-
     let ShareButton = (
         <ShareWrapper>
             <Fab size="small">{SocialShare({ url })}</Fab>

@@ -33,7 +33,7 @@ const deLocale = (number: number, index: number): [string, string] => {
 register("de", deLocale);
 
 interface ActivityProps {
-    limit: number;
+    limit?: number;
 }
 
 const RecentActivity: FunctionComponent<ActivityProps> = ({ limit = 5 }) => {

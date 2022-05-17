@@ -7,7 +7,7 @@ const ImageTextSlide: FunctionComponent<SingleImageProps> = ({ image }) => {
     return (
         <SlideInner onClick={() => image.handler.setOpen(true)}>
             <ImageWrapper>
-                <Image src={image.thumbnailUrl} alt={image.title}/>
+                <Image src={image.thumbnailUrl} alt={image.title} />
             </ImageWrapper>
             <DetailWrapper>
                 <Title>{image.title}</Title>
