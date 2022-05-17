@@ -1,3 +1,4 @@
+/* eslint-disable */
 import { useLazyQuery } from "@apollo/client";
 import LinkButton from "@components/LinkButton/LinkButton";
 import { useUser } from "@context/user/useUser";

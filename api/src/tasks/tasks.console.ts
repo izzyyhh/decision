@@ -30,11 +30,13 @@ export class TasksConsole {
 
     @Timeout(1000)
     async handleGenres() {
-        const genres = await this.genreRepository.findAll();
-        await genres.forEach(async (g: Genre) => {
-            await this.genreRepository.removeAndFlush(g);
-        });
-        await this.genreResolver.addGenres();
+        if (process.env.NODE_ENV != "test") {
+            const genres = await this.genreRepository.findAll();
+            await genres.forEach(async (g: Genre) => {
+                await this.genreRepository.removeAndFlush(g);
+            });
+            await this.genreResolver.addGenres();
+        }
     }
 
     // @Timeout(10000)

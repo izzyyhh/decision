@@ -5,5 +5,11 @@ const config: Config.InitialOptions = {
     transform: {
         "^.+\\.tsx?$": "ts-jest",
     },
+    extensionsToTreatAsEsm: [".tsx", ".ts"],
+    globals: {
+        "ts-jest": {
+            useESM: true,
+        },
+    },
 };
 export default config;
