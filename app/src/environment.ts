@@ -8,4 +8,5 @@ export default [
     "REACT_APP_FIREBASE_APPID",
     "REACT_APP_FIREBASE_MEASUREMENTID",
     "REACT_APP_SITE_TITLE",
+    "REACT_APP_COOKIEBOT",
 ] as const;

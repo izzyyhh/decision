@@ -84,17 +84,17 @@
         }
     },
     "modals": {
-        "restaurant":{
+        "restaurant": {
             "title": "Restaurant Entscheidung",
             "text": "Konfiguriere deine Restaurant-Auswahl"
         },
-        "movie":{
+        "movie": {
             "title": "Film Entscheidung",
             "text": "Konfiguriere deine Film-Auswahl"
         },
         "decision": {
             "title": "Abstimmungstitel",
-            "city":"Wähle eine Stadt",
+            "city": "Wähle eine Stadt",
             "amount": "Anzahl",
             "genres": "Genres"
         },

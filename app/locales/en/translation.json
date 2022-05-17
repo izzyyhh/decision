@@ -84,17 +84,17 @@
         }
     },
     "modals": {
-        "restaurant":{
+        "restaurant": {
             "title": "Restaurant-Decision",
             "text": "Configure your restaurant selection"
         },
-        "movie":{
+        "movie": {
             "title": "Movie-Decision",
             "text": "Configure your movie selection"
         },
         "decision": {
             "title": "Set your decisiontitle",
-            "city":"Choose a City",
+            "city": "Choose a City",
             "amount": "Pick an amount",
             "genres": "Genres"
         },
@@ -105,5 +105,4 @@
         "cancel": "Cancel",
         "create": "create"
     }
-
 }

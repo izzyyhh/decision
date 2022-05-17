@@ -2,11 +2,13 @@ import ThemeProvider from "@components/ThemeProvider/ThemeProvider";
 import { SnackbarProvider } from "@context/snackbar/SnackbarProvider";
 import { UserProvider } from "@context/user/UserProvider";
 import React, { Component, Suspense } from "react";
+import CookieBot from "react-cookiebot";
 import * as ReactDOM from "react-dom";
 import { I18nextProvider } from "react-i18next";
 import Webfontloader from "webfontloader";
 
 import GlobalStyle, { Container } from "./common/GlobalStyles";
+import config from "./config";
 import ApolloProvider from "./context/apollo/ApolloProvider";
 import i18n from "./i18n";
 import Router from "./Router";
@@ -32,6 +34,7 @@ class App extends Component {
                                     <GlobalStyle />
                                     <Suspense fallback="loading">
                                         <Container>
+                                            <CookieBot domainGroupId={config.REACT_APP_COOKIEBOT} />
                                             <Router />
                                         </Container>
                                     </Suspense>

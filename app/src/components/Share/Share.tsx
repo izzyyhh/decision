@@ -1,7 +1,6 @@
 import { useQuery } from "@apollo/client";
 import { GQLQuery } from "@app/graphql.generated";
 import { CustomModal } from "@components/Modals/QRModal";
-import { useSnack } from "@context/snackbar/useSnack";
 import QrCode2OutlinedIcon from "@mui/icons-material/QrCode2Outlined";
 import Fab from "@mui/material/Fab";
 import { getQRCode } from "@pages/DecisionPage/pollData.gql";
@@ -16,7 +15,6 @@ interface Props {
 }
 
 const Share: FunctionComponent<Props> = ({ url }) => {
-    const { setSnack } = useSnack();
     const qrCodeData = useQuery<GQLQuery>(getQRCode, { variables: { data: { shareLink: url } } });
     const qrCodeBase64 = qrCodeData.data?.getQRCode.id;
 
@@ -40,32 +38,6 @@ const Share: FunctionComponent<Props> = ({ url }) => {
             url: url,
         });
     };
-
-    // const navigatorShareQrCode = () => {
-    //     if (imageReady) {
-    //         fetch(qrCodeBase64 as string)
-    //             .then((res) => res.blob())
-    //             .then((blob) => {
-    //                 const qrCode = new File([blob], "Dast-Qr-Code.png", { type: "image/png" });
-
-    //                 if (navigator.canShare != undefined && navigator.canShare({ files: [qrCode] })) {
-    //                     navigator
-    //                         .share({
-    //                             title: "Dast - Decide fast",
-    //                             text: "Scan the QR code and joint the decision!",
-    //                             files: [qrCode],
-    //                         })
-    //                         .catch(() => {
-    //                             setSnack({
-    //                                 message: "Browser does not support sharing files",
-    //                                 severity: "error",
-    //                                 open: true,
-    //                             });
-    //                         });
-    //                 }
-    //             });
-    //     }
-    // };
 
     let ShareButton = (
         <ShareWrapper>
