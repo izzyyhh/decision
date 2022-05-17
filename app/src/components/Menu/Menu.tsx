@@ -1,4 +1,4 @@
-import AccountCircleOutlinedIcon from "@mui/icons-material/AccountCircleOutlined";
+import HelpOutlineIcon from "@material-ui/icons/HelpOutline";
 import AddCircleOutlineOutlinedIcon from "@mui/icons-material/AddCircleOutlineOutlined";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import React, { FunctionComponent, useState } from "react";
@@ -44,7 +44,7 @@ const BottomNav: FunctionComponent = () => {
                         navigate("/account");
                     }}
                     label="Account"
-                    icon={<AccountCircleOutlinedIcon fontSize="large" />}
+                    icon={<HelpOutlineIcon fontSize="large" />}
                 />
             </BottomNavigation>
         </MenuWrapper>

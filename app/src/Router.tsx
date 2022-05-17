@@ -1,7 +1,7 @@
 import BottomNav from "@components/Menu/Menu";
-import AccountPage from "@pages/Account/Account";
 import CreateDecision from "@pages/CreateDecision/CreateDecision";
 import DecisionPage from "@pages/DecisionPage/DecisionPage";
+import InfoPage from "@pages/Info/Info";
 import Join from "@pages/Join/Join";
 import Result from "@pages/Result/Result";
 import Welcome from "@pages/Welcome/Welcome";
@@ -18,6 +18,7 @@ export enum AppRoutes {
     DecisionByPoll = "/decision/:pollId",
     Protected = "/protected",
     Account = "/account",
+    Info = "/info",
 }
 
 const Router = () => {
@@ -30,7 +31,7 @@ const Router = () => {
                     <Route path={AppRoutes.ResultByPoll} element={<Result />} />
                     <Route path={AppRoutes.DecisionByPoll} element={<DecisionPage />} />
                     <Route path={AppRoutes.Root} element={<Welcome />} />
-                    <Route path={AppRoutes.Account} element={<AccountPage />} />
+                    <Route path={AppRoutes.Info} element={<InfoPage />} />
                 </Routes>
                 <BottomNav />
             </BrowserRouter>
