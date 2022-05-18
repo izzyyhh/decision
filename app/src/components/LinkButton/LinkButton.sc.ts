@@ -25,7 +25,7 @@ export const LinkButtonContainer = styled.div<ILinkButtonContainer>`
     position: relative;
     background-color: ${({ primary, theme }) => (primary ? theme.palette.primary.light : theme.palette.background.paper)};
     transition: background-color 0.5s ease-in;
-    opacity: ${({ active }) => (active ? 1 : 1)};
+    opacity: ${({ active }) => (active ? 1 : 0.7)};
     padding-left: 15px;
     padding-right: 15px;
     width: calc(100% - 30px);

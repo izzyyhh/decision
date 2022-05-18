@@ -52,7 +52,7 @@ const ShareModal: FunctionComponent<Props> = ({ pollId }) => {
                 <LinkOutlinedIcon onClick={copyToClipBoard} />
             </ShareBar>
             <Links visible={showQR}>
-                <LinkButton active={true} onClick={() => navigate(`/decision/${pollId}`)}>
+                <LinkButton classProp={"decision-start"} active={true} onClick={() => navigate(`/decision/${pollId}`)}>
                     {t("create.links.start")}
                 </LinkButton>
                 <LinkButton active={true} onClick={() => navigate(`/result/${pollId}`)}>
