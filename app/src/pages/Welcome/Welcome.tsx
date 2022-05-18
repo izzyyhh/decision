@@ -39,7 +39,7 @@ const Welcome: FunctionComponent = () => {
                 </ColumnFullWidth>
                 <Column>
                     <ColumnFullWidth>
-                        <LinkButton active={true} link={AppRoutes.Poll}>
+                        <LinkButton classProp={"decision-create"} active={true} link={AppRoutes.Poll}>
                             {t("welcome.links.create")}
                         </LinkButton>
                     </ColumnFullWidth>

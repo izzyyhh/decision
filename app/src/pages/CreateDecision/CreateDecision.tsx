@@ -85,6 +85,7 @@ const CreateDecision: FunctionComponent = () => {
                 </ColumnFullWidth>
                 <ColumnFullWidth>
                     <LinkButton
+                        classProp={"decision-create"}
                         active={active}
                         onClick={() => createPoll(type, options, question, addPoll, addOption, setOpenModal, setPollId, setSnack, authToken)}
                     >

@@ -18,13 +18,13 @@ const TypeSwitch: FunctionComponent<Props> = ({ update }) => {
 
     return (
         <Wrapper>
-            <Item active={option === Type.BINARY} onClick={() => setOption(Type.BINARY)}>
+            <Item className="binary-type" active={option === Type.BINARY} onClick={() => setOption(Type.BINARY)}>
                 {t("decision.binary")}
             </Item>
-            <Item active={option === Type.TINDER} onClick={() => setOption(Type.TINDER)}>
+            <Item className="tinder-type" active={option === Type.TINDER} onClick={() => setOption(Type.TINDER)}>
                 {t("decision.tinder")}
             </Item>
-            <Item active={option === Type.DATE} onClick={() => setOption(Type.DATE)}>
+            <Item className="date-type" active={option === Type.DATE} onClick={() => setOption(Type.DATE)}>
                 {t("decision.date.title")}
             </Item>
         </Wrapper>
