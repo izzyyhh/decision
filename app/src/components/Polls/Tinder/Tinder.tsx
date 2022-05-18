@@ -149,9 +149,7 @@ const Tinder: FunctionComponent<Props> = ({ optionsData }) => {
                             <Image
                                 src={option.thumbnailUrl && option.thumbnailUrl.length > 0 ? option.thumbnailUrl : "https://picsum.photos/200/300"}
                             />
-                            <Title first={idx + 1 === optionsData.length && onBoard}>
-                                {option.title} {idx}
-                            </Title>
+                            <Title first={idx + 1 === optionsData.length && onBoard}>{option.title}</Title>
                             {idx + 1 === optionsData.length && onBoard && (
                                 <OnBoard>
                                     <InfoBox>
